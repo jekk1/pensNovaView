@@ -224,7 +224,7 @@ function FormDialog({ id, types, onClose, onSaved }) {
             <div className="w-full max-w-2xl bg-white shadow-2xl flex flex-col h-full" onClick={(e) => e.stopPropagation()}>
                 <div className="px-5 py-3 border-b flex items-center justify-between bg-slate-50">
                     <h2 className="text-base font-bold">{isEdit ? 'Edit HKI' : 'Tambah HKI Baru'}</h2>
-                    <button onClick={onClose} className="h-8 w-8 rounded-md hover:bg-slate-200">✕</button>
+                    <button onClick={onClose} className="h-8 w-8 rounded-md hover:bg-slate-200"><X className="h-4 w-4" /></button>
                 </div>
                 <div className="flex-1 overflow-y-auto p-5 space-y-3">
                     <Field label="Judul HKI / Invensi *">

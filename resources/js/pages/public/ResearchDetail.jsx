@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Link, useParams } from 'react-router-dom';
 import api from '../../lib/api';
 import Skeleton from '../../components/Skeleton';
+import { SearchX } from 'lucide-react';
 
 export default function ResearchDetail() {
     const { slug } = useParams();
@@ -26,7 +27,7 @@ export default function ResearchDetail() {
         return (
             <div className="max-w-3xl mx-auto px-4 py-16 text-center">
                 <div className="bg-rose-50 ring-1 ring-rose-200 rounded-2xl p-8">
-                    <div className="text-5xl mb-3">😕</div>
+                    <SearchX className="h-10 w-10 mx-auto text-rose-400 mb-3" />
                     <h2 className="text-xl font-bold text-rose-900">Riset Tidak Ditemukan</h2>
                     <Link to="/riset" className="inline-block mt-4 px-4 py-2 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-sm font-semibold">← Kembali ke Riset</Link>
                 </div>
@@ -71,7 +72,7 @@ export default function ResearchDetail() {
                 </div>
 
                 {r.open_for_collaboration && (
-                    <div className="mt-6 p-5 rounded-xl bg-gradient-to-br from-primary-700 to-primary-900 text-white">
+                    <div className="mt-6 p-5 rounded-xl text-white" style={{ background: '#0d1830' }}>
                         <h3 className="font-bold text-lg mb-1">Terbuka untuk Kolaborasi</h3>
                         <p className="text-sm text-primary-100 mb-3">Perusahaan dapat menghubungi tim PENSNOVA untuk pilot project, lisensi, atau kerjasama riset.</p>
                         {r.tenant && (

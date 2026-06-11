@@ -7,9 +7,9 @@ import Avatar from '../../components/Avatar';
 
 const ROLES = [
     { key: 'all', label: 'Semua' },
-    { key: 'tenant', label: '🚀 Tenant' },
-    { key: 'mentor', label: '🤝 Mentor' },
-    { key: 'investor', label: '💰 Investor' },
+    { key: 'tenant', label: 'Tenant' },
+    { key: 'mentor', label: 'Mentor' },
+    { key: 'investor', label: 'Investor' },
 ];
 
 /**
@@ -27,7 +27,7 @@ export default function Leaderboard() {
     return (
         <div className="bg-slate-50">
             <PageHero
-                eyebrow="🏆 Pencapaian Komunitas"
+                eyebrow="Pencapaian Komunitas"
                 title="Leaderboard"
                 accent="XP"
                 titleAfter=" PENSNOVA"
@@ -43,7 +43,7 @@ export default function Leaderboard() {
                             onClick={() => setRole(r.key)}
                             className={`px-4 py-2 rounded-lg text-sm font-bold transition ${
                                 role === r.key
-                                    ? 'bg-primary-700 text-white shadow-md'
+                                    ? 'bg-primary-700 text-white'
                                     : 'bg-white text-slate-700 ring-1 ring-slate-200 hover:bg-slate-50'
                             }`}
                         >
@@ -90,15 +90,15 @@ export default function Leaderboard() {
 
 function PodiumCard({ user, place }) {
     const config = {
-        1: { color: 'from-amber-300 to-amber-500', icon: Crown, h: 'h-44', text: 'text-amber-900' },
-        2: { color: 'from-slate-200 to-slate-400', icon: Medal, h: 'h-36', text: 'text-slate-800' },
-        3: { color: 'from-orange-300 to-orange-500', icon: Award, h: 'h-32', text: 'text-orange-900' },
+        1: { color: '#f59e0b', icon: Crown, h: 'h-44', text: 'text-amber-900' },
+        2: { color: '#94a3b8', icon: Medal, h: 'h-36', text: 'text-slate-800' },
+        3: { color: '#f97316', icon: Award, h: 'h-32', text: 'text-orange-900' },
     }[place];
 
     const Icon = config.icon;
 
     return (
-        <div className={`bg-gradient-to-b ${config.color} ${config.h} rounded-t-2xl p-4 flex flex-col items-center justify-end relative overflow-hidden`}>
+        <div className={`${config.h} rounded-t-2xl p-4 flex flex-col items-center justify-end relative overflow-hidden`} style={{ background: config.color }}>
             <div className="absolute -top-2 -right-2 h-24 w-24 rounded-full bg-white/15 blur-2xl" />
             <Icon className="w-7 h-7 text-white mb-1 relative" />
             <Avatar
@@ -135,7 +135,7 @@ function RankRow({ user }) {
                 <div className="flex items-center gap-2 text-[11px] text-slate-500">
                     <span className="text-amber-600 font-bold">Lv {user.current_level}</span>
                     <span>·</span>
-                    <span>{user.badges} 🏅</span>
+                    <span>{user.badges} <Medal className="h-3 w-3 inline" /></span>
                 </div>
             </div>
             <div className="text-right">

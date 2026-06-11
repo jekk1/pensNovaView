@@ -195,7 +195,7 @@ export default function InnovationsList() {
                 </div>
             )}
 
-            <div className="mt-10 bg-gradient-to-br from-primary-50 to-amber-50 ring-1 ring-primary-100 rounded-2xl p-6 sm:p-8">
+            <div className="mt-10 ring-1 ring-primary-100 rounded-2xl p-6 sm:p-8" style={{ background: '#eef2f9' }}>
                 <h2 className="text-lg sm:text-xl font-bold mb-2">Tertarik dengan salah satu produk?</h2>
                 <p className="text-sm text-slate-700 max-w-2xl">
                     Setiap produk memiliki tombol <strong>"Tertarik untuk Lisensi"</strong> di halaman detail. Tim Divisi Knowledge Asset Management UPA akan menghubungi Anda dalam 2-3 hari kerja untuk pembahasan lebih lanjut.

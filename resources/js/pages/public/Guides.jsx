@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { FileText, ClipboardList, GraduationCap, BarChart3, ShieldCheck, Scale, Handshake, Briefcase, Mail, Download } from 'lucide-react';
 
 /**
  * Panduan / Guides — daftar PDF panduan untuk tenant, mitra, dan civitas.
@@ -8,19 +9,30 @@ import { Link } from 'react-router-dom';
  * via API kalau perlu access control.
  */
 
+const ICONS = {
+    file: FileText,
+    clipboard: ClipboardList,
+    grad: GraduationCap,
+    chart: BarChart3,
+    shield: ShieldCheck,
+    scale: Scale,
+    handshake: Handshake,
+    briefcase: Briefcase,
+};
+
 const GUIDES = [
     {
         category: 'Pendaftaran',
         items: [
             {
-                icon: '📄',
+                iconKey: 'file',
                 title: 'Panduan Pendaftaran Tenant PENSNOVA',
                 desc: 'Step-by-step cara mendaftar sebagai tenant inkubasi: persyaratan, dokumen, alur seleksi.',
                 file: '/panduan/pendaftaran-tenant.pdf',
                 size: '450 KB',
             },
             {
-                icon: '📋',
+                iconKey: 'clipboard',
                 title: 'Template Pitch Deck',
                 desc: 'Template PowerPoint 12 slide untuk pendaftaran — struktur problem, solusi, market, traction, tim.',
                 file: '/panduan/template-pitchdeck.pptx',
@@ -32,14 +44,14 @@ const GUIDES = [
         category: 'Pembinaan',
         items: [
             {
-                icon: '🎓',
+                iconKey: 'grad',
                 title: 'Panduan Program Inkubasi',
                 desc: 'Tahapan pembinaan dari Pra-Inkubasi → Inkubasi → Scale-Up. KPI, milestone, scope mentoring.',
                 file: '/panduan/program-inkubasi.pdf',
                 size: '1.8 MB',
             },
             {
-                icon: '📊',
+                iconKey: 'chart',
                 title: 'Format Laporan Progress Bulanan',
                 desc: 'Template laporan progress yang harus diisi tenant setiap bulan ke admin PENSNOVA.',
                 file: '/panduan/template-progress-report.docx',
@@ -51,14 +63,14 @@ const GUIDES = [
         category: 'HKI / Kekayaan Intelektual',
         items: [
             {
-                icon: '🛡️',
+                iconKey: 'shield',
                 title: 'Panduan Pendaftaran HKI',
                 desc: 'Cara mendaftarkan paten, hak cipta, merek, dan desain industri ke DJKI Kemenkumham.',
                 file: '/panduan/pendaftaran-hki.pdf',
                 size: '1.2 MB',
             },
             {
-                icon: '⚖️',
+                iconKey: 'scale',
                 title: 'Panduan Lisensi & Komersialisasi',
                 desc: 'Mekanisme lisensi teknologi: capital intensive vs non-capital, royalti, MoU.',
                 file: '/panduan/lisensi-komersialisasi.pdf',
@@ -70,14 +82,14 @@ const GUIDES = [
         category: 'Kemitraan',
         items: [
             {
-                icon: '🤝',
+                iconKey: 'handshake',
                 title: 'Panduan Research Collaboration',
                 desc: 'Skema kolaborasi riset dengan industri & pemerintah daerah, termasuk pendanaan.',
                 file: '/panduan/research-collaboration.pdf',
                 size: '1.4 MB',
             },
             {
-                icon: '💼',
+                iconKey: 'briefcase',
                 title: 'Panduan Pengajuan Pendanaan',
                 desc: 'Akses pendanaan: BRIN, CPPBT, PPBT, Pertamuda, Kementerian, BUMN, swasta.',
                 file: '/panduan/pengajuan-pendanaan.pdf',
@@ -90,7 +102,7 @@ const GUIDES = [
 export default function Guides() {
     return (
         <div className="bg-slate-50">
-            <section className="bg-gradient-to-br from-primary-800 via-primary-900 to-slate-900 text-white">
+            <section className="text-white" style={{ background: '#0d1830' }}>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
                     <Link to="/" className="text-amber-300 hover:text-amber-400 text-sm mb-4 inline-block">
                         ← Beranda
@@ -131,9 +143,9 @@ export default function Guides() {
                     </p>
                     <a
                         href="mailto:penssky.inkubator@div.pens.ac.id"
-                        className="inline-block px-5 py-2.5 rounded-lg bg-amber-600 hover:bg-amber-700 text-white font-semibold"
+                        className="inline-block px-5 py-2.5 rounded-lg bg-amber-600 hover:bg-amber-700 text-white font-semibold inline-flex items-center gap-2"
                     >
-                        ✉️ Hubungi Tim
+                        <Mail className="w-4 h-4" /> Hubungi Tim
                     </a>
                 </div>
             </section>
@@ -142,14 +154,15 @@ export default function Guides() {
 }
 
 function GuideCard({ guide }) {
+    const IconComp = ICONS[guide.iconKey];
     return (
         <a
             href={guide.file}
             download
             className="bg-white rounded-2xl ring-1 ring-slate-200 p-4 sm:p-5 hover:shadow-md hover:ring-primary-300 transition group flex items-start gap-3"
         >
-            <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-primary-50 flex items-center justify-center text-2xl group-hover:bg-primary-100 transition">
-                {guide.icon}
+            <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-primary-50 flex items-center justify-center group-hover:bg-primary-100 transition text-primary-700">
+                {IconComp && <IconComp className="w-6 h-6" />}
             </div>
             <div className="flex-1 min-w-0">
                 <h3 className="font-bold text-sm sm:text-base text-slate-900 group-hover:text-primary-700">
@@ -159,7 +172,7 @@ function GuideCard({ guide }) {
                     {guide.desc}
                 </p>
                 <div className="mt-2 flex items-center gap-2 text-xs">
-                    <span className="text-primary-700 font-semibold">⬇ Download</span>
+                    <span className="text-primary-700 font-semibold inline-flex items-center gap-1"><Download className="w-3 h-3" /> Download</span>
                     <span className="text-slate-400">{guide.size}</span>
                 </div>
             </div>

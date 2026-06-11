@@ -106,7 +106,7 @@ const navGroups = [
             { to: '/admin/surveys', label: 'Survey & Review', icon: ClipboardList },
             { to: '/admin/activity-logs', label: 'Activity Logs', icon: Activity },
             { to: '/admin/api-clients', label: 'API Clients', icon: Key },
-            { to: '/admin/quests', label: '🎯 Quest Gamifikasi', icon: Trophy },
+            { to: '/admin/quests', label: 'Quest Gamifikasi', icon: Trophy },
         ],
     },
 ];
@@ -372,7 +372,7 @@ function Avatar({ user, size = 'md' }) {
         lg: 'w-11 h-11 text-base',
     };
     return (
-        <div className={`rounded-full bg-gradient-to-br from-primary-600 to-amber-500 flex items-center justify-center text-white font-bold overflow-hidden ring-2 ring-white/10 shrink-0 ${sizes[size] || sizes.md}`}>
+        <div className={`rounded-full bg-primary-600 flex items-center justify-center text-white font-bold overflow-hidden ring-2 ring-white/10 shrink-0 ${sizes[size] || sizes.md}`}>
             {user?.avatar ? (
                 <img
                     src={`/storage/${user.avatar}`}
@@ -418,7 +418,7 @@ function DesktopUserMenu({ user, userRoleDisplay, onLogout }) {
 
             {open && (
                 <div className="absolute right-0 top-full mt-1.5 w-64 bg-white rounded-xl shadow-xl ring-1 ring-slate-200 z-50 overflow-hidden">
-                    <div className="px-4 py-3 bg-gradient-to-br from-primary-50 to-amber-50 border-b border-slate-100 flex items-center gap-2.5">
+                    <div className="px-4 py-3 border-b border-slate-100 flex items-center gap-2.5" style={{ background: '#eef2f9' }}>
                         <Avatar user={user} size="md" />
                         <div className="min-w-0">
                             <div className="text-sm font-bold truncate text-slate-900">{user?.name}</div>
@@ -484,7 +484,7 @@ function MobileUserMenu({ user, userRoleDisplay, onLogout }) {
             </button>
             {open && (
                 <div className="absolute right-0 top-full mt-1.5 w-56 bg-white rounded-xl shadow-xl ring-1 ring-slate-200 z-50 overflow-hidden">
-                    <div className="px-3 py-2.5 bg-gradient-to-br from-primary-50 to-amber-50 border-b border-slate-100">
+                    <div className="px-3 py-2.5 border-b border-slate-100" style={{ background: '#eef2f9' }}>
                         <div className="text-sm font-bold truncate">{user?.name}</div>
                         <div className="text-[10px] text-primary-700 font-semibold uppercase tracking-wider">
                             {userRoleDisplay}

@@ -195,7 +195,7 @@ export default function TwoFactorSection() {
                     <div className="text-xs text-slate-600">
                         Recovery codes tersisa: <strong>{status?.recovery_codes_remaining ?? 0}</strong> dari 8.
                         {status?.recovery_codes_remaining <= 3 && (
-                            <span className="text-rose-600 ml-2">⚠ Mulai habis — regenerate.</span>
+                            <span className="text-rose-600 ml-2 inline-flex items-center gap-1"><TriangleAlert className="h-3 w-3" /> Mulai habis — regenerate.</span>
                         )}
                     </div>
                     <div className="flex flex-wrap gap-2">
@@ -265,7 +265,7 @@ export default function TwoFactorSection() {
             {stage === 'manage-codes' && enrollData?.recovery_codes && (
                 <div className="space-y-3 mt-3 pt-3 border-t border-slate-200">
                     <div className="bg-emerald-50 ring-1 ring-emerald-200 rounded-lg p-3 text-xs text-emerald-900">
-                        ✓ 2FA aktif. Simpan recovery codes di bawah — tidak akan ditampilkan lagi.
+                        2FA aktif. Simpan recovery codes di bawah — tidak akan ditampilkan lagi.
                     </div>
                     <div className="bg-slate-50 ring-1 ring-slate-200 rounded-lg p-3 font-mono text-xs grid grid-cols-2 gap-1.5">
                         {enrollData.recovery_codes.map((c) => <div key={c}>{c}</div>)}

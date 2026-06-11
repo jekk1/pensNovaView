@@ -158,7 +158,7 @@ function MilestoneCard({ milestone, onEdit, onDelete }) {
                             )}
                             {milestone.kpi_name && (
                                 <span className="inline-flex items-center gap-1 text-emerald-700 font-semibold">
-                                    🎯 {milestone.kpi_name}: {milestone.kpi_actual || 0} / {milestone.kpi_target}
+                                    <Target className="h-4 w-4" /> {milestone.kpi_name}: {milestone.kpi_actual || 0} / {milestone.kpi_target}
                                 </span>
                             )}
                         </div>

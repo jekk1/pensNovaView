@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Bell, BellRing, Check, CheckCheck, Trash2 } from 'lucide-react';
@@ -7,6 +7,8 @@ import { cn } from '../lib/utils';
 import { Popover, PopoverTrigger, PopoverContent } from './ui/popover';
 import { Button } from './ui/button';
 
+const NOTIF_STORAGE_KEY = 'pensnova_notif_last_opened';
+
 /**
  * NotificationBell — bell icon dengan badge unread + dropdown daftar notifikasi.
  *
@@ -14,11 +16,62 @@ import { Button } from './ui/button';
  * - Click bell → buka popover dengan 10 notifikasi terbaru
  * - Click row → mark as read (auto)
  * - Tombol mark-all-read + delete per row
+ * - First‑visit tracking via localStorage — indikator "Baru" muncul sampai dibuka
+ * - Browser Notification API — kirim notif ke HP/desktop saat unread bertambah
  */
 export default function NotificationBell({ variant = 'light' }) {
     const [open, setOpen] = useState(false);
+    const [isFirstVisit, setIsFirstVisit] = useState(false);
     const qc = useQueryClient();
     const navigate = useNavigate();
+    const prevOpen = useRef(false);
+    const prevUnread = useRef(0);
+    const permissionAsked = useRef(false);
+
+    // * Cek localStorage: apakah user pernah membuka notifikasi sebelumnya
+    useEffect(() => {
+        try {
+            const lastOpened = localStorage.getItem(NOTIF_STORAGE_KEY);
+            if (! lastOpened) setIsFirstVisit(true);
+        } catch { /* ignore */ }
+    }, []);
+
+    // * Simpan timestamp saat bell pertama kali dibuka
+    useEffect(() => {
+        if (open && ! prevOpen.current) {
+            try {
+                localStorage.setItem(NOTIF_STORAGE_KEY, String(Date.now()));
+                setIsFirstVisit(false);
+            } catch { /* ignore */ }
+        }
+        prevOpen.current = open;
+    }, [open]);
+
+    // * Minta izin notifikasi browser (sekali saat mount)
+    useEffect(() => {
+        if (! permissionAsked.current && 'Notification' in window && Notification.permission === 'default') {
+            permissionAsked.current = true;
+            Notification.requestPermission();
+        }
+    }, []);
+
+    // * Kirim browser notification saat unread count bertambah
+    useEffect(() => {
+        if (
+            unreadCount > prevUnread.current &&
+            prevUnread.current > 0 &&
+            'Notification' in window &&
+            Notification.permission === 'granted' &&
+            document.visibilityState !== 'visible'
+        ) {
+            new Notification('PENSNOVA', {
+                body: `Anda memiliki ${unreadCount} notifikasi baru`,
+                icon: '/images/pensnova-logo.png',
+                tag: 'pensnova-notif',
+            });
+        }
+        prevUnread.current = unreadCount;
+    }, [unreadCount]);
 
     const { data: countData } = useQuery({
         queryKey: ['notifications', 'unread-count'],
@@ -78,6 +131,10 @@ export default function NotificationBell({ variant = 'light' }) {
                         <BellRing className="h-5 w-5" />
                     ) : (
                         <Bell className="h-5 w-5" />
+                    )}
+                    {/* First‑visit pulsing dot */}
+                    {isFirstVisit && unreadCount === 0 && (
+                        <span className="absolute top-1 right-1 inline-flex h-2 w-2 rounded-full bg-amber-500 ring-2 ring-white animate-pulse" />
                     )}
                     {unreadCount > 0 && (
                         <span className="absolute -top-0.5 -right-0.5 inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-rose-600 px-1 text-[10px] font-bold text-white ring-2 ring-white">

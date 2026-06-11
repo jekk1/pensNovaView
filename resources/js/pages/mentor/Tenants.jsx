@@ -58,7 +58,7 @@ function TenantCard({ tenant }) {
         <Card className="hover:shadow-md transition">
             <CardContent className="p-5">
                 <div className="flex items-start gap-3">
-                    <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-sky-500 to-blue-600 flex items-center justify-center text-white font-bold text-lg">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-sky-600 flex items-center justify-center text-white font-bold text-lg">
                         {tenant.logo ? (
                             <img
                                 src={`/storage/${tenant.logo}`}

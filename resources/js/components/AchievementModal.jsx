@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { X, Lock, Trophy, Target, Calendar, Users, Gift } from 'lucide-react';
+import { X, Lock, Trophy, Target, Calendar, Users, Gift, Check } from 'lucide-react';
 import api from '../lib/api';
 
 /**
@@ -145,9 +145,9 @@ export default function AchievementModal({ open, onClose }) {
                             { key: 'all', label: 'Semua', count: totalCount },
                             { key: 'earned', label: 'Dikoleksi', count: earnedCount },
                             { key: 'locked', label: 'Belum', count: totalCount - earnedCount },
-                            { key: 'bronze', label: '🥉 Bronze', count: (data || []).filter((b) => b.tier === 'bronze').length },
-                            { key: 'silver', label: '🥈 Silver', count: (data || []).filter((b) => b.tier === 'silver').length },
-                            { key: 'gold', label: '🥇 Gold', count: (data || []).filter((b) => b.tier === 'gold').length },
+                            { key: 'bronze', label: 'Bronze', icon: 'text-amber-700', count: (data || []).filter((b) => b.tier === 'bronze').length },
+                            { key: 'silver', label: 'Silver', icon: 'text-slate-400', count: (data || []).filter((b) => b.tier === 'silver').length },
+                            { key: 'gold', label: 'Gold', icon: 'text-amber-400', count: (data || []).filter((b) => b.tier === 'gold').length },
                         ].map((t) => (
                             <button
                                 key={t.key}
@@ -158,7 +158,7 @@ export default function AchievementModal({ open, onClose }) {
                                         : 'border-transparent text-slate-600 hover:text-slate-900'
                                 }`}
                             >
-                                {t.label} <span className="ml-0.5 opacity-70">({t.count})</span>
+                                <span className={`inline-flex items-center gap-1 ${t.icon || ''}`}>{t.label} <span className="ml-0.5 opacity-70 font-normal">({t.count})</span></span>
                             </button>
                         ))}
                     </div>
@@ -244,7 +244,7 @@ function TeamChallengeCard({ challenge }) {
         }`}>
             <div className="flex items-start justify-between gap-3">
                 <div className="flex items-start gap-3 flex-1 min-w-0">
-                    <div className="text-3xl shrink-0">{challenge.icon}</div>
+                    <div className="text-3xl shrink-0 text-violet-600"><Users className="w-7 h-7" /></div>
                     <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 flex-wrap">
                             <h3 className="font-bold text-sm text-slate-900">{challenge.name}</h3>
@@ -271,7 +271,7 @@ function TeamChallengeCard({ challenge }) {
                 </span>
             </div>
             <div className="mt-2 flex items-center justify-between text-[10px] text-slate-600">
-                <span>👥 {challenge.participants_count} peserta · kamu kontribusi {challenge.my_contribution}</span>
+                <span>{challenge.participants_count} peserta · kamu kontribusi {challenge.my_contribution}</span>
                 <span>{challenge.days_left}h tersisa</span>
             </div>
         </div>
@@ -292,7 +292,7 @@ function RewardCard({ reward, userXp, onRedeem, disabled }) {
             canAfford && reward.in_stock ? 'bg-white ring-slate-200 hover:ring-amber-300 hover:shadow-md' : 'bg-slate-50 ring-slate-200 opacity-70'
         }`}>
             <div className="flex items-start justify-between mb-2">
-                <div className="text-4xl">{reward.icon}</div>
+                <div className="text-4xl text-amber-500"><Gift className="w-9 h-9" /></div>
                 <span className={`text-[10px] uppercase tracking-wider font-bold px-2 py-0.5 rounded ${typeBadge.bg}`}>
                     {typeBadge.label}
                 </span>
@@ -331,7 +331,7 @@ function QuestCard({ quest }) {
         }`}>
             <div className="flex items-start justify-between gap-3">
                 <div className="flex items-start gap-3 flex-1 min-w-0">
-                    <div className="text-3xl shrink-0">{quest.icon}</div>
+                    <div className="text-3xl shrink-0 text-primary-600"><Target className="w-7 h-7" /></div>
                     <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 flex-wrap">
                             <h3 className="font-bold text-sm text-slate-900">{quest.name}</h3>
@@ -379,7 +379,7 @@ function BadgeCard({ badge }) {
                 <Lock className="absolute top-2 right-2 w-3.5 h-3.5 text-slate-400" />
             )}
             <div className={`text-3xl mb-2 ${! badge.is_earned ? 'grayscale opacity-50' : ''}`}>
-                {badge.icon}
+                <Trophy className={`w-8 h-8 ${badge.is_earned ? 'text-amber-500' : 'text-slate-400'}`} />
             </div>
             <div className={`text-xs uppercase tracking-wider font-bold mb-1`}
                  style={{ color: badge.is_earned ? badge.tier_color : '#94a3b8' }}>
@@ -397,7 +397,7 @@ function BadgeCard({ badge }) {
                 </span>
                 {badge.is_earned && badge.earned_at && (
                     <span className="text-emerald-600 font-semibold">
-                        ✓ {new Date(badge.earned_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })}
+                        <Check className="h-3 w-3 inline mr-0.5" />{new Date(badge.earned_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })}
                     </span>
                 )}
             </div>

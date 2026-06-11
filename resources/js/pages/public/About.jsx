@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowLeft, ArrowRight, Calendar, Monitor, DollarSign, GraduationCap, Building2, Handshake, Building, Globe, Flag, Users } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Calendar, Monitor, DollarSign, GraduationCap, Building2, Handshake, Building, Globe, Flag, Users, Award } from 'lucide-react';
 import OrgChart from '../../components/OrgChart';
 import InnovationFramework from '../../components/InnovationFramework';
 import Animate from '../../components/Animate';
@@ -73,21 +73,8 @@ export default function About() {
             {/* Hero */}
             <section
                 className="relative overflow-hidden text-white"
-                style={{ background: 'linear-gradient(135deg, #0d1830, #142143, #1a5d94)' }}
+                style={{ background: '#0d1830' }}
             >
-                <div
-                    className="absolute inset-0 opacity-30 pointer-events-none"
-                    style={{
-                        backgroundImage: 'radial-gradient(ellipse at 10% 70%, #ffaf00 0%, transparent 45%), radial-gradient(ellipse at 90% 20%, #1a5d94 0%, transparent 55%)'
-                    }}
-                />
-                <div
-                    className="absolute inset-0 pointer-events-none opacity-[0.02]"
-                    style={{
-                        backgroundImage: 'linear-gradient(rgba(255,255,255,.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.4) 1px, transparent 1px)',
-                        backgroundSize: '48px 48px',
-                    }}
-                />
                 <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
                     <Animate variant="fade-up">
                         <Link to="/" className="inline-flex items-center gap-1.5 text-sm font-bold mb-6 transition hover:underline" style={{ color: '#ffaf00' }}>
@@ -113,12 +100,10 @@ export default function About() {
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
                 <Animate variant="scale-in">
                     <div
-                        className="rounded-3xl p-8 sm:p-12 text-white relative overflow-hidden backdrop-blur-md bg-white/5 border border-white/10"
-                        style={{
-                            background: 'linear-gradient(135deg, #142143, #1a5d94)',
-                        }}
+                        className="rounded-3xl p-8 sm:p-12 text-white relative overflow-hidden"
+                        style={{ background: '#142143' }}
                     >
-                        <div className="absolute -top-12 -right-12 h-64 w-64 rounded-full pointer-events-none opacity-40" style={{ background: 'radial-gradient(circle, #ffaf00 0%, transparent 70%)', filter: 'blur(30px)' }} />
+
                         <div className="relative z-10">
                             <div className="flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-widest mb-4" style={{ color: '#ffaf00' }}>
                                 <Globe className="w-4 h-4" /> Visi UPA PENSNOVA
@@ -134,11 +119,11 @@ export default function About() {
 
             {/* * ------------------------------------------------------------ */}
             {/* Peran Strategis */}
-            <section style={{ background: '#ffffff', borderTop: '1px solid #e4e4e4', borderBottom: '1px solid #e4e4e4' }}>
+            <section style={{ background: '#ffffff', borderTop: '1px dashed #d4d4d4', borderBottom: '1px dashed #d4d4d4' }}>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
                     <Animate variant="fade-up">
                         <header className="text-center max-w-2xl mx-auto mb-12">
-                            <div className="text-xs sm:text-sm font-bold uppercase tracking-widest mb-2" style={{ color: '#1a5d94' }}>Peran Strategis</div>
+                            <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-widest mb-2" style={{ color: '#1a5d94' }}><Flag className="w-3.5 h-3.5" /> Peran Strategis</div>
                             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight" style={{ color: '#142143' }}>Latar Belakang &amp; Mandat UPA</h2>
                             <p className="mt-3 text-sm sm:text-base text-slate-500">5 fungsi utama yang dijalankan PENSNOVA untuk mendukung visi PENS.</p>
                         </header>
@@ -172,7 +157,7 @@ export default function About() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
                     <Animate variant="fade-up">
                         <header className="text-center max-w-2xl mx-auto mb-12">
-                            <div className="text-xs sm:text-sm font-bold uppercase tracking-widest mb-2" style={{ color: '#1a5d94' }}>Tata Kelola & Manajemen</div>
+                            <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-widest mb-2" style={{ color: '#1a5d94' }}><Building className="w-3.5 h-3.5" /> Tata Kelola & Manajemen</div>
                             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight" style={{ color: '#142143' }}>
                                 Struktur Organisasi <span style={{ color: '#1a5d94' }}>UPA</span>
                             </h2>
@@ -186,11 +171,11 @@ export default function About() {
 
             {/* * ------------------------------------------------------------ */}
             {/* Framework */}
-            <section style={{ background: '#ffffff', borderTop: '1px solid #e4e4e4', borderBottom: '1px solid #e4e4e4' }}>
+            <section style={{ background: '#ffffff', borderTop: '1px dashed #d4d4d4', borderBottom: '1px dashed #d4d4d4' }}>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
                     <Animate variant="fade-up">
                         <header className="text-center max-w-2xl mx-auto mb-12">
-                            <div className="text-xs sm:text-sm font-bold uppercase tracking-widest mb-2" style={{ color: '#1a5d94' }}>Framework Strategis</div>
+                            <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-widest mb-2" style={{ color: '#1a5d94' }}><Globe className="w-3.5 h-3.5" /> Framework Strategis</div>
                             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight" style={{ color: '#142143' }}>Applied Innovation Framework</h2>
                             <p className="text-sm sm:text-base mt-3 text-slate-500">Alur inovasi terapan dari kebutuhan pasar hingga komersialisasi — dengan loop feedback berkelanjutan.</p>
                         </header>
@@ -207,7 +192,7 @@ export default function About() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
                     <Animate variant="fade-up">
                         <header className="text-center max-w-2xl mx-auto mb-10">
-                            <div className="text-xs sm:text-sm font-bold uppercase tracking-widest mb-2" style={{ color: '#1a5d94' }}>Dampak Strategis</div>
+                            <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-widest mb-2" style={{ color: '#1a5d94' }}><Handshake className="w-3.5 h-3.5" /> Dampak Strategis</div>
                             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight" style={{ color: '#142143' }}>Nilai Tambah bagi Pemangku Kepentingan</h2>
                         </header>
                     </Animate>
@@ -233,11 +218,11 @@ export default function About() {
 
             {/* * ------------------------------------------------------------ */}
             {/* Pengakuan */}
-            <section style={{ background: '#ffffff', borderTop: '1px solid #e4e4e4', borderBottom: '1px solid #e4e4e4' }}>
+            <section style={{ background: '#ffffff', borderTop: '1px dashed #d4d4d4', borderBottom: '1px dashed #d4d4d4' }}>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
                     <Animate variant="fade-up">
                         <header className="text-center max-w-2xl mx-auto mb-10">
-                            <div className="text-xs sm:text-sm font-bold uppercase tracking-widest mb-2" style={{ color: '#b45309' }}>Rekam Jejak</div>
+                            <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-widest mb-2" style={{ color: '#b45309' }}><Award className="w-3.5 h-3.5" /> Rekam Jejak</div>
                             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight" style={{ color: '#142143' }}>Pengakuan &amp; Penghargaan</h2>
                             <p className="mt-3 text-sm sm:text-base text-slate-500">Track record yang membuktikan komitmen kami sejak 2015.</p>
                         </header>
@@ -246,7 +231,7 @@ export default function About() {
                         {pengakuan.map((p, i) => (
                             <Animate key={p.label} variant="fade-up" delay={(i % 3) + 1}>
                                 <div className="rounded-2xl p-5 flex items-start gap-3 hover:-translate-y-1 transition-all duration-200 h-full" style={{ background: '#f8f9fc', border: '1px solid #e4e4e4' }}>
-                                    <span className="shrink-0 inline-flex items-center justify-center min-w-[3.25rem] h-9 px-2 rounded-lg font-extrabold text-xs text-white" style={{ background: 'linear-gradient(135deg, #ffaf00, #b45309)' }}>
+                                    <span className="shrink-0 inline-flex items-center justify-center min-w-[3.25rem] h-9 px-2 rounded-lg font-extrabold text-xs text-white" style={{ background: '#ffaf00' }}>
                                         {p.tag}
                                     </span>
                                     <div className="min-w-0">
@@ -262,8 +247,7 @@ export default function About() {
 
             {/* * ------------------------------------------------------------ */}
             {/* Final CTA */}
-            <section className="relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #0d1830, #142143, #1a5d94)' }}>
-                <div className="absolute inset-0 opacity-25 pointer-events-none" style={{ backgroundImage: 'radial-gradient(ellipse at 30% 50%, #ffaf00 0%, transparent 50%), radial-gradient(ellipse at 70% 50%, #1a5d94 0%, transparent 60%)' }} />
+            <section className="relative overflow-hidden" style={{ background: '#0d1830' }}>
                 <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 text-center">
                     <Animate variant="scale-in">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-5" style={{ background: 'rgba(255,175,0,0.15)', border: '1px solid rgba(255,175,0,0.4)', color: '#ffaf00' }}>

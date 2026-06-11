@@ -1,19 +1,18 @@
 import { Link } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Sparkles } from 'lucide-react';
 
 /**
  * Hero header reusable untuk semua halaman publik PENSNOVA.
  *
  * Pattern konsisten:
- *  - Gradient navy-amber background
+ *  - Solid navy background + dot grid pattern
  *  - "Kembali ke Beranda" link (default true)
  *  - Eyebrow (uppercase tracking-widest) opsional
- *  - H1 dengan title + accent gradient pada kata tertentu
+ *  - H1 dengan title + accent color pada kata tertentu
  *  - Subtitle paragraph opsional
  *  - Children slot untuk CTA/stats inline
  *
  * Container: max-w-7xl mx-auto, py-12 sm:py-16 untuk hero kompak.
- * (List pages tidak perlu hero terlalu besar seperti landing.)
  */
 export default function PageHero({
     eyebrow,
@@ -27,10 +26,17 @@ export default function PageHero({
     children,
 }) {
     return (
-        <section className="relative overflow-hidden bg-gradient-to-br from-primary-800 via-primary-900 to-slate-900 text-white">
-            <div className="absolute inset-0 opacity-25 pointer-events-none" style={{
-                backgroundImage: 'radial-gradient(ellipse at 15% 60%, #f59e0b 0%, transparent 50%), radial-gradient(ellipse at 85% 30%, #1d4ed8 0%, transparent 60%)'
-            }} />
+        <section className="relative overflow-hidden text-white" style={{ background: '#0d1830' }}>
+            {/* Dot grid pattern overlay */}
+            <div
+                className="absolute inset-0 pointer-events-none"
+                style={{
+                    backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px)',
+                    backgroundSize: '24px 24px',
+                }}
+            />
+            {/* Accent stripe */}
+            <div className="absolute top-0 left-0 right-0 h-0.5 bg-amber-400" />
             <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
                 {showBack && (
                     <Link to={backTo} className="inline-flex items-center gap-1.5 text-amber-300 hover:text-amber-400 text-sm font-semibold mb-5 transition">
@@ -38,7 +44,8 @@ export default function PageHero({
                     </Link>
                 )}
                 {eyebrow && (
-                    <div className="text-xs sm:text-sm font-bold uppercase tracking-widest text-amber-400 mb-3">
+                    <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-widest text-amber-400 mb-3">
+                        <Sparkles className="w-3.5 h-3.5" />
                         {eyebrow}
                     </div>
                 )}

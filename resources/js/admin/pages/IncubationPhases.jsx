@@ -9,7 +9,7 @@ export default function IncubationPhases() {
             pluralLabel="Tahap"
             defaultValues={{ is_active: true, color_hex: '#1e3a8a', sort_order: 100 }}
             columns={[
-                { key: 'icon', label: '', sortable: false, render: (r) => <span className="text-xl">{r.icon || '📋'}</span> },
+                { key: 'icon', label: '', sortable: false, render: (r) => <span className="text-xl">{r.icon || '—'}</span> },
                 { key: 'name', label: 'Nama', render: (r) => <strong>{r.name}</strong> },
                 { key: 'focus', label: 'Fokus' },
                 { key: 'typical_duration', label: 'Durasi' },
@@ -26,7 +26,7 @@ export default function IncubationPhases() {
             formFields={[
                 { name: 'name', label: 'Nama Tahap', type: 'text', required: true },
                 { name: 'slug', label: 'Slug', type: 'text', placeholder: 'auto kalau kosong' },
-                { name: 'icon', label: 'Icon (emoji)', type: 'text', maxLength: 8 },
+                { name: 'icon', label: 'Icon', type: 'text', maxLength: 8 },
                 { name: 'color_hex', label: 'Warna Hex', type: 'color' },
                 { name: 'focus', label: 'Fokus Tahap', type: 'text', placeholder: 'Product Focus / Customer Focus / Mass Product' },
                 { name: 'typical_duration', label: 'Durasi Tipikal', type: 'text', placeholder: '6 - 12 Bulan' },

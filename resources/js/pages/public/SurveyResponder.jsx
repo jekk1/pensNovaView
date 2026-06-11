@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { useParams, useSearchParams } from 'react-router-dom';
-import { CheckCircle2, AlertCircle, ShieldCheck, FileText, ArrowLeft } from 'lucide-react';
+import { CheckCircle2, AlertCircle, ShieldCheck, FileText, ArrowLeft, Info } from 'lucide-react';
 import api from '../../lib/api';
 import Logo from '../../components/Logo';
 import Spinner from '../../components/Spinner';
@@ -215,7 +215,7 @@ function QuestionRenderer({ index, question, value, onChange }) {
     if (question.type === 'intro') {
         return (
             <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 text-xs text-amber-900 leading-relaxed">
-                <strong>ℹ️ Informasi:</strong>{' '}{question.content}
+                <strong><Info className="h-3.5 w-3.5 inline mr-0.5" /> Informasi:</strong>{' '}{question.content}
             </div>
         );
     }
@@ -341,7 +341,7 @@ function Field({ label, children, required }) {
  */
 function SurveyLayout({ children, title }) {
     return (
-        <div className="min-h-screen bg-gradient-to-b from-primary-50/40 via-white to-white">
+        <div className="min-h-screen" style={{ background: '#f8f9fc' }}>
             <header className="bg-white border-b border-slate-200 sticky top-0 z-10">
                 <div className="max-w-3xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
                     <a href="/" className="flex items-center gap-2 hover:opacity-80">

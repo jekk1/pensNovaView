@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Handshake, Plus, Eye, FileSignature, RefreshCw, XCircle, Building2, Calendar, AlertTriangle, FileDown, FilePlus } from 'lucide-react';
+import { Handshake, Plus, Eye, FileSignature, RefreshCw, XCircle, Building2, Calendar, AlertTriangle, FileDown, FilePlus, X } from 'lucide-react';
 import api from '../../lib/api';
 import { Card, CardContent } from '../../components/ui/card';
 import { Input } from '../../components/ui/input';
@@ -213,7 +213,7 @@ function FormDialog({ id, onClose, onSaved }) {
                     <h2 className="text-base font-bold tracking-tight">
                         {isEdit ? `Kerjasama: ${existing?.partner_name || '…'}` : 'Kerjasama Baru'}
                     </h2>
-                    <button onClick={onClose} className="h-8 w-8 rounded-md hover:bg-slate-200">✕</button>
+                    <button onClick={onClose} className="h-8 w-8 rounded-md hover:bg-slate-200"><X className="h-4 w-4" /></button>
                 </div>
                 <div className="flex-1 overflow-y-auto p-5 space-y-3">
                     <div className="grid grid-cols-2 gap-3">
@@ -285,7 +285,7 @@ function FormDialog({ id, onClose, onSaved }) {
 
                     {isEdit && (
                         <div className="border-t border-slate-200 pt-3 space-y-2">
-                            <div className="text-xs font-bold text-primary-800 mb-1">📄 Dokumen Kerjasama</div>
+                            <div className="text-xs font-bold text-primary-800 mb-1 flex items-center gap-1"><FileSignature className="h-3 w-3" /> Dokumen Kerjasama</div>
                             <Field label="Ruang Lingkup MoU (1 per baris)">
                                 <textarea rows="3" value={data?.mou_scope ?? ''} onChange={(e) => setField('mou_scope', e.target.value)} className="w-full rounded-md border border-slate-300 p-2 text-sm" placeholder="a. Riset bersama&#10;b. Pelatihan teknis&#10;c. Joint publication" />
                             </Field>

@@ -126,7 +126,7 @@ export default function StartupDetail() {
                     style={{
                         background: t.cover_image
                             ? `url(${t.cover_image}) center/cover`
-                            : 'linear-gradient(135deg, #142143, #1a5d94)',
+                            : '#142143',
                     }}
                 />
 
@@ -138,7 +138,7 @@ export default function StartupDetail() {
                     ) : (
                         <div
                             className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl ring-4 ring-white flex items-center justify-center text-3xl font-black mb-4"
-                            style={{ background: 'linear-gradient(135deg, #142143, #1a5d94)', color: '#ffaf00' }}
+                            style={{ background: '#142143', color: '#ffaf00' }}
                         >
                             {t.name.charAt(0)}
                         </div>
@@ -386,7 +386,7 @@ function StageTimeline({ currentIdx }) {
                     width: currentIdx === 0
                         ? '0%'
                         : `${(currentIdx / (STAGES.length - 1)) * 92}%`,
-                    background: 'linear-gradient(90deg, #142143, #06b6d4)',
+                    background: '#142143',
                     zIndex: 1,
                 }}
             />

@@ -388,7 +388,7 @@ function DetailDialog({ id, onClose }) {
         <Backdrop onClose={onClose} title={data.technology_title} wide>
             <div className="space-y-4">
                 {/* Summary */}
-                <div className="bg-gradient-to-r from-primary-50 to-amber-50 rounded-lg p-4 flex items-center justify-between gap-3 flex-wrap">
+                <div className="rounded-lg p-4 flex items-center justify-between gap-3 flex-wrap" style={{ background: '#eef2f9' }}>
                     <div>
                         <div className="text-xs text-slate-600">{data.category?.name}</div>
                         <div className="text-sm font-bold mt-0.5">TKT Tercapai (Live)</div>
@@ -495,7 +495,7 @@ function Backdrop({ children, onClose, title, wide = false }) {
             <div className={`w-full bg-white shadow-2xl flex flex-col h-full overflow-hidden ${wide ? 'max-w-4xl' : 'max-w-xl'}`} onClick={(e) => e.stopPropagation()}>
                 <div className="px-5 py-3 border-b border-slate-200 flex items-center justify-between bg-slate-50">
                     <h2 className="text-base font-bold tracking-tight">{title}</h2>
-                    <button onClick={onClose} className="h-8 w-8 rounded-md hover:bg-slate-200">✕</button>
+                    <button onClick={onClose} className="h-8 w-8 rounded-md hover:bg-slate-200"><X className="h-4 w-4" /></button>
                 </div>
                 <div className="flex-1 overflow-y-auto p-5">{children}</div>
             </div>

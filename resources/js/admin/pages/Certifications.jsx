@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Shield, FileBadge, Clock, CheckCircle2, AlertTriangle, Calendar, Plus, Eye } from 'lucide-react';
+import { Shield, FileBadge, Clock, CheckCircle2, AlertTriangle, Calendar, Plus, Eye, X } from 'lucide-react';
 import api from '../../lib/api';
 import { apiErrorMessage } from '../../lib/apiError';
 import { Card, CardContent } from '../../components/ui/card';
@@ -225,7 +225,7 @@ function FormDialog({ id, types, onClose, onSaved }) {
                     <h2 className="text-base font-bold tracking-tight">
                         {isEdit ? 'Edit Pengurusan' : 'Tambah Pengurusan Legal/Sertifikasi'}
                     </h2>
-                    <button onClick={onClose} className="h-8 w-8 rounded-md hover:bg-slate-200">✕</button>
+                    <button onClick={onClose} className="h-8 w-8 rounded-md hover:bg-slate-200"><X className="h-4 w-4" /></button>
                 </div>
                 <div className="flex-1 overflow-y-auto p-5 space-y-3">
                     <div className="grid grid-cols-2 gap-3">

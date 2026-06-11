@@ -15,7 +15,7 @@ export default function Companies() {
     return (
         <div className="bg-slate-50">
             <PageHero
-                eyebrow="🤝 Ekosistem Kolaborasi"
+                eyebrow="Ekosistem Kolaborasi"
                 title="Mitra"
                 accent="Industri"
                 subtitle={`${total} perusahaan yang telah menjalin kerjasama dengan PENSNOVA — MoU, PKS, kerjasama riset, distribusi teknologi.`}

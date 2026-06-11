@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, Outlet, NavLink, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown, LayoutDashboard, LogOut, Settings } from 'lucide-react';
+import { Menu, X, ChevronDown, LayoutDashboard, LogOut, Settings, Compass, Handshake, Mail } from 'lucide-react';
 import { useAuth } from '../lib/auth';
 import Logo from './Logo';
 
@@ -109,7 +109,7 @@ export default function PublicLayout() {
                             {secondaryOpen && (
                                 <div
                                     className="absolute right-0 top-full mt-1.5 w-56 rounded-xl overflow-hidden py-1.5"
-                                    style={{ background: '#142143', border: '1px solid rgba(255,255,255,0.12)', boxShadow: '0 20px 40px rgba(0,0,0,0.4)' }}
+                                    style={{ background: '#142143', border: '1px solid rgba(255,255,255,0.12)' }}
                                 >
                                     {secondaryNav.map((n) => (
                                         <NavLink
@@ -155,7 +155,7 @@ export default function PublicLayout() {
                                 {userMenuOpen && (
                                     <div
                                         className="absolute right-0 top-full mt-1.5 w-60 rounded-xl overflow-hidden"
-                                        style={{ background: '#142143', border: '1px solid rgba(255,255,255,0.12)', boxShadow: '0 20px 40px rgba(0,0,0,0.4)' }}
+                                        style={{ background: '#142143', border: '1px solid rgba(255,255,255,0.12)' }}
                                     >
                                         <div className="px-4 py-3 border-b flex items-center gap-2.5" style={{ borderColor: 'rgba(255,255,255,0.1)' }}>
                                             <Avatar user={user} size="lg" />
@@ -284,8 +284,18 @@ export default function PublicLayout() {
             </main>
 
             {/* * ------------------------------------------------------------ */}
-            <footer style={{ background: '#0d1830', color: 'rgba(255,255,255,0.6)' }}>
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 grid grid-cols-1 md:grid-cols-12 gap-8 text-sm">
+            <footer className="relative overflow-hidden" style={{ background: '#0d1830', color: 'rgba(255,255,255,0.6)' }}>
+                {/* Dot grid pattern overlay */}
+                <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{
+                        backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px)',
+                        backgroundSize: '24px 24px',
+                    }}
+                />
+                {/* Accent stripe */}
+                <div className="absolute top-0 left-0 right-0 h-0.5 bg-amber-400" />
+                <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 grid grid-cols-1 md:grid-cols-12 gap-8 text-sm">
                     {/* Brand column */}
                     <div className="md:col-span-4">
                         <div className="mb-4">
@@ -318,7 +328,7 @@ export default function PublicLayout() {
 
                     {/* Nav columns */}
                     <div className="md:col-span-2">
-                        <h4 className="font-bold mb-3 uppercase text-[11px] tracking-wider text-white">Eksplor</h4>
+                        <h4 className="font-bold mb-3 uppercase text-[11px] tracking-wider text-white inline-flex items-center gap-1.5"><Compass className="w-3.5 h-3.5 text-amber-400" /> Eksplor</h4>
                         <ul className="space-y-2 text-xs">
                             {[['Tentang UPA','/tentang'],['Dampak UPA','/dampak'],['Program','/program'],['Startup','/startup'],['Alumni','/alumni']].map(([l,t]) => (
                                 <li key={t}><Link to={t} className="hover:text-white transition" style={{ color: 'rgba(255,255,255,0.5)' }}>{l}</Link></li>
@@ -326,7 +336,7 @@ export default function PublicLayout() {
                         </ul>
                     </div>
                     <div className="md:col-span-2">
-                        <h4 className="font-bold mb-3 uppercase text-[11px] tracking-wider text-white">Kolaborasi</h4>
+                        <h4 className="font-bold mb-3 uppercase text-[11px] tracking-wider text-white inline-flex items-center gap-1.5"><Handshake className="w-3.5 h-3.5 text-amber-400" /> Kolaborasi</h4>
                         <ul className="space-y-2 text-xs">
                             {[['Topik Riset','/riset'],['Produk Inovasi','/produk-inovasi'],['Mitra Industri','/mitra'],['Artikel','/artikel'],['Panduan','/panduan']].map(([l,t]) => (
                                 <li key={t}><Link to={t} className="hover:text-white transition" style={{ color: 'rgba(255,255,255,0.5)' }}>{l}</Link></li>
@@ -336,7 +346,7 @@ export default function PublicLayout() {
 
                     {/* Contact column */}
                     <div className="md:col-span-4">
-                        <h4 className="font-bold mb-3 uppercase text-[11px] tracking-wider text-white">Kontak</h4>
+                        <h4 className="font-bold mb-3 uppercase text-[11px] tracking-wider text-white inline-flex items-center gap-1.5"><Mail className="w-3.5 h-3.5 text-amber-400" /> Kontak</h4>
                         <div className="text-xs space-y-3" style={{ color: 'rgba(255,255,255,0.5)' }}>
                             <div>
                                 <div className="text-white font-bold text-sm">Aji Sapta Pramulen</div>
@@ -347,7 +357,7 @@ export default function PublicLayout() {
                                 <a href="mailto:penssky.inkubator@div.pens.ac.id" className="hover:text-white transition block truncate">penssky.inkubator@div.pens.ac.id</a>
                                 <a href="tel:+6285732570257" className="hover:text-white transition">0857-3257-0257</a>
                             </div>
-                            <div className="flex flex-wrap gap-3 pt-3" style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
+                            <div className="flex flex-wrap gap-3 pt-3" style={{ borderTop: '1px dashed rgba(255,255,255,0.15)' }}>
                                 <a href="https://instagram.com/pensskyventure" target="_blank" rel="noopener" className="hover:text-white transition" style={{ color: 'rgba(255,255,255,0.5)' }}>@pensskyventure</a>
                                 <a href="https://youtube.com/@PENSSKYVenture" target="_blank" rel="noopener" className="hover:text-white transition" style={{ color: 'rgba(255,255,255,0.5)' }}>YouTube</a>
                                 <Link to="/feedback" className="hover:text-white transition" style={{ color: 'rgba(255,255,255,0.5)' }}>Survey Kepuasan</Link>
@@ -357,7 +367,7 @@ export default function PublicLayout() {
                 </div>
                 <div
                     className="py-4 text-center text-xs"
-                    style={{ borderTop: '1px solid rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.3)' }}
+                    style={{ borderTop: '1px dashed rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.3)' }}
                 >
                     © {new Date().getFullYear()} PENSNOVA — UPA Pengembangan Teknologi &amp; Produk Unggulan PENS
                 </div>
@@ -372,7 +382,7 @@ function Avatar({ user, size = 'sm' }) {
         lg: 'w-10 h-10 text-sm',
     };
     return (
-        <div className={`rounded-full bg-gradient-to-br from-primary-600 to-amber-500 flex items-center justify-center text-white font-bold overflow-hidden shrink-0 ${sizes[size]}`}>
+        <div className={`rounded-full bg-primary-600 flex items-center justify-center text-white font-bold overflow-hidden shrink-0 ${sizes[size]}`}>
             {user?.avatar ? (
                 <img
                     src={`/storage/${user.avatar}`}

@@ -4,6 +4,7 @@ import {
     Building2, FlaskConical, Handshake, Palette,
     Rocket, Lightbulb, Cog, TrendingUp, DollarSign,
     ArrowRight, Sparkles, FileText, Target, Banknote, Award, CheckCircle2,
+    ClipboardList, GraduationCap, Briefcase, ExternalLink, ChevronRight,
 } from 'lucide-react';
 import api from '../../lib/api';
 import { useAuth } from '../../lib/auth';
@@ -94,7 +95,7 @@ export default function AdminHome() {
             {isKepalaUpa && pendingApproval > 0 && (
                 <Link
                     to="/admin/program-certificates?status=pending_approval"
-                    className="flex items-center gap-3 bg-gradient-to-r from-amber-50 to-amber-100 ring-1 ring-amber-300 rounded-2xl p-4 mb-5 hover:from-amber-100 hover:to-amber-200 transition"
+                    className="flex items-center gap-3 ring-1 ring-amber-300 rounded-2xl p-4 mb-5 transition" style={{ background: '#fffbeb' }}
                 >
                     <Award className="h-8 w-8 text-amber-700 shrink-0" />
                     <div className="flex-1 min-w-0">
@@ -233,21 +234,21 @@ export default function AdminHome() {
             <h2 className="text-base font-bold text-slate-900 mb-3">Akses Cepat</h2>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 <Card title="Operasi Inkubator" subtitle="Workflow tenant & evaluasi">
-                    <Quick to="/admin/applications" icon="📝" title="Seleksi Tenant" desc="Review pendaftaran + AI screening + penilaian proposal/wawancara" highlight />
-                    <Quick to="/admin/tenants" icon="🏢" title="Tenant" desc="Profil startup binaan + sektor + tahap inkubasi" />
-                    <Quick to="/admin/monev-assessments" icon="📋" title="Penilaian Inkubasi" desc="Monev 2 tahap dengan rubrik KPI, kelulusan skor ≥ 80" />
-                    <Quick to="/admin/graduations" icon="🎓" title="Kelulusan Tenant" desc="Evaluasi exit strategy berdasar kriteria finansial" />
+                    <Quick to="/admin/applications" icon="file-text" title="Seleksi Tenant" desc="Review pendaftaran + AI screening + penilaian proposal/wawancara" highlight />
+                    <Quick to="/admin/tenants" icon="building" title="Tenant" desc="Profil startup binaan + sektor + tahap inkubasi" />
+                    <Quick to="/admin/monev-assessments" icon="clipboard" title="Penilaian Inkubasi" desc="Monev 2 tahap dengan rubrik KPI, kelulusan skor ≥ 80" />
+                    <Quick to="/admin/graduations" icon="grad" title="Kelulusan Tenant" desc="Evaluasi exit strategy berdasar kriteria finansial" />
                 </Card>
 
                 <Card title="Stakeholder & Kerjasama" subtitle="Mitra industri, investor, MoU">
-                    <Quick to="/admin/partnerships" icon="📄" title="Kerjasama / MoU" desc="Tracking semua kerjasama institusional UPA" highlight />
-                    <Quick to="/admin/partner-companies" icon="🤝" title="Mitra Industri" desc="Database perusahaan partner" />
-                    <Quick to="/admin/investors" icon="💼" title="Investor" desc="Angel, VC, CVC, family office" />
-                    <Quick to="/admin/match-records" icon="🔗" title="Match Records" desc="Hasil matchmaking research ↔ industri" />
+                    <Quick to="/admin/partnerships" icon="file-text" title="Kerjasama / MoU" desc="Tracking semua kerjasama institusional UPA" highlight />
+                    <Quick to="/admin/partner-companies" icon="handshake" title="Mitra Industri" desc="Database perusahaan partner" />
+                    <Quick to="/admin/investors" icon="briefcase" title="Investor" desc="Angel, VC, CVC, family office" />
+                    <Quick to="/admin/match-records" icon="link" title="Match Records" desc="Hasil matchmaking research ↔ industri" />
                 </Card>
             </div>
 
-            <div className="mt-6 p-4 rounded-xl bg-gradient-to-r from-amber-50 to-emerald-50 ring-1 ring-amber-200 text-sm text-slate-800">
+            <div className="mt-6 p-4 rounded-xl ring-1 ring-amber-200 text-sm text-slate-800" style={{ background: '#fffbeb' }}>
                 <div className="flex items-start gap-3">
                     <Sparkles className="h-5 w-5 text-amber-600 flex-shrink-0 mt-0.5" />
                     <div>
@@ -266,7 +267,7 @@ function DashboardHeadline({ target, totalRealized, sewaRevenue, sewaPotential, 
     const progress = Math.min(100, Math.round((totalRealized / target) * 100));
 
     return (
-        <div className="mb-6 rounded-2xl bg-gradient-to-br from-primary-900 via-primary-800 to-primary-900 text-white p-6 relative overflow-hidden">
+        <div className="mb-6 rounded-2xl text-white p-6 relative overflow-hidden" style={{ background: '#0d1830' }}>
             <div className="absolute top-0 right-0 -mt-8 -mr-8 w-48 h-48 rounded-full bg-amber-500/10 blur-3xl" />
             <div className="relative">
                 <div className="flex items-start justify-between gap-4 mb-4">
@@ -433,14 +434,22 @@ function Card({ title, subtitle, children }) {
     );
 }
 
-function Quick({ to, icon, title, desc, highlight, external }) {
+function Quick({ to, icon: iconKey, title, desc, highlight, external }) {
+    const QUICK_ICONS = {
+        'file-text': FileText, 'building': Building2, 'clipboard': ClipboardList,
+        'grad': GraduationCap, 'handshake': Handshake, 'briefcase': Briefcase,
+        'link': ChevronRight, 'external': ExternalLink,
+    };
+    const Icon = QUICK_ICONS[iconKey];
     const content = (
         <div className={`flex items-start gap-3 p-3 rounded-xl transition cursor-pointer ${
             highlight
-                ? 'bg-gradient-to-r from-amber-50 to-orange-50 ring-1 ring-amber-200 hover:shadow-md'
+                ? 'ring-1 ring-amber-200 hover:bg-slate-50'
                 : 'hover:bg-slate-50'
         }`}>
-            <div className="text-2xl">{icon}</div>
+            <div className="w-10 h-10 rounded-lg bg-primary-50 flex items-center justify-center text-primary-700 shrink-0">
+                {Icon && <Icon className="w-5 h-5" />}
+            </div>
             <div className="flex-1 min-w-0">
                 <div className="font-semibold text-sm flex items-center gap-2">
                     {title}
@@ -448,7 +457,7 @@ function Quick({ to, icon, title, desc, highlight, external }) {
                 </div>
                 <div className="text-xs text-slate-600 mt-0.5">{desc}</div>
             </div>
-            <span className="text-slate-400 text-xl">{external ? '↗' : '→'}</span>
+            <span className="text-slate-400 shrink-0 mt-0.5">{external ? <ExternalLink className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}</span>
         </div>
     );
     if (external) return <a href={to}>{content}</a>;

@@ -9,7 +9,7 @@ export default function Sectors() {
             pluralLabel="Sektor"
             defaultValues={{ is_active: true, color_hex: '#6366f1', sort_order: 100 }}
             columns={[
-                { key: 'icon', label: '', sortable: false, render: (r) => <span className="text-xl">{r.icon || '📦'}</span> },
+                { key: 'icon', label: '', sortable: false, render: (r) => <span className="text-xl">{r.icon || '—'}</span> },
                 { key: 'name', label: 'Nama', render: (r) => <strong>{r.name}</strong> },
                 { key: 'slug', label: 'Slug', render: (r) => <code className="text-xs bg-slate-100 px-1.5 py-0.5 rounded">{r.slug}</code> },
                 {
@@ -37,7 +37,7 @@ export default function Sectors() {
             formFields={[
                 { name: 'name', label: 'Nama Sektor', type: 'text', required: true, placeholder: 'misal: FoodTech' },
                 { name: 'slug', label: 'Slug (URL-safe)', type: 'text', placeholder: 'food-tech (auto kalau kosong)' },
-                { name: 'icon', label: 'Icon (emoji)', type: 'text', maxLength: 8, placeholder: '🍔' },
+                { name: 'icon', label: 'Icon', type: 'text', maxLength: 8, placeholder: '—' },
                 { name: 'color_hex', label: 'Warna Hex', type: 'color' },
                 { name: 'sort_order', label: 'Urutan', type: 'number', min: 0, max: 9999 },
                 { name: 'is_active', label: 'Aktif', type: 'toggle' },

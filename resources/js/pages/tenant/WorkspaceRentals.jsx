@@ -3,7 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import {
     Building2, FileDown, Clock, CheckCircle2, AlertCircle, Calendar, Banknote,
-    Upload, FileText, X,
+    Upload, FileText, X, Check,
 } from 'lucide-react';
 import api from '../../lib/api';
 import { Card, CardContent } from '../../components/ui/card';
@@ -206,7 +206,7 @@ function PaymentTermPanel({ rental: r, term }) {
                     </div>
                 </div>
                 <Badge variant={paidAt ? 'success' : submittedAt ? 'default' : 'warning'}>
-                    {paidAt ? '✓ Lunas' : submittedAt ? 'Menunggu Verifikasi' : 'Belum Bayar'}
+                    {paidAt ? <><Check className="h-3 w-3 inline mr-0.5" />Lunas</> : submittedAt ? 'Menunggu Verifikasi' : 'Belum Bayar'}
                 </Badge>
             </div>
 

@@ -1,5 +1,10 @@
 import { useState, useMemo, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import {
+    Archive, BarChart3, Bot, Briefcase, CheckCircle2, ClipboardList, Download,
+    FileText, FolderOpen, Image, Mic, Paperclip, RefreshCw, Save,
+    Star, TriangleAlert, XCircle, X,
+} from 'lucide-react';
 import api from '../../lib/api';
 import { apiErrorMessage } from '../../lib/apiError';
 import Spinner from '../../components/Spinner';
@@ -104,8 +109,8 @@ export default function Applications() {
                 </div>
                 <div className="flex items-center gap-2">
                     <div className="bg-white rounded-lg ring-1 ring-slate-200 p-0.5 flex">
-                        <button onClick={() => setView('kanban')} className={`px-3 py-1.5 rounded-md text-xs font-semibold ${view === 'kanban' ? 'bg-primary-700 text-white' : 'text-slate-600'}`}>📋 Kanban</button>
-                        <button onClick={() => setView('list')} className={`px-3 py-1.5 rounded-md text-xs font-semibold ${view === 'list' ? 'bg-primary-700 text-white' : 'text-slate-600'}`}>📑 List</button>
+                        <button onClick={() => setView('kanban')} className={`px-3 py-1.5 rounded-md text-xs font-semibold inline-flex items-center gap-1 ${view === 'kanban' ? 'bg-primary-700 text-white' : 'text-slate-600'}`}><ClipboardList className="h-3.5 w-3.5" /> Kanban</button>
+                        <button onClick={() => setView('list')} className={`px-3 py-1.5 rounded-md text-xs font-semibold inline-flex items-center gap-1 ${view === 'list' ? 'bg-primary-700 text-white' : 'text-slate-600'}`}><FileText className="h-3.5 w-3.5" /> List</button>
                     </div>
                 </div>
             </header>
@@ -124,13 +129,13 @@ export default function Applications() {
 
             {/* AI screening summary */}
             {stats && stats.ai_screened > 0 && (
-                <div className="mb-4 p-3 bg-gradient-to-r from-primary-50 to-amber-50 rounded-xl ring-1 ring-primary-100 flex flex-wrap items-center gap-3 text-xs">
-                    <span className="font-bold text-primary-800">🤖 AI Screening:</span>
+                <div className="mb-4 p-3 rounded-xl ring-1 ring-primary-100 flex flex-wrap items-center gap-3 text-xs" style={{ background: '#eef2f9' }}>
+                    <span className="font-bold text-primary-800 inline-flex items-center gap-1"><Bot className="h-3.5 w-3.5" /> AI Screening:</span>
                     <span className="text-slate-700">{stats.ai_screened}/{stats.total} applications di-screen</span>
                     <span className="text-slate-400">·</span>
-                    <span className="text-emerald-700 font-semibold">✅ Accepted: {stats.ai_recommendation.accepted}</span>
-                    <span className="text-violet-700 font-semibold">⭐ Shortlisted: {stats.ai_recommendation.shortlisted}</span>
-                    <span className="text-rose-700 font-semibold">❌ Rejected: {stats.ai_recommendation.rejected}</span>
+                    <span className="text-emerald-700 font-semibold inline-flex items-center gap-1"><CheckCircle2 className="h-3 w-3" /> Accepted: {stats.ai_recommendation.accepted}</span>
+                    <span className="text-violet-700 font-semibold inline-flex items-center gap-1"><Star className="h-3 w-3" /> Shortlisted: {stats.ai_recommendation.shortlisted}</span>
+                    <span className="text-rose-700 font-semibold inline-flex items-center gap-1"><XCircle className="h-3 w-3" /> Rejected: {stats.ai_recommendation.rejected}</span>
                     {stats.unscreened > 0 && (
                         <span className="ml-auto text-slate-500">
                             {stats.unscreened} belum di-screen — buka detail lalu klik "Run AI Screen"
@@ -309,10 +314,10 @@ function KanbanCard({ app, onClick, isChecked, onCheck, isDragging, onDragStart,
             </div>
             <div className="flex items-center gap-1 flex-wrap" onClick={onClick}>
                 <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 font-medium uppercase">{app.tenant?.sector}</span>
-                {app.score && <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-100 text-slate-700">📊 {app.score}</span>}
+                {app.score && <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 inline-flex items-center gap-1"><BarChart3 className="h-3 w-3" /> {app.score}</span>}
                 {app.ai_score && (
-                    <span className={`text-[10px] px-1.5 py-0.5 rounded font-bold ${aiBadge || 'bg-slate-100 text-slate-700'}`}>
-                        🤖 {Math.round(app.ai_score)}
+                    <span className={`text-[10px] px-1.5 py-0.5 rounded font-bold inline-flex items-center gap-1 ${aiBadge || 'bg-slate-100 text-slate-700'}`}>
+                        <Bot className="h-3 w-3" /> {Math.round(app.ai_score)}
                     </span>
                 )}
             </div>
@@ -482,7 +487,7 @@ function ReviewPanel({ id, onClose, onSaved }) {
                     <h2 className="text-xl font-extrabold tracking-tight truncate">{t?.name}</h2>
                     <p className="text-sm text-slate-600 mt-1 line-clamp-1">{t?.one_liner}</p>
                 </div>
-                <button onClick={onClose} className="p-2 -mr-2 rounded-lg hover:bg-slate-100 shrink-0">✕</button>
+                <button onClick={onClose} className="p-2 -mr-2 rounded-lg hover:bg-slate-100 shrink-0"><X className="h-5 w-5" /></button>
             </div>
 
             {/* Status pill + actions */}
@@ -505,20 +510,20 @@ function ReviewPanel({ id, onClose, onSaved }) {
                 <Tab active={tab === 'overview'} onClick={() => setTab('overview')}>Ringkasan</Tab>
                 <Tab active={tab === 'esai'} onClick={() => setTab('esai')}>Esai</Tab>
                 <Tab active={tab === 'pitch'} onClick={() => setTab('pitch')}>
-                    💼 Pitch Deck
+                    <Briefcase className="h-4 w-4" /> Pitch Deck
                     {app.pitch_deck_evaluated_at && <span className="ml-1 text-[10px] px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-700 font-bold">{Math.round(app.pitch_deck_evaluation?.weighted_total ?? 0)}</span>}
                 </Tab>
                 <Tab active={tab === 'proposal'} onClick={() => setTab('proposal')}>
-                    📄 Proposal SOP
+                    <FileText className="h-4 w-4" /> Proposal SOP
                     {app.proposal_evaluated_at && <span className="ml-1 text-[10px] px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-700 font-bold">{Math.round(app.proposal_score ?? 0)}</span>}
                 </Tab>
                 <Tab active={tab === 'interview'} onClick={() => setTab('interview')}>
-                    🎤 Wawancara
+                    <Mic className="h-4 w-4" /> Wawancara
                     {app.interview_evaluated_at && <span className="ml-1 text-[10px] px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-700 font-bold">{Math.round(app.interview_score ?? 0)}</span>}
                 </Tab>
-                <Tab active={tab === 'ai'} onClick={() => setTab('ai')}>🤖 AI</Tab>
+                <Tab active={tab === 'ai'} onClick={() => setTab('ai')}><Bot className="h-4 w-4" /> AI</Tab>
                 <Tab active={tab === 'documents'} onClick={() => setTab('documents')}>
-                    📎 Dokumen
+                    <Paperclip className="h-4 w-4" /> Dokumen
                     {app.documents?.length > 0 && (
                         <span className="ml-1 text-[10px] px-1.5 py-0.5 rounded bg-primary-100 text-primary-700 font-bold">
                             {app.documents.length}
@@ -606,7 +611,7 @@ function ReviewPanel({ id, onClose, onSaved }) {
                     <div className="space-y-4">
                         {!ai ? (
                             <div className="p-6 bg-slate-50 rounded-xl text-center">
-                                <div className="text-4xl mb-2">🤖</div>
+                                <Bot className="h-10 w-10 mx-auto text-slate-300 mb-2" />
                                 <p className="text-sm text-slate-600 mb-4">Aplikasi ini belum di-screen oleh AI.</p>
                                 <button onClick={() => aiMutation.mutate()} disabled={aiMutation.isPending}
                                     className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary-700 hover:bg-primary-800 text-white font-semibold text-sm disabled:opacity-60">
@@ -637,7 +642,7 @@ function ReviewPanel({ id, onClose, onSaved }) {
                                 </Section>
 
                                 {ai.strengths?.length > 0 && (
-                                    <Section title="✓ Strengths">
+                                    <Section title="Strengths">
                                         <ul className="space-y-1 text-sm text-emerald-800">
                                             {ai.strengths.map((s, i) => <li key={i}>• {s}</li>)}
                                         </ul>
@@ -645,7 +650,7 @@ function ReviewPanel({ id, onClose, onSaved }) {
                                 )}
 
                                 {ai.weaknesses?.length > 0 && (
-                                    <Section title="✗ Weaknesses">
+                                    <Section title="Weaknesses">
                                         <ul className="space-y-1 text-sm text-rose-800">
                                             {ai.weaknesses.map((s, i) => <li key={i}>• {s}</li>)}
                                         </ul>
@@ -661,7 +666,7 @@ function ReviewPanel({ id, onClose, onSaved }) {
                                 <button onClick={() => aiMutation.mutate()} disabled={aiMutation.isPending}
                                     className="text-xs px-3 py-1.5 rounded bg-slate-100 hover:bg-slate-200 font-semibold flex items-center gap-2">
                                     {aiMutation.isPending && <Spinner className="h-3 w-3" />}
-                                    🔄 Re-screen dengan AI
+                                    <RefreshCw className="h-3 w-3" /> Re-screen dengan AI
                                 </button>
                             </>
                         )}
@@ -796,7 +801,7 @@ function PitchDeckEvaluation({ app, onSaved }) {
                 <div className="p-3 rounded-xl bg-emerald-50 ring-1 ring-emerald-200 text-xs">
                     <div className="flex items-center justify-between flex-wrap gap-2">
                         <span className="font-bold text-emerald-800">
-                            ✅ Sudah dievaluasi: <span className="text-2xl font-extrabold">{Math.round(existingEval.weighted_total)}</span>/100
+                            <CheckCircle2 className="h-4 w-4 inline mr-1" /> Sudah dievaluasi: <span className="text-2xl font-extrabold">{Math.round(existingEval.weighted_total)}</span>/100
                         </span>
                         <span className="text-slate-600">
                             oleh {existingEval.evaluated_by_user_name} · {new Date(existingEval.evaluated_at).toLocaleString('id-ID')}
@@ -855,7 +860,7 @@ function PitchDeckEvaluation({ app, onSaved }) {
                     className="inline-flex items-center gap-2 px-5 py-2 rounded-lg bg-primary-700 hover:bg-primary-800 text-white font-semibold text-sm disabled:opacity-60"
                 >
                     {saveMutation.isPending && <Spinner className="h-4 w-4" />}
-                    💾 Simpan Evaluasi
+                    <Save className="h-4 w-4" /> Simpan Evaluasi
                 </button>
             </div>
         </div>
@@ -998,7 +1003,7 @@ function SopEvaluationPanel({ app, onSaved, type, title, endpoint, existingEval,
                 <div className="text-xs text-slate-600 bg-emerald-50 ring-1 ring-emerald-200 rounded-lg p-2.5">
                     <div className="flex items-center justify-between flex-wrap gap-2">
                         <span>
-                            ✅ Sudah dievaluasi oleh <strong>{existingEval?.evaluated_by_user_name}</strong> pada {new Date(existingAt).toLocaleString('id-ID')}
+                            <CheckCircle2 className="h-4 w-4 inline mr-1" /> Sudah dievaluasi oleh <strong>{existingEval?.evaluated_by_user_name}</strong> pada {new Date(existingAt).toLocaleString('id-ID')}
                         </span>
                         <span className="font-mono font-bold text-emerald-700 text-base">
                             Skor: {Number(existingScore).toFixed(2)} / 100
@@ -1100,8 +1105,8 @@ function SopEvaluationPanel({ app, onSaved, type, title, endpoint, existingEval,
 function PitchDeckViewer({ url }) {
     if (!url) {
         return (
-            <div className="p-5 rounded-xl bg-amber-50 ring-1 ring-amber-200 text-sm text-amber-800">
-                ⚠️ Tenant belum menyertakan link pitch deck. Anda masih bisa skor berdasarkan data submission lain.
+            <div className="p-5 rounded-xl bg-amber-50 ring-1 ring-amber-200 text-sm text-amber-800 inline-flex items-center gap-2">
+                <TriangleAlert className="h-4 w-4 shrink-0" /> Tenant belum menyertakan link pitch deck. Anda masih bisa skor berdasarkan data submission lain.
             </div>
         );
     }
@@ -1111,7 +1116,7 @@ function PitchDeckViewer({ url }) {
     return (
         <div>
             <div className="flex items-center justify-between mb-2">
-                <div className="text-xs font-bold uppercase tracking-wide text-slate-500">📎 Pitch Deck</div>
+                <div className="text-xs font-bold uppercase tracking-wide text-slate-500 inline-flex items-center gap-1"><Paperclip className="h-3 w-3" /> Pitch Deck</div>
                 <a href={url} target="_blank" rel="noopener" className="text-xs text-primary-700 hover:underline font-semibold">Buka di tab baru ↗</a>
             </div>
             {embedUrl ? (
@@ -1244,7 +1249,7 @@ function DocumentsTab({ app }) {
     if (docs.length === 0) {
         return (
             <div className="p-8 bg-slate-50 rounded-2xl text-center">
-                <div className="text-5xl mb-3">📂</div>
+                <FolderOpen className="h-12 w-12 text-slate-300 mx-auto mb-3" />
                 <p className="text-sm font-medium text-slate-700">Belum ada dokumen</p>
                 <p className="text-xs text-slate-500 mt-1">
                     Tenant belum upload pitch deck, proposal, logo, atau CV saat pendaftaran.
@@ -1268,7 +1273,7 @@ function DocumentsTab({ app }) {
 function DocumentRow({ appId, doc }) {
     const sizeKB = ((doc.size || 0) / 1024).toFixed(0);
     const sizeStr = sizeKB > 1024 ? `${(sizeKB / 1024).toFixed(1)} MB` : `${sizeKB} KB`;
-    const icon = mimeIcon(doc.mime_type);
+    const IconComp = mimeIcon(doc.mime_type);
     const [downloading, setDownloading] = useState(false);
 
     async function handleDownload() {
@@ -1298,8 +1303,8 @@ function DocumentRow({ appId, doc }) {
 
     return (
         <div className="flex items-center gap-3 p-3 bg-white ring-1 ring-slate-200 rounded-xl hover:shadow-sm transition">
-            <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-slate-100 flex items-center justify-center text-2xl">
-                {icon}
+            <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-slate-100 flex items-center justify-center">
+                <IconComp className="w-6 h-6 text-slate-500" />
             </div>
             <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 flex-wrap">
@@ -1322,17 +1327,17 @@ function DocumentRow({ appId, doc }) {
                 disabled={downloading}
                 className="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary-700 hover:bg-primary-800 text-white text-xs font-semibold shadow-sm transition disabled:opacity-60"
             >
-                {downloading ? <Spinner className="h-3 w-3" /> : '⬇'} Download
+                {downloading ? <Spinner className="h-3 w-3" /> : <Download className="h-3 w-3" />} Download
             </button>
         </div>
     );
 }
 
 function mimeIcon(mime = '') {
-    if (mime.includes('pdf')) return '📕';
-    if (mime.includes('word') || mime.includes('doc')) return '📘';
-    if (mime.includes('powerpoint') || mime.includes('presentation') || mime.includes('keynote')) return '📊';
-    if (mime.includes('image')) return '🖼️';
-    if (mime.includes('zip') || mime.includes('archive')) return '🗜️';
-    return '📄';
+    if (mime.includes('pdf')) return FileText;
+    if (mime.includes('word') || mime.includes('doc')) return FileText;
+    if (mime.includes('powerpoint') || mime.includes('presentation') || mime.includes('keynote')) return BarChart3;
+    if (mime.includes('image')) return Image;
+    if (mime.includes('zip') || mime.includes('archive')) return Archive;
+    return FileText;
 }

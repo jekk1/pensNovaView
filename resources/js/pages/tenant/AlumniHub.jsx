@@ -68,7 +68,7 @@ export default function AlumniHub() {
                 <StatCard label="Alumni Tersedia" value={hub.network.total_alumni} icon={Users} tone="primary" />
                 <StatCard label="Koneksi Aktif" value={hub.network.my_connections} icon={CheckCircle2} tone="emerald" />
                 <StatCard label="Permintaan Masuk" value={hub.network.pending_requests} icon={Inbox} tone="amber" highlight={hub.network.pending_requests > 0} />
-                <StatCard label="Tracer Study" value={hub.tracer_study?.has_filled ? '✓ Selesai' : (hub.tracer_study ? 'Buka' : '—')} icon={ClipboardList} tone="violet" />
+                <StatCard label="Tracer Study" value={hub.tracer_study?.has_filled ? 'Selesai' : (hub.tracer_study ? 'Buka' : '—')} icon={ClipboardList} tone="violet" />
             </div>
 
             {hub.tracer_study && ! hub.tracer_study.has_filled && (
@@ -76,12 +76,12 @@ export default function AlumniHub() {
                     href={hub.tracer_study.url}
                     target="_blank"
                     rel="noopener"
-                    className="block bg-gradient-to-r from-amber-50 to-amber-100 ring-1 ring-amber-300 rounded-2xl p-4 mb-5 hover:from-amber-100 hover:to-amber-200 transition group"
+                    className="block ring-1 ring-amber-300 rounded-2xl p-4 mb-5 transition group" style={{ background: '#fffbeb' }}
                 >
                     <div className="flex items-center gap-3">
                         <ClipboardList className="h-8 w-8 text-amber-700 shrink-0" />
                         <div className="flex-1 min-w-0">
-                            <div className="font-bold text-amber-900">📋 Tracer Study: {hub.tracer_study.title}</div>
+                            <div className="font-bold text-amber-900">Tracer Study: {hub.tracer_study.title}</div>
                             <div className="text-xs text-amber-800 mt-1">
                                 Bantu UPA mengukur dampak program inkubasi — isi tracer dengan email Anda. Estimasi 5-10 menit.
                             </div>

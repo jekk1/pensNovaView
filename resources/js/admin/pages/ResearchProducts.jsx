@@ -3,6 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import {
     FlaskConical, Plus, Eye, CheckCircle2, AlertCircle, TrendingUp,
     Target, Award, Sparkles, X, ArrowRight, User as UserIcon, Upload, Download,
+    ClipboardList, Link2, Send, Shield, Check,
 } from 'lucide-react';
 import api from '../../lib/api';
 import { apiErrorMessage } from '../../lib/apiError';
@@ -287,7 +288,7 @@ function ProductDetail({ id, onClose }) {
         <Backdrop onClose={onClose} title={product.title} wide>
             <div className="space-y-4">
                 {/* Pipeline summary */}
-                <div className={`rounded-lg p-4 ${isEligible ? 'bg-gradient-to-r from-emerald-50 to-amber-50 border border-emerald-300' : 'bg-slate-50 border border-slate-200'}`}>
+                <div className={`rounded-lg p-4 ${isEligible ? 'border border-emerald-300' : 'bg-slate-50 border border-slate-200'}`} style={isEligible ? { background: '#ecfdf5' } : undefined}>
                     <div className="flex items-center justify-between gap-3 flex-wrap">
                         <div className="flex items-center gap-3">
                             <PipelineStep label="Daftar" done current={false} />
@@ -377,7 +378,7 @@ function LinkPatentSection({ product }) {
     return (
         <div className="bg-amber-50 ring-1 ring-amber-200 rounded-lg p-3">
             <div className="flex items-center justify-between gap-2 mb-1">
-                <div className="text-xs font-semibold text-amber-900 uppercase tracking-wider">🛡️ Paten / HKI Terkait</div>
+                <div className="text-xs font-semibold text-amber-900 uppercase tracking-wider flex items-center gap-1"><Shield className="h-3 w-3" /> Paten / HKI Terkait</div>
                 {! selecting && (
                     <button
                         onClick={() => setSelecting(true)}
@@ -608,7 +609,7 @@ function ScoreForm({ type, assessment, criteria, onClose, onSaved }) {
                     ))}
                 </div>
 
-                <div className="bg-gradient-to-r from-primary-50 to-amber-50 rounded-lg p-3 flex items-center justify-between">
+                <div className="rounded-lg p-3 flex items-center justify-between" style={{ background: '#eef2f9' }}>
                     <div>
                         <div className="text-[10px] uppercase tracking-wider font-bold text-slate-600">Live MRL Score</div>
                         <div className="text-xs text-slate-600">Formula: 9 × Σ(skor × bobot) / (5 × Σbobot)</div>
@@ -676,7 +677,7 @@ function Backdrop({ children, onClose, title, wide = false }) {
             <div className={`w-full bg-white shadow-2xl flex flex-col h-full overflow-hidden ${wide ? 'max-w-4xl' : 'max-w-xl'}`} onClick={(e) => e.stopPropagation()}>
                 <div className="px-5 py-3 border-b border-slate-200 flex items-center justify-between bg-slate-50">
                     <h2 className="text-base font-bold tracking-tight truncate pr-3">{title}</h2>
-                    <button onClick={onClose} className="h-8 w-8 rounded-md hover:bg-slate-200 flex-shrink-0">✕</button>
+                    <button onClick={onClose} className="h-8 w-8 rounded-md hover:bg-slate-200 flex-shrink-0"><X className="h-4 w-4" /></button>
                 </div>
                 <div className="flex-1 overflow-y-auto p-5">{children}</div>
             </div>
@@ -716,18 +717,18 @@ function GenerateReviewSurveyButton({ mrlId, onCreated }) {
     if (generated) {
         return (
             <div className="w-full bg-emerald-50 border border-emerald-200 rounded-lg p-3 mt-2">
-                <div className="text-xs font-bold text-emerald-900 mb-2">
-                    ✅ Survey Link Generated — bagikan ke reviewer luar
+                <div className="text-xs font-bold text-emerald-900 mb-2 flex items-center gap-1">
+                    <CheckCircle2 className="h-4 w-4" /> Survey Link Generated — bagikan ke reviewer luar
                 </div>
                 <div className="bg-white rounded p-2 font-mono text-[10px] break-all border border-emerald-200 mb-2">
                     {generated.public_url}
                 </div>
                 <div className="flex gap-2">
                     <button onClick={copyLink} className="text-[11px] px-2 py-1 rounded bg-emerald-600 hover:bg-emerald-700 text-white font-semibold flex items-center gap-1">
-                        {copied ? '✓ Tersalin!' : '📋 Copy Link'}
+                        {copied ? <><Check className="h-3 w-3" /> Tersalin!</> : <><ClipboardList className="h-3 w-3" /> Copy Link</>}
                     </button>
                     <a href={generated.public_url} target="_blank" rel="noopener" className="text-[11px] px-2 py-1 rounded bg-slate-100 hover:bg-slate-200 font-semibold">
-                        🔗 Preview
+                        <Link2 className="h-3 w-3 inline mr-0.5" /> Preview
                     </a>
                 </div>
                 <div className="text-[10px] text-emerald-700 mt-2">
@@ -739,7 +740,7 @@ function GenerateReviewSurveyButton({ mrlId, onCreated }) {
 
     return (
         <Button variant="amber" onClick={() => mutation.mutate()} disabled={mutation.isPending}>
-            {mutation.isPending ? 'Membuat…' : '📨 Generate Link Survey untuk Reviewer Luar'}
+            {mutation.isPending ? 'Membuat…' : <><Send className="h-4 w-4 mr-1" /> Generate Link Survey untuk Reviewer Luar</>}
         </Button>
     );
 }
@@ -803,7 +804,7 @@ function ImportDialog({ onClose, onImported }) {
                     <div>
                         <div className={`rounded-lg p-3 ring-1 ${result.created > 0 ? 'bg-emerald-50 ring-emerald-200' : 'bg-amber-50 ring-amber-200'}`}>
                             <div className="font-bold text-sm">
-                                {result.created > 0 ? '✅' : '⚠️'} {result.message}
+                            {result.created > 0 ? <CheckCircle2 className="h-4 w-4 inline" /> : <AlertCircle className="h-4 w-4 inline" />} {result.message}
                             </div>
                             <div className="grid grid-cols-2 gap-3 mt-2 text-xs">
                                 <div><strong>{result.created}</strong> dibuat</div>

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
-import { User, KeyRound, Camera, Trash2, ShieldCheck, AlertCircle } from 'lucide-react';
+import { User, KeyRound, Camera, Trash2, ShieldCheck, AlertCircle, Check } from 'lucide-react';
 import api, { formatApiError } from '../lib/api';
 import { useAuth } from '../lib/auth';
 import { useToast } from '../lib/toast';
@@ -401,7 +401,7 @@ export default function Settings() {
                             </dt>
                             <dd className="mt-1">
                                 {user.email_verified_at ? (
-                                    <Badge variant="success">✓ Verified</Badge>
+                                    <Badge variant="success"><Check className="h-3 w-3 inline mr-0.5" />Verified</Badge>
                                 ) : (
                                     <span className="inline-flex items-center gap-1 text-xs text-amber-700">
                                         <AlertCircle className="h-3 w-3" />

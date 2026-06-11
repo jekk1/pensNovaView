@@ -74,7 +74,7 @@ export default function StageProgressBar({ currentStage, compact = false, checke
                 <div className="relative h-2 rounded-full bg-slate-100 overflow-hidden">
                     <div
                         className="absolute inset-y-0 left-0 rounded-full animate-stage-fill"
-                        style={{ width: `${fillPercent}%`, background: 'linear-gradient(90deg, #1a5d94, #ffaf00)' }}
+                        style={{ width: `${fillPercent}%`, background: '#1a5d94' }}
                     />
                 </div>
                 <div className="flex justify-between">
@@ -111,7 +111,7 @@ export default function StageProgressBar({ currentStage, compact = false, checke
                 <div className="h-1.5 rounded-full bg-slate-100 overflow-hidden">
                     <div
                         className="h-full rounded-full animate-stage-fill"
-                        style={{ width: `${fillPercent}%`, background: 'linear-gradient(90deg, #142143, #1a5d94, #ffaf00)' }}
+                        style={{ width: `${fillPercent}%`, background: '#142143' }}
                     />
                 </div>
 

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
-import { KeyRound, CheckCircle2 } from 'lucide-react';
+import { KeyRound, CheckCircle2, Link2 } from 'lucide-react';
 import api, { formatApiError } from '../../lib/api';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '../../components/ui/card';
 import { Button } from '../../components/ui/button';
@@ -51,7 +51,7 @@ export default function ResetPassword() {
             <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center px-4">
                 <Card className="max-w-md w-full">
                     <CardContent className="p-8 text-center">
-                        <div className="text-5xl mb-3">🔗</div>
+                        <Link2 className="w-14 h-14 text-slate-400 mx-auto mb-3" />
                         <h2 className="font-bold text-lg">Link Reset Tidak Valid</h2>
                         <p className="text-sm text-slate-600 mt-2">
                             Link reset tidak valid atau sudah kedaluwarsa.

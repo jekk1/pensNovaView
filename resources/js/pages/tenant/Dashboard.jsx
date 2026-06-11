@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
+import { FileText } from 'lucide-react';
 import api from '../../lib/api';
 import Skeleton from '../../components/Skeleton';
 import GamificationWidget from '../../components/GamificationWidget';
@@ -93,10 +94,10 @@ export default function TenantDashboard() {
             <div className="mt-6">
                 <Link
                     to="/feedback"
-                    className="block bg-gradient-to-r from-amber-50 to-amber-100 ring-1 ring-amber-200 rounded-2xl p-4 hover:from-amber-100 hover:to-amber-200 transition group"
+                    className="block ring-1 ring-amber-200 rounded-2xl p-4 transition group" style={{ background: '#fffbeb' }}
                 >
                     <div className="flex items-center gap-3">
-                        <div className="text-2xl">📝</div>
+                        <FileText className="w-7 h-7 text-amber-600" />
                         <div className="flex-1 min-w-0">
                             <div className="font-bold text-sm text-amber-900">Beri Feedback Layanan UPA</div>
                             <div className="text-xs text-amber-800 mt-0.5">Bantu kami tingkatkan layanan inkubasi & teknologi — isi survey kepuasan (anonim, ±3 menit).</div>

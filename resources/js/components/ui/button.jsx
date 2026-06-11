@@ -15,13 +15,13 @@ const buttonVariants = cva(
     {
         variants: {
             variant: {
-                default: 'bg-primary-700 text-white hover:bg-primary-800 shadow-sm',
-                destructive: 'bg-rose-600 text-white hover:bg-rose-700 shadow-sm',
+                default: 'bg-primary-700 text-white hover:bg-primary-800',
+                destructive: 'bg-rose-600 text-white hover:bg-rose-700',
                 outline: 'border border-slate-300 bg-white hover:bg-slate-50 text-slate-900',
                 secondary: 'bg-slate-100 text-slate-900 hover:bg-slate-200',
                 ghost: 'hover:bg-slate-100 text-slate-700',
                 link: 'text-primary-700 underline-offset-4 hover:underline',
-                amber: 'bg-amber-500 text-primary-900 hover:bg-amber-400 shadow-sm font-bold',
+                amber: 'bg-amber-500 text-primary-900 hover:bg-amber-400 font-bold',
             },
             size: {
                 default: 'h-10 px-4 py-2',

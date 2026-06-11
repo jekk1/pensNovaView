@@ -67,7 +67,7 @@ export default function Tenants() {
                 {
                     key: 'is_published', label: 'Publish', sortable: false,
                     render: (r) => r.is_published
-                        ? <span className="text-emerald-700 font-bold">✓</span>
+                        ? <span className="text-emerald-700 font-bold">Ya</span>
                         : <span className="text-slate-400">—</span>,
                 },
                 { key: 'research_topics_count', label: 'Riset', sortable: false, render: (r) => r.research_topics_count ?? 0 },

@@ -98,7 +98,7 @@ export default function AdminQuests() {
                                 <tr key={q.id} className="hover:bg-slate-50">
                                     <td className="px-4 py-3">
                                         <div className="flex items-center gap-2">
-                                            <span className="text-2xl">{q.icon || '🎯'}</span>
+                                            <span className="text-2xl">{q.icon || '—'}</span>
                                             <div>
                                                 <div className="font-bold text-slate-900">{q.name}</div>
                                                 <div className="text-xs text-slate-500 line-clamp-1">{q.description}</div>
@@ -166,7 +166,7 @@ function QuestFormModal({ quest, eventKeys, onClose, onSaved }) {
     const [form, setForm] = useState({
         name: quest?.name ?? '',
         description: quest?.description ?? '',
-        icon: quest?.icon ?? '🎯',
+        icon: quest?.icon ?? '—',
         event_key: quest?.event_key ?? Object.keys(eventKeys)[0] ?? 'login',
         target_count: quest?.target_count ?? 1,
         xp_reward: quest?.xp_reward ?? 100,

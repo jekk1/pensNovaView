@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import {
     Sparkles, ShieldCheck, TrendingUp, Lightbulb, Building2, Mail, Phone,
-    ArrowLeft, CheckCircle2, Users, BadgeCheck, Send,
+    ArrowLeft, CheckCircle2, Users, BadgeCheck, Send, X,
 } from 'lucide-react';
 import api from '../../lib/api';
 import Spinner from '../../components/Spinner';
@@ -119,7 +119,7 @@ export default function InnovationDetail() {
                 </div>
 
                 <aside className="space-y-4">
-                    <div className="bg-gradient-to-br from-primary-700 to-primary-900 text-white rounded-2xl p-5">
+                    <div className="text-white rounded-2xl p-5" style={{ background: '#0d1830' }}>
                         <h3 className="font-bold text-lg mb-1">Tertarik dengan produk ini?</h3>
                         <p className="text-xs text-primary-100 mb-3">Lisensi, pembelian, atau kolaborasi riset.</p>
                         <button
@@ -219,7 +219,7 @@ function InquiryDialog({ slug, productTitle, onClose }) {
             <div className="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] flex flex-col">
                 <div className="p-4 border-b flex justify-between items-center">
                     <h3 className="font-bold">{success ? 'Terkirim!' : 'Form Inquiry Komersialisasi'}</h3>
-                    <button onClick={onClose} className="text-slate-400 hover:text-slate-700">✕</button>
+                    <button onClick={onClose} className="text-slate-400 hover:text-slate-700"><X className="h-5 w-5" /></button>
                 </div>
 
                 {success ? (

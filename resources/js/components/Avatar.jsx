@@ -19,11 +19,11 @@ const SIZES = {
 };
 
 const FRAMES = {
-    bronze: { ring: 'ring-amber-700', from: 'from-amber-700', to: 'to-orange-800', glow: 'shadow-amber-700/40' },
-    silver: { ring: 'ring-slate-400', from: 'from-slate-300', to: 'to-slate-500', glow: 'shadow-slate-400/50' },
-    gold: { ring: 'ring-amber-400', from: 'from-amber-300', to: 'to-amber-600', glow: 'shadow-amber-400/60' },
-    platinum: { ring: 'ring-cyan-300', from: 'from-cyan-200', to: 'to-cyan-500', glow: 'shadow-cyan-300/60' },
-    diamond: { ring: 'ring-fuchsia-400', from: 'from-fuchsia-300 via-violet-400', to: 'to-cyan-300', glow: 'shadow-fuchsia-400/70' },
+    bronze:    { ring: 'ring-amber-700',   bg: 'bg-amber-700',   glow: 'shadow-amber-700/40' },
+    silver:    { ring: 'ring-slate-400',   bg: 'bg-slate-400',   glow: 'shadow-slate-400/50' },
+    gold:      { ring: 'ring-amber-400',   bg: 'bg-amber-400',   glow: 'shadow-amber-400/60' },
+    platinum:  { ring: 'ring-cyan-300',    bg: 'bg-cyan-300',    glow: 'shadow-cyan-300/60' },
+    diamond:   { ring: 'ring-fuchsia-400', bg: 'bg-fuchsia-400', glow: 'shadow-fuchsia-400/70' },
 };
 
 export default function Avatar({ user, size = 'md', showLevel = false, level = 0 }) {
@@ -32,7 +32,7 @@ export default function Avatar({ user, size = 'md', showLevel = false, level = 0
     const frame = user.frame_tier ? FRAMES[user.frame_tier] : null;
 
     const inner = (
-        <div className={`${s.box} rounded-full bg-gradient-to-br from-primary-600 to-amber-500 text-white grid place-items-center font-bold overflow-hidden shrink-0 ${s.text}`}>
+        <div className={`${s.box} rounded-full bg-primary-600 text-white grid place-items-center font-bold overflow-hidden shrink-0 ${s.text}`}>
             {user.avatar ? (
                 <img src={`/storage/${user.avatar}`} alt={user.name} className="w-full h-full object-cover" />
             ) : (
@@ -52,7 +52,7 @@ export default function Avatar({ user, size = 'md', showLevel = false, level = 0
 
     return (
         <div className="relative inline-block">
-            <div className={`rounded-full bg-gradient-to-br ${frame.from} ${frame.to} ${s.pad} ${s.glow} ${frame.glow}`}>
+            <div className={`rounded-full ${frame.bg} ${s.pad} ${s.glow} ${frame.glow}`}>
                 {inner}
             </div>
             {showLevel && level > 0 && <LevelBadge level={level} sizeClass={s.levelBox} tier={user.frame_tier} />}
@@ -66,7 +66,7 @@ function LevelBadge({ level, sizeClass, tier }) {
         silver: 'bg-slate-500',
         gold: 'bg-amber-500',
         platinum: 'bg-cyan-500',
-        diamond: 'bg-gradient-to-br from-fuchsia-500 to-violet-600',
+        diamond: 'bg-fuchsia-500',
     }[tier] || 'bg-slate-600';
     return (
         <span className={`absolute -bottom-0.5 -right-0.5 ${sizeClass} rounded-full ${bg} text-white font-extrabold grid place-items-center ring-2 ring-white shadow`}>

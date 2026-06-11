@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import {
     Mail, MessageSquare, CheckCircle2, Clock, Search, X, Eye,
-    Building2, Phone, Briefcase, Send, AlertCircle, Sparkles,
+    Building2, Phone, Briefcase, Send, AlertCircle, Sparkles, Shield,
 } from 'lucide-react';
 import api from '../../lib/api';
 import { apiErrorMessage } from '../../lib/apiError';
@@ -199,7 +199,7 @@ function InquiryDetail({ id, onClose, onUpdate, isPending, formError }) {
                             Diterima {new Date(data.created_at).toLocaleString('id-ID')}
                         </div>
                     </div>
-                    <button onClick={onClose} className="text-slate-400 hover:text-slate-700">✕</button>
+                    <button onClick={onClose} className="text-slate-400 hover:text-slate-700"><X className="h-5 w-5" /></button>
                 </div>
 
                 <div className="p-4 space-y-4 overflow-y-auto">
@@ -208,7 +208,7 @@ function InquiryDetail({ id, onClose, onUpdate, isPending, formError }) {
                         <div className="font-bold text-slate-900">{data.product?.title || '—'}</div>
                         {data.product?.linked_patent && (
                             <div className="text-xs text-slate-700 mt-1">
-                                🛡️ HKI: {data.product.linked_patent.title}
+                                <Shield className="h-3 w-3 inline mr-0.5" /> HKI: {data.product.linked_patent.title}
                             </div>
                         )}
                     </div>

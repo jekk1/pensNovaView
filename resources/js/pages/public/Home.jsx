@@ -158,19 +158,30 @@ export default function Home() {
     const [waitlistCount, setWaitlistCount] = useState(() => {
         try { return parseInt(localStorage.getItem(WAITLIST_KEY) || '247'); } catch { return 247; }
     });
+    // * Jangan baca localStorage langsung — cek izin Notification API yang sebenarnya
     const [waitlistJoined, setWaitlistJoined] = useState(() => {
-        try { return localStorage.getItem('pensnova_waitlist_joined') === '1'; } catch { return false; }
+        return typeof Notification !== 'undefined' && Notification.permission === 'granted';
     });
 
     function joinWaitlist() {
         if (waitlistJoined) return;
-        const next = waitlistCount + 1;
-        setWaitlistCount(next);
-        setWaitlistJoined(true);
-        try {
-            localStorage.setItem(WAITLIST_KEY, String(next));
-            localStorage.setItem('pensnova_waitlist_joined', '1');
-        } catch { /* ignore */ }
+        // Minta izin notification browser
+        const askAndJoin = () => {
+            const next = waitlistCount + 1;
+            setWaitlistCount(next);
+            setWaitlistJoined(true);
+            try {
+                localStorage.setItem(WAITLIST_KEY, String(next));
+                localStorage.setItem('pensnova_waitlist_joined', '1');
+            } catch { /* ignore */ }
+        };
+        if (typeof Notification !== 'undefined' && Notification.permission === 'default') {
+            Notification.requestPermission().then((perm) => {
+                if (perm === 'granted') askAndJoin();
+            });
+        } else {
+            askAndJoin();
+        }
     }
 
     // Growth tenants — tampil paling atas sebagai inspirasi mahasiswa
@@ -183,29 +194,9 @@ export default function Home() {
             {/* * ------------------------------------------------------------ */}
             {/* ============ 1. HERO SECTION ============ */}
             <section
-                className="relative overflow-hidden text-white animate-gradient"
-                style={{
-                    background: 'linear-gradient(135deg, #0d1830 0%, #142143 50%, #1a5d94 100%)',
-                    backgroundSize: '200% 200%',
-                }}
+                className="relative overflow-hidden text-white"
+                style={{ background: '#0d1830' }}
             >
-                {/* Mesh gradient ornamen */}
-                <div
-                    className="absolute inset-0 pointer-events-none opacity-30"
-                    style={{
-                        backgroundImage:
-                            'radial-gradient(ellipse at 10% 70%, #ffaf00 0%, transparent 45%), radial-gradient(ellipse at 90% 20%, #1a5d94 0%, transparent 55%)',
-                    }}
-                />
-                <div
-                    className="absolute inset-0 pointer-events-none opacity-[0.025]"
-                    style={{
-                        backgroundImage:
-                            'linear-gradient(rgba(255,255,255,.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.4) 1px, transparent 1px)',
-                        backgroundSize: '48px 48px',
-                    }}
-                />
-
                 <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 md:py-32">
                     <div className="grid lg:grid-cols-[1.1fr_1fr] gap-14 items-center">
 
@@ -345,7 +336,7 @@ export default function Home() {
                                 </div>
                                 {/* Stage progress mini */}
                                 <div className="h-1.5 rounded-full overflow-hidden" style={{ background: '#f1f5f9' }}>
-                                    <div className="h-full rounded-full" style={{ width: '100%', background: 'linear-gradient(90deg, #142143, #1a5d94, #ffaf00, #16a34a)' }} />
+                                    <div className="h-full rounded-full" style={{ width: '100%', background: '#1a5d94' }} />
                                 </div>
                                 <div className="flex justify-between mt-1">
                                     {['Proto', 'MVP', 'Revenue', 'Growth'].map((s, i) => (
@@ -357,7 +348,7 @@ export default function Home() {
                             {/* Card achievement */}
                             <div
                                 className="absolute bottom-10 left-0 w-72 rounded-2xl p-5 animate-float-reverse"
-                                style={{ background: 'linear-gradient(135deg, #ffaf00, #e09900)', color: '#0d1830' }}
+                                style={{ background: '#ffaf00', color: '#0d1830' }}
                             >
                                 <Sparkles className="w-5 h-5 mb-2 opacity-70" />
                                 <div className="text-[10px] font-bold uppercase tracking-wider opacity-70">Stage Achievement</div>
@@ -448,7 +439,7 @@ export default function Home() {
                             to="/dampak"
                             className="rounded-2xl p-6 sm:p-8 hover:-translate-y-1 hover:border-gold-500 hover:ring-1 hover:ring-gold-500/50 transition-all duration-300 group flex flex-col justify-between h-full card-lift"
                             style={{
-                                background: 'linear-gradient(135deg, #142143, #1a5d94)',
+                                background: '#142143',
                                 color: '#ffffff',
                                 border: '1px solid rgba(255,255,255,0.08)'
                             }}
@@ -473,10 +464,10 @@ export default function Home() {
 
             {/* * ------------------------------------------------------------ */}
             {/* ============ 4. AUDIENCE SELECTOR ============ */}
-            <section style={{ background: '#f8f9fc', borderTop: '1px solid #e4e4e4', borderBottom: '1px solid #e4e4e4' }}>
+            <section style={{ background: '#f8f9fc', borderTop: '1px dashed #d4d4d4', borderBottom: '1px dashed #d4d4d4' }}>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
                     <Animate variant="fade-up" as="header" className="text-center max-w-2xl mx-auto mb-10">
-                        <div className="text-xs sm:text-sm font-bold uppercase tracking-widest mb-2" style={{ color: '#1a5d94' }}>Siapa Kamu?</div>
+                        <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-widest mb-2" style={{ color: '#1a5d94' }}><Users className="w-3.5 h-3.5" /> Siapa Kamu?</div>
                         <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight" style={{ color: '#142143' }}>
                             Pilih jalur yang paling tepat
                         </h2>
@@ -489,7 +480,7 @@ export default function Home() {
                         {[
                             {
                                 icon: GraduationCap,
-                                gradient: 'linear-gradient(135deg, #1a5d94, #142143)',
+                                color: '#142143',
                                 title: 'Mahasiswa',
                                 sub: 'Mau bikin startup',
                                 body: 'Dapat pembinaan, akses mentor industri, ruang inkubator, dan jalur pendanaan PMW/P2MW.',
@@ -498,7 +489,7 @@ export default function Home() {
                             },
                             {
                                 icon: FileText,
-                                gradient: 'linear-gradient(135deg, #b87c00, #ffaf00)',
+                                color: '#b87c00',
                                 title: 'Dosen / Peneliti',
                                 sub: 'Punya inovasi',
                                 body: 'Komersialisasikan riset terapan - daftar HKI, lisensi teknologi, atau bentuk spin-off PENS.',
@@ -507,7 +498,7 @@ export default function Home() {
                             },
                             {
                                 icon: Briefcase,
-                                gradient: 'linear-gradient(135deg, #14532d, #16a34a)',
+                                color: '#16a34a',
                                 title: 'Industri',
                                 sub: 'Cari kolaborasi',
                                 body: 'Akses teknologi siap pakai, joint research, teaching factory, atau pengadaan dari tenant PENSNOVA.',
@@ -516,7 +507,7 @@ export default function Home() {
                             },
                             {
                                 icon: Target,
-                                gradient: 'linear-gradient(135deg, #581c87, #7c3aed)',
+                                color: '#7c3aed',
                                 title: 'Investor',
                                 sub: 'Cari startup',
                                 body: 'Akses pipeline 16+ tenant terkurasi dengan AI screening, due-diligence ready, exit potential terukur.',
@@ -532,7 +523,7 @@ export default function Home() {
                                 >
                                     <div
                                         className="h-12 w-12 rounded-xl grid place-items-center text-white mb-4"
-                                        style={{ background: a.gradient }}
+                                        style={{ background: a.color }}
                                     >
                                         <a.icon className="h-6 w-6" />
                                     </div>
@@ -557,7 +548,7 @@ export default function Home() {
             {/* ============ 5. PILAR / MISI (Bento Grid) ============ */}
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
                 <Animate variant="fade-up" as="header" className="text-center max-w-2xl mx-auto mb-10">
-                    <div className="text-xs sm:text-sm font-bold uppercase tracking-widest mb-2" style={{ color: '#1a5d94' }}>Misi UPA</div>
+                    <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-widest mb-2" style={{ color: '#1a5d94' }}><Target className="w-3.5 h-3.5" /> Misi UPA</div>
                     <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight" style={{ color: '#142143' }}>
                         5 Pilar Strategis PENSNOVA
                     </h2>
@@ -601,10 +592,10 @@ export default function Home() {
 
             {/* * ------------------------------------------------------------ */}
             {/* ============ 6. PROSES INKUBASI ============ */}
-            <section style={{ background: '#f8f9fc', borderTop: '1px solid #e4e4e4', borderBottom: '1px solid #e4e4e4' }}>
+            <section style={{ background: '#f8f9fc', borderTop: '1px dashed #d4d4d4', borderBottom: '1px dashed #d4d4d4' }}>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
                     <Animate variant="fade-up" as="header" className="text-center max-w-2xl mx-auto mb-14">
-                        <div className="text-xs sm:text-sm font-bold uppercase tracking-widest mb-2" style={{ color: '#b87c00' }}>Alur Inkubasi</div>
+                        <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-widest mb-2" style={{ color: '#b87c00' }}><Rocket className="w-3.5 h-3.5" /> Alur Inkubasi</div>
                         <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight" style={{ color: '#142143' }}>
                             4 langkah dari ide ke startup
                         </h2>
@@ -616,7 +607,7 @@ export default function Home() {
                     <div className="relative">
                         <div
                             className="hidden md:block absolute top-10 left-[12%] right-[12%] h-0.5 animate-stage-fill"
-                            style={{ background: 'linear-gradient(90deg, #1a5d94, #ffaf00, #16a34a)' }}
+                            style={{ background: '#1a5d94' }}
                         />
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 relative">
                             {[
@@ -648,7 +639,7 @@ export default function Home() {
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
                 <Animate variant="fade-up" className="flex items-end justify-between mb-8 flex-wrap gap-3">
                     <div>
-                        <div className="text-xs sm:text-sm font-bold uppercase tracking-widest mb-1" style={{ color: '#1a5d94' }}>Inspirasi Mahasiswa</div>
+                        <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-widest mb-1" style={{ color: '#1a5d94' }}><GraduationCap className="w-3.5 h-3.5" /> Inspirasi Mahasiswa</div>
                         <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight" style={{ color: '#142143' }}>
                             Startup yang Sudah Terbukti
                         </h2>
@@ -675,11 +666,11 @@ export default function Home() {
 
             {/* * ------------------------------------------------------------ */}
             {/* ============ 8. CHECKLIST KESIAPAN — gamifikasi mahasiswa #2 ============ */}
-            <section style={{ background: '#f8f9fc', borderTop: '1px solid #e4e4e4', borderBottom: '1px solid #e4e4e4' }}>
+            <section style={{ background: '#f8f9fc', borderTop: '1px dashed #d4d4d4', borderBottom: '1px dashed #d4d4d4' }}>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
                     <div className="grid lg:grid-cols-2 gap-10 items-center">
                         <Animate variant="slide-left">
-                            <div className="text-xs sm:text-sm font-bold uppercase tracking-widest mb-3" style={{ color: '#1a5d94' }}>Untuk Mahasiswa</div>
+                            <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-widest mb-3" style={{ color: '#1a5d94' }}><Users className="w-3.5 h-3.5" /> Untuk Mahasiswa</div>
                             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight mb-4" style={{ color: '#142143' }}>
                                 Sudah siap daftar inkubasi?
                             </h2>
@@ -715,7 +706,7 @@ export default function Home() {
             {/* ============ 9. WHY US ============ */}
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
                 <Animate variant="fade-up" as="header" className="text-center max-w-2xl mx-auto mb-12">
-                    <div className="text-xs sm:text-sm font-bold uppercase tracking-widest mb-2" style={{ color: '#16a34a' }}>Mengapa PENSNOVA</div>
+                    <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-widest mb-2" style={{ color: '#16a34a' }}><Sparkles className="w-3.5 h-3.5" /> Mengapa PENSNOVA</div>
                     <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight" style={{ color: '#142143' }}>
                         Yang membedakan kami
                     </h2>
@@ -772,10 +763,10 @@ export default function Home() {
 
             {/* * ------------------------------------------------------------ */}
             {/* ============ 10. TESTIMONI ============ */}
-            <section style={{ background: '#f8f9fc', borderTop: '1px solid #e4e4e4', borderBottom: '1px solid #e4e4e4' }}>
+            <section style={{ background: '#f8f9fc', borderTop: '1px dashed #d4d4d4', borderBottom: '1px dashed #d4d4d4' }}>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
                     <Animate variant="fade-up" as="header" className="text-center max-w-2xl mx-auto mb-12">
-                        <div className="text-xs sm:text-sm font-bold uppercase tracking-widest mb-2" style={{ color: '#7c3aed' }}>Suara Founder</div>
+                        <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-widest mb-2" style={{ color: '#7c3aed' }}><Quote className="w-3.5 h-3.5" /> Suara Founder</div>
                         <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight" style={{ color: '#142143' }}>
                             Apa kata mereka yang sudah lulus
                         </h2>
@@ -787,14 +778,14 @@ export default function Home() {
                                 name: 'Muhammad Hariz Izzuddin',
                                 role: 'Founder - AITOMA',
                                 sector: 'AI / Automation',
-                                color: 'linear-gradient(135deg, #1a5d94, #142143)',
+                                color: '#142143',
                             },
                             {
                                 quote: 'Akses ke jalur pendanaan PMW lalu P2MW Belmawa benar-benar terstruktur. Sampai sertifikasi HKI pun dibantu - kami bisa fokus build produk, bukan ngurus paperwork.',
                                 name: 'Pak Ali',
                                 role: 'Founder - E-Guru ALMAS',
                                 sector: 'EdTech',
-                                color: 'linear-gradient(135deg, #b87c00, #ffaf00)',
+                                color: '#b87c00',
                             },
                         ].map((t, i) => (
                             <Animate variant="fade-up" delay={i + 1} key={t.name}>
@@ -828,7 +819,7 @@ export default function Home() {
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
                 <Animate variant="fade-up" className="flex items-end justify-between mb-8 flex-wrap gap-3">
                     <div>
-                        <div className="text-xs sm:text-sm font-bold uppercase tracking-widest mb-1" style={{ color: '#1a5d94' }}>Lisensi & Kolaborasi</div>
+                        <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-widest mb-1" style={{ color: '#1a5d94' }}><Handshake className="w-3.5 h-3.5" /> Lisensi & Kolaborasi</div>
                         <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight" style={{ color: '#142143' }}>Riset Terbuka untuk Kolaborasi</h2>
                         <p className="text-sm mt-1" style={{ color: '#64748b' }}>Inovasi siap dilisensikan, di-pilot, atau dijadikan spin-off.</p>
                     </div>
@@ -876,11 +867,11 @@ export default function Home() {
             {/* * ------------------------------------------------------------ */}
             {/* ============ 13. ARTIKEL ============ */}
             {articles?.data?.length > 0 && (
-                <section style={{ background: '#ffffff', borderTop: '1px solid #e4e4e4', borderBottom: '1px solid #e4e4e4' }}>
+                <section style={{ background: '#ffffff', borderTop: '1px dashed #d4d4d4', borderBottom: '1px dashed #d4d4d4' }}>
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
                         <Animate variant="fade-up" className="flex items-end justify-between mb-8 flex-wrap gap-3">
                             <div>
-                                <div className="text-xs sm:text-sm font-bold uppercase tracking-widest mb-1" style={{ color: '#1a5d94' }}>Inovasi untuk Negeri</div>
+                                <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-widest mb-1" style={{ color: '#1a5d94' }}><Award className="w-3.5 h-3.5" /> Inovasi untuk Negeri</div>
                                 <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight" style={{ color: '#142143' }}>Artikel & Berita Terbaru</h2>
                                 <p className="text-sm mt-1" style={{ color: '#64748b' }}>Update terbaru dari ekosistem PENSNOVA.</p>
                             </div>
@@ -903,7 +894,7 @@ export default function Home() {
             {/* ============ 14. EKOSISTEM TERKAIT ============ */}
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
                 <Animate variant="fade-up" as="header" className="text-center max-w-2xl mx-auto mb-10">
-                    <div className="text-xs sm:text-sm font-bold uppercase tracking-widest mb-2" style={{ color: '#1a5d94' }}>Ekosistem PENS Terintegrasi</div>
+                    <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-widest mb-2" style={{ color: '#1a5d94' }}><Factory className="w-3.5 h-3.5" /> Ekosistem PENS Terintegrasi</div>
                     <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight" style={{ color: '#142143' }}>Sistem Terkait di PENS</h2>
                     <p className="text-sm mt-2" style={{ color: '#64748b' }}>PENSNOVA bekerja bersama unit lain untuk hilirisasi yang terpadu.</p>
                 </Animate>
@@ -921,11 +912,15 @@ export default function Home() {
             {/* ============ 15. FINAL CTA ============ */}
             <section
                 className="text-white relative overflow-hidden"
-                style={{ background: 'linear-gradient(135deg, #0d1830, #142143, #1a5d94)' }}
+                style={{ background: '#0d1830' }}
             >
+                {/* Dot grid pattern overlay */}
                 <div
-                    className="absolute inset-0 opacity-30 pointer-events-none"
-                    style={{ backgroundImage: 'radial-gradient(ellipse at 25% 50%, #ffaf00 0%, transparent 50%), radial-gradient(ellipse at 75% 50%, #1a5d94 0%, transparent 60%)' }}
+                    className="absolute inset-0 pointer-events-none"
+                    style={{
+                        backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px)',
+                        backgroundSize: '24px 24px',
+                    }}
                 />
                 <Animate variant="scale-in" className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 text-center">
                     <div
@@ -1030,7 +1025,7 @@ function PilarCard({ icon, title, body, accent, className }) {
             style={{ background: '#ffffff', border: `1px solid ${accent ? '#ffaf00' : '#e4e4e4'}` }}
         >
             <div className="flex flex-col lg:flex-row lg:items-start gap-4">
-                <div className="h-12 w-12 rounded-xl grid place-items-center text-white shrink-0" style={{ background: accent ? 'linear-gradient(135deg, #b87c00, #ffaf00)' : 'linear-gradient(135deg, #142143, #1a5d94)' }}>
+                <div className="h-12 w-12 rounded-xl grid place-items-center text-white shrink-0" style={{ background: accent ? '#b87c00' : '#142143' }}>
                     {IconComponent && <IconComponent className="h-6 w-6" />}
                 </div>
                 <div>
@@ -1196,7 +1191,7 @@ function ArticleMiniCard({ article }) {
                     <img src={article.cover_image} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                 </div>
             ) : (
-                <div className="aspect-video flex items-center justify-center" style={{ background: 'linear-gradient(135deg, rgba(26,93,148,0.1), rgba(255,175,0,0.1))' }}>
+                <div className="aspect-video flex items-center justify-center" style={{ background: '#f8fafc' }}>
                     <span className="text-4xl opacity-40">--</span>
                 </div>
             )}

@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { Check, Mail, X, Hourglass, FileText, ClipboardList, Calendar, Users } from 'lucide-react';
 import api, { formatApiError } from '../../lib/api';
 import Spinner from '../../components/Spinner';
 
@@ -96,13 +97,13 @@ export default function Apply() {
     return (
         <div className="bg-slate-50">
             {/* Hero — explain UPA → Sky Venture relationship */}
-            <section className="bg-gradient-to-br from-primary-800 via-primary-900 to-slate-900 text-white">
+            <section className="text-white" style={{ background: '#0d1830' }}>
                 <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
                     <Link to="/" className="text-amber-300 hover:text-amber-400 text-sm mb-4 inline-block">
                         ← Beranda
                     </Link>
-                    <div className="text-xs sm:text-sm font-bold uppercase tracking-widest text-amber-400 mb-2">
-                        Pendaftaran Tenant
+                    <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-widest text-amber-400 mb-2">
+                        <FileText className="w-3.5 h-3.5" /> Pendaftaran Tenant
                     </div>
                     <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight">
                         Bergabung dengan <span className="text-amber-300">PENSNOVA</span>
@@ -165,7 +166,7 @@ export default function Apply() {
 function Badge({ children }) {
     return (
         <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-white/10 ring-1 ring-white/20 text-white/90 font-medium">
-            ✓ {children}
+            <Check className="h-4 w-4" /> {children}
         </span>
     );
 }
@@ -173,7 +174,7 @@ function Badge({ children }) {
 function ClosedNotice() {
     return (
         <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6 sm:p-8 text-center">
-            <div className="text-5xl mb-3">⏳</div>
+            <Hourglass className="h-8 w-8 text-amber-600 mx-auto mb-3" />
             <h2 className="text-lg sm:text-xl font-bold text-amber-900">
                 Belum ada batch yang dibuka saat ini
             </h2>
@@ -185,7 +186,7 @@ function ClosedNotice() {
                 href="mailto:penssky.inkubator@div.pens.ac.id"
                 className="inline-block mt-4 px-5 py-2 rounded-lg bg-amber-600 text-white font-semibold hover:bg-amber-700"
             >
-                ✉️ Hubungi Tim
+                <Mail className="h-4 w-4" /> Hubungi Tim
             </a>
         </div>
     );
@@ -198,7 +199,7 @@ function BatchSelector({ batches, selected, onPick }) {
         return (
             <div className="bg-white rounded-2xl ring-1 ring-slate-200 p-5 sm:p-6 mb-6">
                 <div className="flex items-start gap-3">
-                    <div className="text-3xl">📋</div>
+                    <ClipboardList className="w-8 h-8 text-slate-400" />
                     <div className="flex-1 min-w-0">
                         <div className="flex flex-wrap items-center gap-2 mb-1">
                             <h2 className="font-bold text-lg sm:text-xl text-slate-900">{b.name}</h2>
@@ -208,8 +209,8 @@ function BatchSelector({ batches, selected, onPick }) {
                         </div>
                         <p className="text-sm text-slate-600 mb-2">{b.description}</p>
                         <div className="flex flex-wrap gap-3 text-xs text-slate-500">
-                            <span>📅 {b.start_date} — {b.end_date}</span>
-                            <span>👥 Kuota {b.quota} startup</span>
+                            <span><Calendar className="h-3.5 w-3.5 inline mr-0.5" />{b.start_date} — {b.end_date}</span>
+                            <span><Users className="h-3.5 w-3.5 inline mr-0.5" />Kuota {b.quota} startup</span>
                         </div>
                     </div>
                 </div>
@@ -242,7 +243,7 @@ function BatchSelector({ batches, selected, onPick }) {
                         </div>
                         <p className="text-xs text-slate-600 line-clamp-2 mb-2">{b.description}</p>
                         <div className="text-[11px] text-slate-500">
-                            📅 {b.start_date} — {b.end_date} · 👥 {b.quota} kuota
+                            <Calendar className="h-3 w-3 inline mr-0.5" />{b.start_date} — {b.end_date} · <Users className="h-3 w-3 inline mr-0.5" />{b.quota} kuota
                         </div>
                     </button>
                 ))}
@@ -523,7 +524,7 @@ function FileUploadField({ field, file, onChange, error }) {
             {file && (
                 <div className="mt-2 flex items-center justify-between gap-2 text-xs bg-emerald-50 ring-1 ring-emerald-200 rounded-lg px-2.5 py-1.5">
                     <span className="text-emerald-800 font-medium truncate">
-                        ✓ {file.name} ({(file.size / 1024).toFixed(0)} KB)
+                        <Check className="h-3 w-3 inline" /> {file.name} ({(file.size / 1024).toFixed(0)} KB)
                     </span>
                     <button
                         type="button"
@@ -531,7 +532,7 @@ function FileUploadField({ field, file, onChange, error }) {
                         className="text-rose-600 font-bold flex-shrink-0"
                         aria-label="Hapus file"
                     >
-                        ✕
+                        <X className="h-3 w-3" />
                     </button>
                 </div>
             )}

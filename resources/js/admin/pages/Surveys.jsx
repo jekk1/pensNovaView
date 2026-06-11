@@ -3,6 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import {
     ClipboardList, Plus, Eye, Copy, ExternalLink, CheckCircle2, X,
     FileText, TrendingUp, BarChart3, LayoutTemplate, Sparkles, Mail, Send,
+    Lock, Unlock,
 } from 'lucide-react';
 import api from '../../lib/api';
 import { apiErrorMessage } from '../../lib/apiError';
@@ -199,7 +200,7 @@ function TemplateGallery({ onClose, onCreated }) {
                                             <h3 className="font-bold text-sm leading-tight">{tpl.title}</h3>
                                             {tpl.rubric && (
                                                 <div className="text-[10px] text-amber-700 mt-0.5 font-semibold">
-                                                    📋 {tpl.rubric}
+                                                    <ClipboardList className="h-3 w-3 inline mr-0.5" /> {tpl.rubric}
                                                 </div>
                                             )}
                                         </div>
@@ -209,7 +210,7 @@ function TemplateGallery({ onClose, onCreated }) {
                                     </p>
                                     <div className="flex items-center justify-between text-[10px] text-slate-500 mb-3">
                                         <span>{tpl.question_count} pertanyaan</span>
-                                        <span>{tpl.allow_anonymous ? '🔓 Anonim OK' : '🔒 Identitas wajib'}</span>
+                                        <span>{tpl.allow_anonymous ? <><Unlock className="h-3 w-3 inline mr-0.5" />Anonim OK</> : <><Lock className="h-3 w-3 inline mr-0.5" />Identitas wajib</>}</span>
                                     </div>
                                     <div className="flex gap-2">
                                         <Button
@@ -631,7 +632,7 @@ function Backdrop({ children, onClose, title, wide = false }) {
             <div className={`w-full bg-white shadow-2xl flex flex-col h-full overflow-hidden ${wide ? 'max-w-3xl' : 'max-w-xl'}`} onClick={(e) => e.stopPropagation()}>
                 <div className="px-5 py-3 border-b border-slate-200 flex items-center justify-between bg-slate-50">
                     <h2 className="text-base font-bold tracking-tight truncate pr-3">{title}</h2>
-                    <button onClick={onClose} className="h-8 w-8 rounded-md hover:bg-slate-200 flex-shrink-0">✕</button>
+                    <button onClick={onClose} className="h-8 w-8 rounded-md hover:bg-slate-200 flex-shrink-0"><X className="h-4 w-4" /></button>
                 </div>
                 <div className="flex-1 overflow-y-auto p-5">{children}</div>
             </div>

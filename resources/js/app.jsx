@@ -2,6 +2,7 @@ import { lazy, StrictMode, Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClientProvider } from '@tanstack/react-query';
+import { Construction, HelpCircle } from 'lucide-react';
 import '../css/app.css';
 
 import { AuthProvider, useAuth } from './lib/auth';
@@ -115,29 +116,29 @@ const FeedbackRedirect = lazy(() => import('./pages/public/FeedbackRedirect'));
 const CertificateVerify = lazy(() => import('./pages/public/CertificateVerify'));
 
 const tenantNav = [
-    { to: '/dashboard/tenant', label: 'Dashboard', icon: '🏠', end: true },
-    { to: '/dashboard/tenant/progress-reports', label: 'Laporan', icon: '📊' },
-    { to: '/dashboard/tenant/milestones', label: 'Milestone', icon: '🎯' },
-    { to: '/dashboard/tenant/research', label: 'Riset', icon: '🔬' },
-    { to: '/dashboard/tenant/sessions', label: 'Mentoring', icon: '💬' },
-    { to: '/dashboard/tenant/monev', label: 'Monev', icon: '📋' },
-    { to: '/dashboard/tenant/needs', label: 'Kebutuhan', icon: '📝' },
-    { to: '/dashboard/tenant/sewa', label: 'Sewa Ruang', icon: '🏢' },
-    { to: '/dashboard/tenant/pinjam-ruang', label: 'Pinjam Ruang', icon: '📅' },
-    { to: '/dashboard/tenant/produk', label: 'Produk Saya', icon: '🚀' },
-    { to: '/dashboard/tenant/sertifikat', label: 'Sertifikat', icon: '🎓' },
-    { to: '/dashboard/tenant/documents', label: 'Document Vault', icon: '📁' },
-    { to: '/dashboard/tenant/alumni', label: 'Alumni Hub', icon: '🌐' },
+    { to: '/dashboard/tenant', label: 'Dashboard', icon: 'dashboard', end: true },
+    { to: '/dashboard/tenant/progress-reports', label: 'Laporan', icon: 'laporan' },
+    { to: '/dashboard/tenant/milestones', label: 'Milestone', icon: 'milestone' },
+    { to: '/dashboard/tenant/research', label: 'Riset', icon: 'riset' },
+    { to: '/dashboard/tenant/sessions', label: 'Mentoring', icon: 'mentoring' },
+    { to: '/dashboard/tenant/monev', label: 'Monev', icon: 'monev' },
+    { to: '/dashboard/tenant/needs', label: 'Kebutuhan', icon: 'kebutuhan' },
+    { to: '/dashboard/tenant/sewa', label: 'Sewa Ruang', icon: 'sewa' },
+    { to: '/dashboard/tenant/pinjam-ruang', label: 'Pinjam Ruang', icon: 'pinjam' },
+    { to: '/dashboard/tenant/produk', label: 'Produk Saya', icon: 'produk' },
+    { to: '/dashboard/tenant/sertifikat', label: 'Sertifikat', icon: 'sertifikat' },
+    { to: '/dashboard/tenant/documents', label: 'Document Vault', icon: 'documents' },
+    { to: '/dashboard/tenant/alumni', label: 'Alumni Hub', icon: 'alumni' },
 ];
 const mentorNav = [
-    { to: '/dashboard/mentor', label: 'Dashboard', icon: '🏠', end: true },
-    { to: '/dashboard/mentor/tenants', label: 'Binaan', icon: '👥' },
-    { to: '/dashboard/mentor/sessions', label: 'Sesi', icon: '📅' },
+    { to: '/dashboard/mentor', label: 'Dashboard', icon: 'dashboard', end: true },
+    { to: '/dashboard/mentor/tenants', label: 'Binaan', icon: 'binaan' },
+    { to: '/dashboard/mentor/sessions', label: 'Sesi', icon: 'sesi' },
 ];
 const investorNav = [
-    { to: '/dashboard/investor', label: 'Dashboard', icon: '🏠', end: true },
-    { to: '/startup', label: 'Browse', icon: '🔎' },
-    { to: '/dashboard/investor/meetings', label: 'Meeting', icon: '📅' },
+    { to: '/dashboard/investor', label: 'Dashboard', icon: 'dashboard', end: true },
+    { to: '/startup', label: 'Browse', icon: 'browse' },
+    { to: '/dashboard/investor/meetings', label: 'Meeting', icon: 'meeting' },
 ];
 
 function DashboardRedirect() {
@@ -342,7 +343,7 @@ function RedirectDaftarLegacy() {
 function ComingSoon({ title }) {
     return (
         <div className="bg-white rounded-2xl ring-1 ring-slate-200 p-8 text-center">
-            <div className="text-3xl mb-2">🚧</div>
+            <Construction className="h-8 w-8 text-slate-400 mx-auto mb-2" />
             <h2 className="text-xl font-bold">{title}</h2>
             <p className="text-sm text-slate-600 mt-1">Halaman ini sedang dikembangkan.</p>
         </div>
@@ -353,7 +354,7 @@ function NotFound() {
     return (
         <div className="min-h-screen flex items-center justify-center bg-slate-50">
             <div className="text-center">
-                <div className="text-6xl">🤔</div>
+                <HelpCircle className="h-12 w-12 text-slate-300 mx-auto" />
                 <h1 className="text-2xl font-bold mt-4">Halaman tidak ditemukan</h1>
                 <a href="/" className="inline-block mt-4 text-primary-700 hover:underline">← Ke Beranda</a>
             </div>

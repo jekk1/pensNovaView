@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import DOMPurify from 'dompurify';
+import { Inbox } from 'lucide-react';
 import api from '../../lib/api';
 import Spinner from '../../components/Spinner';
 
@@ -41,7 +42,7 @@ export default function ArticleDetail() {
     if (isError || !data) {
         return (
             <div className="max-w-2xl mx-auto py-20 px-4 text-center">
-                <div className="text-6xl mb-4">📭</div>
+                <Inbox className="w-16 h-16 text-slate-300 mx-auto mb-4" />
                 <h1 className="text-2xl font-bold">Artikel tidak ditemukan</h1>
                 <Link
                     to="/artikel"
@@ -57,7 +58,7 @@ export default function ArticleDetail() {
 
     return (
         <article className="bg-white">
-            <header className="bg-gradient-to-br from-primary-800 to-primary-900 text-white">
+            <header className="text-white" style={{ background: '#0d1830' }}>
                 <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
                     <Link
                         to="/artikel"
@@ -96,7 +97,7 @@ export default function ArticleDetail() {
                     <img
                         src={a.cover_image}
                         alt={a.title}
-                        className="w-full rounded-2xl shadow-lg aspect-video object-cover"
+                        className="w-full rounded-2xl aspect-video object-cover"
                     />
                 </div>
             )}

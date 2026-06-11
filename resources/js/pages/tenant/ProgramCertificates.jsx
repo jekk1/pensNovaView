@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { Award, Download, ClipboardList, Clock, CheckCircle2, ShieldOff, ExternalLink } from 'lucide-react';
+import { Award, Download, ClipboardList, Clock, CheckCircle2, ShieldOff, ExternalLink, GraduationCap } from 'lucide-react';
 import api from '../../lib/api';
 import Spinner from '../../components/Spinner';
 
@@ -71,10 +71,10 @@ export default function TenantProgramCertificates() {
                     href={activeSurvey.url}
                     target="_blank"
                     rel="noopener"
-                    className="block bg-gradient-to-r from-amber-50 to-amber-100 ring-1 ring-amber-300 rounded-2xl p-4 mb-5 hover:from-amber-100 hover:to-amber-200 transition"
+                    className="block ring-1 ring-amber-300 rounded-2xl p-4 mb-5 transition" style={{ background: '#fffbeb' }}
                 >
                     <div className="flex items-center gap-3">
-                        <div className="text-2xl">📋</div>
+                        <ClipboardList className="h-6 w-6 text-amber-700" />
                         <div className="flex-1 min-w-0">
                             <div className="font-bold text-amber-900 text-sm">Isi Feedback Program — Prasyarat Sertifikat</div>
                             <div className="text-xs text-amber-800 mt-1">
@@ -102,7 +102,7 @@ export default function TenantProgramCertificates() {
                         return (
                             <div key={c.id} className="bg-white ring-1 ring-slate-200 rounded-2xl overflow-hidden">
                                 <div className="p-4 flex items-start gap-3">
-                                    <div className="text-3xl">🎓</div>
+                                    <GraduationCap className="h-8 w-8 text-slate-400" />
                                     <div className="flex-1 min-w-0">
                                         <div className="font-bold text-slate-900">{c.recipient_name}</div>
                                         <div className="text-xs text-slate-500">

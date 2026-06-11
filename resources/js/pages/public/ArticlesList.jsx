@@ -33,7 +33,7 @@ export default function ArticlesList() {
 
     return (
         <div className="bg-slate-50">
-            <section className="bg-gradient-to-br from-primary-800 via-primary-900 to-slate-900 text-white">
+            <section className="text-white" style={{ background: '#0d1830' }}>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
                     <Link to="/" className="text-amber-300 hover:text-amber-400 text-sm mb-4 inline-block">
                         ← Beranda
@@ -106,7 +106,7 @@ function CatTab({ active, onClick, label }) {
             onClick={onClick}
             className={`px-4 py-2 rounded-lg text-sm font-semibold transition ${
                 active
-                    ? 'bg-primary-700 text-white shadow'
+                    ? 'bg-primary-700 text-white'
                     : 'bg-white text-slate-700 ring-1 ring-slate-200 hover:ring-primary-300'
             }`}
         >
@@ -131,7 +131,7 @@ function ArticleCard({ article }) {
                     />
                 </div>
             ) : (
-                <div className="aspect-video bg-gradient-to-br from-primary-100 to-amber-100 flex items-center justify-center">
+                <div className="aspect-video flex items-center justify-center" style={{ background: '#eef2f9' }}>
                     {article.category === 'announcement' ? (
                         <Megaphone className="h-12 w-12 text-rose-500" />
                     ) : article.category === 'news' ? (

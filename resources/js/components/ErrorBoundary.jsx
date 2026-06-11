@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { RefreshCw, AlertTriangle } from 'lucide-react';
 import { captureException } from './sentry';
 
 /**
@@ -45,7 +46,7 @@ export default class ErrorBoundary extends Component {
         return (
             <div className="min-h-screen flex items-center justify-center bg-slate-50 p-4">
                 <div className="max-w-lg w-full bg-white rounded-2xl ring-1 ring-slate-200 p-8 text-center shadow-sm">
-                    <div className="text-6xl mb-4">⚠️</div>
+                    <AlertTriangle className="w-16 h-16 text-amber-500 mx-auto mb-4" />
                     <h1 className="text-2xl font-extrabold text-slate-900 mb-2">
                         Ada yang Tidak Beres
                     </h1>
@@ -70,7 +71,7 @@ export default class ErrorBoundary extends Component {
                             onClick={this.handleReload}
                             className="px-4 py-2 rounded-lg bg-primary-700 text-white font-semibold text-sm hover:bg-primary-800 transition"
                         >
-                            🔄 Muat Ulang
+                            <RefreshCw className="h-4 w-4 mr-1" /> Muat Ulang
                         </button>
                         <button
                             onClick={this.handleHome}

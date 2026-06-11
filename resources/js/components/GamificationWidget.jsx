@@ -170,7 +170,7 @@ function BadgeChip({ badge }) {
             title={`${badge.name} — ${badge.description}`}
         >
             <div className="bg-slate-900/90 rounded-md px-2.5 py-1.5 flex items-center gap-1.5">
-                <span className="text-base">{badge.icon}</span>
+                <span className="text-primary-300"><Trophy className="w-5 h-5" /></span>
                 <span className="text-xs font-bold whitespace-nowrap">{badge.name}</span>
             </div>
         </div>

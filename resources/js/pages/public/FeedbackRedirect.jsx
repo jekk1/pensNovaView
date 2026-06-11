@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-import { ClipboardList, AlertCircle } from 'lucide-react';
+import { ClipboardList, AlertCircle, Mail } from 'lucide-react';
 import api from '../../lib/api';
 import Logo from '../../components/Logo';
 import Spinner from '../../components/Spinner';
@@ -30,7 +30,7 @@ export default function FeedbackRedirect() {
     }, [data, navigate]);
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-primary-50/40 via-white to-white">
+        <div className="min-h-screen" style={{ background: '#f8f9fc' }}>
             <header className="bg-white border-b border-slate-200">
                 <div className="max-w-3xl mx-auto px-4 sm:px-6 py-3 flex items-center gap-2">
                     <Logo variant="mark" size="sm" />
@@ -61,7 +61,7 @@ export default function FeedbackRedirect() {
                                 href="mailto:aji.sapta@pens.ac.id"
                                 className="inline-block mt-4 text-sm font-semibold text-primary-700 hover:underline"
                             >
-                                ✉️ Kirim Email ke UPA
+                                <Mail className="h-4 w-4 inline" /> Kirim Email ke UPA
                             </a>
                         </>
                     ) : (

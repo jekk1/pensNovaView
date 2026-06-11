@@ -45,7 +45,7 @@ export default function Investors() {
                 },
                 {
                     key: 'is_verified', label: 'Verified', sortable: false,
-                    render: (r) => r.is_verified ? <span className="text-emerald-700 font-bold">✓</span> : <span className="text-slate-400">—</span>,
+                    render: (r) => r.is_verified ? <span className="text-emerald-700 font-bold">Ya</span> : <span className="text-slate-400">—</span>,
                 },
             ]}
             filters={[

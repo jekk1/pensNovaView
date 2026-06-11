@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { Key, AlertTriangle, Check, ClipboardList } from 'lucide-react';
 import api from '../../lib/api';
 import { apiErrorMessage } from '../../lib/apiError';
 import Spinner from '../../components/Spinner';
@@ -247,11 +248,11 @@ function TokenRevealDialog({ token, onClose }) {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/70 p-4" onClick={onClose}>
             <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6" onClick={(e) => e.stopPropagation()}>
                 <div className="flex items-center gap-2 mb-3">
-                    <span className="text-2xl">🔑</span>
+                    <Key className="w-7 h-7 text-primary-600" />
                     <h2 className="text-lg font-extrabold">Token "{token.name}" berhasil dibuat</h2>
                 </div>
                 <div className="p-3 rounded-lg bg-amber-50 ring-1 ring-amber-200 text-amber-900 text-xs mb-4">
-                    <strong>⚠️ SIMPAN SEKARANG.</strong> Token plaintext ini <strong>hanya muncul sekali</strong>.
+                    <strong><AlertTriangle className="h-3 w-3 inline mr-0.5" /> SIMPAN SEKARANG.</strong> Token plaintext ini <strong>hanya muncul sekali</strong>.
                     Setelah dialog ini ditutup, tidak ada cara recovery — kamu harus bikin token baru kalau hilang.
                 </div>
                 <div className="p-3 rounded-lg bg-slate-900 text-emerald-300 font-mono text-xs break-all mb-3">
@@ -259,7 +260,7 @@ function TokenRevealDialog({ token, onClose }) {
                 </div>
                 <button onClick={copyToken}
                     className="w-full px-4 py-2 rounded-lg bg-primary-700 hover:bg-primary-800 text-white font-semibold text-sm">
-                    {copied ? '✓ Tersalin!' : '📋 Salin Token'}
+                    {copied ? <><Check className="h-4 w-4" /> Tersalin!</> : <><ClipboardList className="h-4 w-4" /> Salin Token</>}
                 </button>
                 <button onClick={onClose} className="w-full mt-2 px-4 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:bg-slate-100">
                     Saya sudah simpan, tutup

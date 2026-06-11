@@ -167,7 +167,7 @@ export default function DataTable({
                                     colSpan={columns.length + 1}
                                     className="text-center py-10 text-slate-500 text-xs"
                                 >
-                                    <div className="text-2xl mb-1">📭</div>
+                                    <div className="text-slate-400 text-sm mb-1">—</div>
                                     Tidak ada data.
                                 </td>
                             </tr>

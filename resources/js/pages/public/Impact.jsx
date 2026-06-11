@@ -43,7 +43,7 @@ export default function Impact() {
     return (
         <div className="bg-slate-50">
             <PageHero
-                eyebrow="✨ Innovation Hub · Realtime"
+                eyebrow="Innovation Hub · Realtime"
                 title="Dampak"
                 accent="UPA"
                 titleAfter=" PENSNOVA"
@@ -55,7 +55,7 @@ export default function Impact() {
                 </div>
 
             {/* HEADLINE — Target Revenue */}
-            <div className="bg-gradient-to-br from-primary-900 to-primary-700 text-white rounded-3xl p-6 sm:p-10 mb-8 shadow-xl">
+            <div className="text-white rounded-3xl p-6 sm:p-10 mb-8" style={{ background: '#0d1830' }}>
                 <div className="flex items-start justify-between gap-3 flex-wrap mb-4">
                     <div>
                         <div className="text-[10px] uppercase tracking-wider text-amber-300 font-bold mb-1">Realisasi vs Target Tahunan</div>
@@ -70,7 +70,7 @@ export default function Impact() {
                     </div>
                 </div>
                 <div className="bg-primary-800/50 rounded-full overflow-hidden h-3">
-                    <div className="bg-gradient-to-r from-amber-400 to-amber-300 h-full transition-all" style={{ width: targetPct + '%' }} />
+                    <div className="bg-amber-400 h-full transition-all" style={{ width: targetPct + '%' }} />
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-5 text-center">
                     <RevenueStream label="Sewa Ruang Inkubator" value={fmtIDR(data.revenue?.sewa_ruang)} />
@@ -80,7 +80,7 @@ export default function Impact() {
             </div>
 
             {/* 4 PILAR */}
-            <h2 className="text-xl sm:text-2xl font-bold mb-4 text-slate-900">Empat Pilar UPA PENSNOVA</h2>
+            <h2 className="text-xl sm:text-2xl font-bold mb-4 text-slate-900 inline-flex items-center gap-2"><Award className="w-5 h-5 text-primary-700" /> Empat Pilar UPA PENSNOVA</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
                 <PillarCard
                     icon={Rocket}
@@ -153,7 +153,7 @@ export default function Impact() {
                                         <span className="text-slate-600">{count} ({pct}%)</span>
                                     </div>
                                     <div className="bg-slate-100 h-2 rounded overflow-hidden">
-                                        <div className="bg-gradient-to-r from-primary-600 to-primary-400 h-full" style={{ width: pct + '%' }} />
+                                        <div className="bg-primary-600 h-full" style={{ width: pct + '%' }} />
                                     </div>
                                 </div>
                             );
@@ -199,15 +199,15 @@ function RevenueStream({ label, value }) {
 
 function PillarCard({ icon: Icon, tone, title, subtitle, metrics, cta }) {
     const tones = {
-        emerald: { bg: 'from-emerald-50 to-emerald-100', text: 'text-emerald-800', ring: 'ring-emerald-200', icon: 'text-emerald-600' },
-        amber: { bg: 'from-amber-50 to-amber-100', text: 'text-amber-800', ring: 'ring-amber-200', icon: 'text-amber-600' },
-        sky: { bg: 'from-sky-50 to-sky-100', text: 'text-sky-800', ring: 'ring-sky-200', icon: 'text-sky-600' },
-        violet: { bg: 'from-violet-50 to-violet-100', text: 'text-violet-800', ring: 'ring-violet-200', icon: 'text-violet-600' },
+        emerald: { bg: '#ecfdf5', text: 'text-emerald-800', ring: 'ring-emerald-200', icon: 'text-emerald-600' },
+        amber: { bg: '#fffbeb', text: 'text-amber-800', ring: 'ring-amber-200', icon: 'text-amber-600' },
+        sky: { bg: '#f0f9ff', text: 'text-sky-800', ring: 'ring-sky-200', icon: 'text-sky-600' },
+        violet: { bg: '#f5f3ff', text: 'text-violet-800', ring: 'ring-violet-200', icon: 'text-violet-600' },
     };
     const t = tones[tone];
 
     return (
-        <div className={`bg-gradient-to-br ${t.bg} rounded-2xl ring-1 ${t.ring} p-5`}>
+        <div className={`rounded-2xl ring-1 ${t.ring} p-5`} style={{ background: t.bg }}>
             <div className="flex items-start justify-between gap-3 mb-3">
                 <div className={`inline-flex h-10 w-10 rounded-lg bg-white ${t.icon} items-center justify-center shrink-0`}>
                     <Icon className="h-5 w-5" />

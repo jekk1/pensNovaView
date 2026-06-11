@@ -25,6 +25,16 @@
     --color-gold-500: #ffaf00;
     --color-gold-600: #e09900;
     --color-gold-700: #b87c00;
+
+    /* Global: hilangkan semua shadow */
+    --shadow-xs: none;
+    --shadow-sm: none;
+    --shadow: none;
+    --shadow-md: none;
+    --shadow-lg: none;
+    --shadow-xl: none;
+    --shadow-2xl: none;
+    --shadow-inner: none;
 }
 
 html { -webkit-text-size-adjust: 100%; }
@@ -119,13 +129,7 @@ body { font-family: var(--font-sans); }
 .animate-slide-up-delay-2 { animation: slide-up 0.5s 0.2s cubic-bezier(0.22, 1, 0.36, 1) both; }
 .animate-slide-up-delay-3 { animation: slide-up 0.5s 0.3s cubic-bezier(0.22, 1, 0.36, 1) both; }
 
-/* Gradient mesh animasi background */
-@keyframes gradient-shift {
-    0%   { background-position: 0% 50%; }
-    50%  { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-.animate-gradient { animation: gradient-shift 8s ease infinite; background-size: 200% 200%; }
+/* Gradient animation — disabled (no gradient policy) */
 
 /* Countdown digit — flip effect */
 @keyframes flip-in {
@@ -212,13 +216,17 @@ body { font-family: var(--font-sans); }
 .anim-slide-right{ animation: anim-slide-right 0.55s cubic-bezier(0.22,1,0.36,1) both; }
 .anim-slide-down { animation: anim-slide-down 0.5s cubic-bezier(0.22,1,0.36,1) both; }
 
-/* Stagger delay 1-6 untuk grid items */
+/* Stagger delay 1-10 untuk grid items */
 .anim-delay-1 { animation-delay: 0.07s; }
 .anim-delay-2 { animation-delay: 0.14s; }
 .anim-delay-3 { animation-delay: 0.21s; }
 .anim-delay-4 { animation-delay: 0.28s; }
 .anim-delay-5 { animation-delay: 0.35s; }
 .anim-delay-6 { animation-delay: 0.42s; }
+.anim-delay-7 { animation-delay: 0.49s; }
+.anim-delay-8 { animation-delay: 0.56s; }
+.anim-delay-9 { animation-delay: 0.63s; }
+.anim-delay-10 { animation-delay: 0.70s; }
 
 /* ============================================================
    MICRO-INTERACTIONS — hover efek halus tanpa box-shadow
@@ -239,15 +247,12 @@ body { font-family: var(--font-sans); }
 }
 .link-underline:hover::after { width: 100%; }
 
-/* Button glow ring — pakai outline bukan shadow */
+/* Button glow — disabled, no outline effect */
 .btn-glow {
-    transition: outline-offset 0.2s ease, outline-color 0.2s ease;
-    outline: 2px solid transparent;
-    outline-offset: 0px;
+    transition: opacity 0.2s ease;
 }
 .btn-glow:hover {
-    outline-color: rgba(255,175,0,0.5);
-    outline-offset: 3px;
+    opacity: 0.85;
 }
 
 /* Card lift clean tanpa shadow */
@@ -287,4 +292,25 @@ body { font-family: var(--font-sans); }
         animation-duration: 0.01ms !important;
         transition-duration: 0.01ms !important;
     }
+}
+
+/* * -------------------------------------------------------------- */
+/* GLOBAL: Force remove semua box-shadow (termasuk inline style) */
+.shadow-sm,
+.shadow,
+.shadow-md,
+.shadow-lg,
+.shadow-xl,
+.shadow-2xl,
+.shadow-inner,
+[class*="hover:shadow"] {
+    box-shadow: none !important;
+}
+.shadow-sm:hover,
+.shadow:hover,
+.shadow-md:hover,
+.shadow-lg:hover,
+.shadow-xl:hover,
+.shadow-2xl:hover {
+    box-shadow: none !important;
 }

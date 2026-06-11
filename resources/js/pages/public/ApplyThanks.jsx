@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
-import { CheckCircle2, Mail, Calendar, LayoutDashboard, ArrowRight } from 'lucide-react';
+import { CheckCircle2, Mail, Calendar, LayoutDashboard, ArrowRight, Lightbulb } from 'lucide-react';
 
 export default function ApplyThanks() {
     return (
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
             <div className="bg-white rounded-3xl ring-1 ring-slate-200 shadow-sm overflow-hidden">
                 {/* Hero banner */}
-                <div className="bg-gradient-to-br from-emerald-500 via-emerald-600 to-primary-700 text-white p-8 sm:p-12 text-center">
+                <div className="text-white p-8 sm:p-12 text-center" style={{ background: '#16a34a' }}>
                     <div className="inline-flex h-20 w-20 rounded-full bg-white/15 ring-4 ring-white/20 items-center justify-center mb-4">
                         <CheckCircle2 className="h-10 w-10" />
                     </div>
@@ -44,7 +44,7 @@ export default function ApplyThanks() {
 
                     <div className="bg-amber-50 ring-1 ring-amber-200 rounded-xl p-4 mb-6">
                         <div className="flex items-start gap-3">
-                            <div className="text-2xl">💡</div>
+                            <Lightbulb className="w-6 h-6 text-amber-600" />
                             <div className="text-sm">
                                 <strong className="text-amber-900">Tips sambil menunggu:</strong>
                                 <ul className="text-amber-800 list-disc list-inside mt-1 space-y-0.5">

@@ -45,7 +45,7 @@ export default function AlumniDetail() {
                 <ArrowLeft className="h-4 w-4 mr-1" /> Kembali ke direktori alumni
             </Link>
 
-            <header className="bg-gradient-to-br from-primary-50 to-amber-50 rounded-2xl ring-1 ring-primary-200 p-6 sm:p-8 mb-5">
+            <header className="rounded-2xl ring-1 ring-primary-200 p-6 sm:p-8 mb-5" style={{ background: '#eef2f9' }}>
                 <div className="flex flex-wrap items-center gap-2 mb-3">
                     <span className="text-xs px-2 py-1 rounded bg-primary-100 text-primary-800 font-semibold inline-flex items-center gap-1">
                         <GraduationCap className="h-3 w-3" /> Alumni PENSNOVA

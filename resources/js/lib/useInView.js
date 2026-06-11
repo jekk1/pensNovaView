@@ -1,25 +1,23 @@
 import { useEffect, useRef, useState } from 'react';
 
-// Hook Intersection Observer untuk deteksi elemen masuk viewport
+// Hook Intersection Observer untuk deteksi elemen masuk/keluar viewport
+// Animasi bakal replay tiap kali elemen masuk viewport lagi
 export function useInView(threshold = 0.12) {
     const ref = useRef(null);
     const [inView, setInView] = useState(false);
 
     useEffect(() => {
         const el = ref.current;
-        if (!el || inView) return;
+        if (!el) return;
         const obs = new IntersectionObserver(
             ([entry]) => {
-                if (entry.isIntersecting) {
-                    setInView(true);
-                    obs.disconnect();
-                }
+                setInView(entry.isIntersecting);
             },
             { threshold }
         );
         obs.observe(el);
         return () => obs.disconnect();
-    }, [inView, threshold]);
+    }, [threshold]);
 
     return [ref, inView];
 }

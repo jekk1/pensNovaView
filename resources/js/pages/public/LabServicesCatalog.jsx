@@ -49,7 +49,7 @@ export default function LabServicesCatalog() {
     return (
         <div className="bg-slate-50">
             <PageHero
-                eyebrow="🧪 Divisi Tech Deployment"
+                eyebrow="Divisi Tech Deployment"
                 title="Katalog"
                 accent="Jasa Lab"
                 titleAfter=" PENS"
@@ -124,7 +124,7 @@ export default function LabServicesCatalog() {
                 </div>
             )}
 
-            <div className="mt-10 bg-gradient-to-br from-sky-50 to-primary-50 ring-1 ring-sky-200 rounded-2xl p-6 sm:p-8 text-center">
+            <div className="mt-10 ring-1 ring-sky-200 rounded-2xl p-6 sm:p-8 text-center" style={{ background: '#f0f9ff' }}>
                 <h2 className="text-lg sm:text-xl font-bold mb-2">Butuh layanan khusus tidak ada di katalog?</h2>
                 <p className="text-sm text-slate-700 max-w-2xl mx-auto mb-4">
                     Hubungi Divisi Tech Deployment &amp; Partnership UPA untuk request <strong>custom R&amp;D project</strong>,

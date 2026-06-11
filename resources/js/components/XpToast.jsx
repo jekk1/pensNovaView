@@ -78,10 +78,9 @@ export default function XpToast() {
 function ToastCard({ delta, badge }) {
     if (badge) {
         return (
-            <div className="pointer-events-auto rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 p-1 shadow-2xl animate-toast-in"
-                 style={{ boxShadow: `0 10px 40px ${badge.tier_color || '#f59e0b'}66` }}>
+            <div className="pointer-events-auto rounded-2xl p-1 animate-toast-in" style={{ background: '#f59e0b' }}>
                 <div className="bg-slate-900 rounded-xl p-4 flex items-center gap-3 text-white">
-                    <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 grid place-items-center text-2xl shadow-lg shrink-0">
+                    <div className="h-12 w-12 rounded-xl grid place-items-center text-2xl shrink-0" style={{ background: '#f59e0b' }}>
                         {badge.icon}
                     </div>
                     <div className="flex-1 min-w-0">
@@ -98,7 +97,7 @@ function ToastCard({ delta, badge }) {
 
     if (delta > 0) {
         return (
-            <div className="pointer-events-auto rounded-xl bg-gradient-to-br from-primary-700 to-primary-900 px-4 py-3 shadow-2xl text-white flex items-center gap-2 animate-toast-in">
+            <div className="pointer-events-auto rounded-xl px-4 py-3 text-white flex items-center gap-2 animate-toast-in" style={{ background: '#142143' }}>
                 <Zap className="w-5 h-5 text-amber-300" />
                 <div>
                     <div className="text-sm font-extrabold">+{delta} XP</div>

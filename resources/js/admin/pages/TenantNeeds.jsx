@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { ClipboardList, UserPlus, Eye, FileText } from 'lucide-react';
+import { ClipboardList, UserPlus, Eye, FileText, X } from 'lucide-react';
 import api from '../../lib/api';
 import { apiErrorMessage } from '../../lib/apiError';
 import { Card, CardContent } from '../../components/ui/card';
@@ -176,7 +176,7 @@ function DetailDialog({ id, needsMap, onClose }) {
             <div className="w-full max-w-2xl bg-white shadow-2xl flex flex-col h-full overflow-hidden" onClick={(e) => e.stopPropagation()}>
                 <div className="px-5 py-3 border-b border-slate-200 flex items-center justify-between bg-slate-50">
                     <h2 className="text-base font-bold tracking-tight">Form Kebutuhan — {data.tenant?.name}</h2>
-                    <button onClick={onClose} className="h-8 w-8 rounded-md hover:bg-slate-200">✕</button>
+                    <button onClick={onClose} className="h-8 w-8 rounded-md hover:bg-slate-200"><X className="h-4 w-4" /></button>
                 </div>
                 <div className="flex-1 overflow-y-auto p-5 space-y-4">
                     <div className="grid grid-cols-2 gap-3 text-xs">

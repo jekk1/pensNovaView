@@ -8,6 +8,12 @@ import { Button } from '../../components/ui/button';
 import { Input } from '../../components/ui/input';
 import Spinner from '../../components/Spinner';
 
+function RoomIcon({ type, className = '' }) {
+    const icons = { meeting_room: Users, workshop: Wrench };
+    const Icon = icons[type] || DoorOpen;
+    return <Icon className={className || 'w-5 h-5'} />;
+}
+
 const STATUS_BADGE = {
     requested: { label: 'Menunggu', variant: 'warning' },
     approved: { label: 'Disetujui', variant: 'success' },
@@ -15,7 +21,6 @@ const STATUS_BADGE = {
     cancelled: { label: 'Dibatalkan', variant: 'secondary' },
     completed: { label: 'Selesai', variant: 'default' },
 };
-const ROOM_ICON = { meeting_room: '👥', workshop: '🛠️' };
 const fmtIDR = (n) => `Rp ${Number(n || 0).toLocaleString('id-ID')}`;
 const todayStr = () => new Date().toISOString().slice(0, 10);
 
@@ -115,7 +120,7 @@ export default function TenantRoomBookings() {
                                     >
                                         <div className="flex items-center justify-between">
                                             <span className="font-semibold text-slate-900 flex items-center gap-2">
-                                                <span className="text-lg">{ROOM_ICON[r.slot_type] || '🏠'}</span> {r.name}
+                                                <span className="text-lg"><RoomIcon type={r.slot_type} className="w-5 h-5" /></span> {r.name}
                                             </span>
                                             <span className="text-xs font-medium text-slate-600 inline-flex items-center gap-1">
                                                 <Tag className="h-3 w-3" />
@@ -208,7 +213,7 @@ export default function TenantRoomBookings() {
                                 <div className="space-y-2">
                                     {bookings.map((b) => (
                                         <div key={b.id} className="flex items-center gap-3 p-3 rounded-lg ring-1 ring-slate-200">
-                                            <span className="text-xl">{ROOM_ICON[b.slot?.slot_type] || '🏠'}</span>
+                                            <span className="text-xl"><RoomIcon type={b.slot?.slot_type} className="w-5 h-5" /></span>
                                             <div className="min-w-0 flex-1">
                                                 <div className="font-semibold text-sm text-slate-900 truncate">{b.slot?.name}</div>
                                                 <div className="text-xs text-slate-500">

@@ -80,7 +80,7 @@ export default function InvestorMeetings() {
                     {pending.length > 0 && (
                         <section>
                             <h2 className="text-xs font-bold uppercase tracking-widest text-amber-700 mb-3">
-                                ⏳ Menunggu Response ({pending.length})
+                                <Clock className="h-3.5 w-3.5 inline mr-1" /> Menunggu Response ({pending.length})
                             </h2>
                             <div className="space-y-3">
                                 {pending.map((m) => (
@@ -117,7 +117,7 @@ function MeetingCard({ meeting, highlight = false }) {
             <CardContent className="p-4">
                 <div className="flex items-start justify-between gap-3 flex-wrap mb-3">
                     <div className="flex items-start gap-3">
-                        <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center text-white">
+                        <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-violet-600 flex items-center justify-center text-white">
                             <Building2 className="h-6 w-6" />
                         </div>
                         <div>

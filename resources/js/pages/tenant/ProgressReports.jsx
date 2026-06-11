@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { BarChart3, X } from 'lucide-react';
 import api from '../../lib/api';
 import Spinner from '../../components/Spinner';
 import Skeleton from '../../components/Skeleton';
@@ -37,7 +38,7 @@ export default function ProgressReports() {
                 </div>
             ) : data.data.length === 0 ? (
                 <div className="bg-white rounded-2xl ring-1 ring-slate-200 p-12 text-center">
-                    <div className="text-5xl mb-3">📊</div>
+                    <BarChart3 className="h-12 w-12 text-slate-300 mx-auto mb-3" />
                     <h3 className="font-bold text-base mb-1">Belum Ada Laporan</h3>
                     <p className="text-sm text-slate-500 mb-4 max-w-md mx-auto">Catat progress bulanan startup Anda untuk monitoring oleh tim UPA. Laporan pertama akan menjadi baseline tracking.</p>
                     <button onClick={() => { setEditing(null); setShowForm(true); }} className="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold inline-flex items-center gap-1">
@@ -118,7 +119,7 @@ function ReportForm({ initial, onClose }) {
             <div className="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
                 <div className="px-5 py-4 border-b border-slate-100 flex items-center justify-between sticky top-0 bg-white">
                     <h3 className="text-lg font-bold">{isEdit ? 'Edit' : 'Buat'} Laporan</h3>
-                    <button onClick={onClose} className="text-slate-400 hover:text-slate-700">✕</button>
+                    <button onClick={onClose} className="text-slate-400 hover:text-slate-700"><X className="h-5 w-5" /></button>
                 </div>
                 <form onSubmit={submit} className="p-5 space-y-3">
                     <div className="grid grid-cols-2 gap-3">

@@ -3,7 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import {
     Lightbulb, Plus, Eye, BookOpen, BarChart3, CheckCircle2, X,
-    UserCheck, Globe, ExternalLink, ArrowRight, Search,
+    UserCheck, Globe, ExternalLink, ArrowRight, Search, Check,
 } from 'lucide-react';
 import api from '../../lib/api';
 import { apiErrorMessage } from '../../lib/apiError';
@@ -253,7 +253,7 @@ function CriteriaTab() {
                     ))}
                 </div>
                 <div className="mt-4 bg-amber-50 ring-1 ring-amber-200 rounded-lg p-3 text-xs text-amber-900">
-                    <strong>💡 Tips Penggunaan:</strong> Bobot menentukan pengaruh kriteria ke skor final.
+                    <strong><Lightbulb className="h-3 w-3 inline mr-0.5" /> Tips Penggunaan:</strong> Bobot menentukan pengaruh kriteria ke skor final.
                     Customer Validation & Market Demand biasanya bobot tertinggi karena dampaknya paling
                     signifikan ke kesiapan komersialisasi.
                 </div>
@@ -426,7 +426,7 @@ function DetailDialog({ id, onClose }) {
 
                     <div className="bg-amber-50 ring-1 ring-amber-200 rounded-lg p-3 text-xs">
                         <p className="text-amber-900 mb-2">
-                            <strong>💡 Untuk mengisi assessment:</strong> Buka detail Produk Dosen → tab MRL Dual-Track.
+                            <strong><Lightbulb className="h-3 w-3 inline mr-0.5" /> Untuk mengisi assessment:</strong> Buka detail Produk Dosen → tab MRL Dual-Track.
                         </p>
                         <Button
                             size="sm"
@@ -472,7 +472,7 @@ function ScoreCard({ label, icon: Icon, value, done, tone = 'emerald', highlight
             </div>
             <div className="text-2xl font-extrabold">{value ? Number(value).toFixed(1) : '—'}</div>
             <div className="text-[10px] mt-0.5 opacity-70">
-                {done ? '✓ Selesai' : 'Belum diisi'}
+                {done ? <><Check className="h-3 w-3 inline mr-0.5" />Selesai</> : 'Belum diisi'}
             </div>
         </div>
     );

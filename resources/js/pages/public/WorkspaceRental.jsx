@@ -3,7 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Link, useNavigate } from 'react-router-dom';
 import {
     Building2, MapPin, CheckCircle2, Clock, Coffee, Calendar, Info,
-    Wifi, Zap, Users, ArrowRight, Banknote, AlertCircle,
+    Wifi, Zap, Users, ArrowRight, Banknote, AlertCircle, X,
 } from 'lucide-react';
 import api from '../../lib/api';
 import { useAuth } from '../../lib/auth';
@@ -38,19 +38,23 @@ const STATUS_LABEL = {
 };
 
 const SLOT_THEME = {
-    available: { bg: 'bg-gradient-to-br from-emerald-400 to-emerald-600', ring: 'ring-emerald-300', textPrimary: 'text-white', textSecondary: 'text-emerald-50', dot: 'bg-white' },
-    reserved: { bg: 'bg-gradient-to-br from-amber-300 to-amber-500', ring: 'ring-amber-300', textPrimary: 'text-amber-900', textSecondary: 'text-amber-800', dot: 'bg-amber-900' },
-    occupied: { bg: 'bg-gradient-to-br from-rose-400 to-rose-500', ring: 'ring-rose-300', textPrimary: 'text-white', textSecondary: 'text-rose-50', dot: 'bg-white' },
+    available: { bg: 'bg-emerald-500', ring: 'ring-emerald-300', textPrimary: 'text-white', textSecondary: 'text-emerald-50', dot: 'bg-white' },
+    reserved: { bg: 'bg-amber-400', ring: 'ring-amber-300', textPrimary: 'text-amber-900', textSecondary: 'text-amber-800', dot: 'bg-amber-900' },
+    occupied: { bg: 'bg-rose-500', ring: 'ring-rose-300', textPrimary: 'text-white', textSecondary: 'text-rose-50', dot: 'bg-white' },
     maintenance: { bg: 'bg-slate-100', ring: 'ring-slate-200', textPrimary: 'text-slate-700', textSecondary: 'text-slate-500', dot: 'bg-slate-400' },
 };
 
-const ROOM_ICON = {
-    musholla: '🕌',
-    meeting_room: '👥',
-    waiting_area: '☕',
-    front_office: '🏢',
-    internship_desk: '💻',
-};
+function SlotIcon({ type, className = 'text-lg sm:text-xl leading-none' }) {
+    const icons = {
+        musholla: Building2,
+        meeting_room: Users,
+        waiting_area: Coffee,
+        front_office: Building2,
+        internship_desk: Zap,
+    };
+    const Icon = icons[type] || Building2;
+    return <Icon className={className || 'w-5 h-5'} />;
+}
 
 const fmtIDR = (n) => `Rp ${Number(n || 0).toLocaleString('id-ID')}`;
 
@@ -65,7 +69,7 @@ export default function WorkspaceRental() {
     const stats = data?.stats || {};
 
     return (
-        <div className="bg-gradient-to-b from-primary-50/30 to-white min-h-screen">
+        <div className="min-h-screen" style={{ background: '#f8f9fc' }}>
             <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
                 <header className="mb-8 text-center">
                     <Badge variant="outline" className="mb-3">UPA Pengembangan Teknologi & Produk Unggulan PENS</Badge>
@@ -136,8 +140,8 @@ export default function WorkspaceRental() {
 function FloorPlan({ slots, onSelect, selectedId }) {
     return (
         <div
-            className="relative w-full bg-gradient-to-br from-slate-50 to-slate-100 rounded-xl ring-1 ring-slate-200 overflow-hidden shadow-inner"
-            style={{ aspectRatio: '21 / 9' }}
+            className="relative w-full rounded-xl ring-1 ring-slate-200 overflow-hidden"
+            style={{ aspectRatio: '21 / 9', background: '#f8fafc' }}
         >
             {/* Subtle grid background */}
             <div
@@ -159,7 +163,7 @@ function FloorPlan({ slots, onSelect, selectedId }) {
                         key={slot.id}
                         onClick={() => isClickable && onSelect(slot)}
                         disabled={! isClickable}
-                        className={`absolute rounded-lg ring-1 ${theme.ring} ${theme.bg} ${theme.textPrimary} shadow-sm transition-all flex flex-col items-center justify-center text-center px-2 py-1 ${
+                        className={`absolute rounded-lg ring-1 ${theme.ring} ${theme.bg} ${theme.textPrimary} transition-all flex flex-col items-center justify-center text-center px-2 py-1 ${
                             isSelected ? 'ring-4 ring-primary-500 z-20 scale-[1.05]' : ''
                         } ${isClickable ? 'cursor-pointer hover:scale-[1.03] hover:shadow-md hover:z-10' : 'cursor-default'}`}
                         style={{
@@ -183,7 +187,7 @@ function FloorPlan({ slots, onSelect, selectedId }) {
                             </>
                         ) : (
                             <>
-                                <div className="text-lg sm:text-xl leading-none">{ROOM_ICON[slot.slot_type] || '🏠'}</div>
+                                <SlotIcon type={slot.slot_type} />
                                 <div className={`text-[9px] sm:text-[10px] mt-1 font-semibold leading-tight ${theme.textSecondary}`}>
                                     {slot.name}
                                 </div>
@@ -214,7 +218,7 @@ function SlotDetail({ slot, onClose }) {
                             {TYPE_LABEL[slot.slot_type]} · {slot.size_label || '—'}
                         </p>
                     </div>
-                    <button onClick={onClose} className="h-8 w-8 rounded-md hover:bg-slate-200 text-slate-600">✕</button>
+                    <button onClick={onClose} className="h-8 w-8 rounded-md hover:bg-slate-200 text-slate-600"><X className="h-5 w-5" /></button>
                 </div>
 
                 {isOccupied ? (

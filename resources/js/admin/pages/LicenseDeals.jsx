@@ -251,7 +251,7 @@ function DealDialog({ deal, onClose, onSaved }) {
                         <Field label="Expiry Date"><Input type="date" value={form.expiry_date} onChange={(e) => setForm({ ...form, expiry_date: e.target.value })} /></Field>
                     </div>
                     <div className="bg-amber-50 ring-1 ring-amber-200 rounded-lg p-3">
-                        <div className="text-xs font-bold text-amber-900 mb-2">💰 Struktur Royalti (4 Pilar)</div>
+                        <div className="text-xs font-bold text-amber-900 mb-2 flex items-center gap-1"><Banknote className="h-3 w-3" /> Struktur Royalti (4 Pilar)</div>
                         <div className="grid grid-cols-2 gap-3">
                             <Field label="Upfront Fee (Rp)"><CurrencyInput value={form.upfront_fee ?? ''} onChange={(v) => setForm({ ...form, upfront_fee: v })} /></Field>
                             <Field label="Annual Minimum (Rp)"><CurrencyInput value={form.annual_minimum ?? ''} onChange={(v) => setForm({ ...form, annual_minimum: v })} /></Field>

@@ -49,7 +49,7 @@ export default function Login() {
                     </Link>
                 </div>
 
-                <div className="bg-white rounded-2xl ring-1 ring-slate-200 shadow-sm p-6 sm:p-8">
+                <div className="bg-white rounded-2xl ring-1 ring-slate-200 p-6 sm:p-8">
                     <h1 className="text-2xl font-bold tracking-tight">Masuk ke PENSNOVA</h1>
                     <p className="text-sm text-slate-600 mt-1">Login sebagai tenant, mentor, investor, atau admin UPA.</p>
 
@@ -117,7 +117,7 @@ export default function Login() {
                         <button
                             type="submit"
                             disabled={submitting}
-                            className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-primary-700 hover:bg-primary-800 text-white font-semibold disabled:opacity-60 transition shadow-sm"
+                            className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-primary-700 hover:bg-primary-800 text-white font-semibold disabled:opacity-60 transition"
                         >
                             {submitting && <Spinner className="h-4 w-4" />}
                             {submitting ? 'Memproses…' : 'Masuk'}

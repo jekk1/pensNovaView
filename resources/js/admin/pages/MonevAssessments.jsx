@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { ClipboardCheck, CheckCircle2, XCircle, Clock, Award, Plus, Eye, FileCheck } from 'lucide-react';
+import { ClipboardCheck, CheckCircle2, XCircle, Clock, Award, Plus, Eye, FileCheck, X } from 'lucide-react';
 import api from '../../lib/api';
 import { apiErrorMessage } from '../../lib/apiError';
 import { Card, CardContent } from '../../components/ui/card';
@@ -407,7 +407,7 @@ function Backdrop({ children, onClose, title, wide = false }) {
             >
                 <div className="px-5 py-3 border-b border-slate-200 flex items-center justify-between bg-slate-50">
                     <h2 className="text-base font-bold tracking-tight">{title}</h2>
-                    <button onClick={onClose} className="inline-flex items-center justify-center h-8 w-8 rounded-md hover:bg-slate-200 text-slate-600">✕</button>
+                    <button onClick={onClose} className="inline-flex items-center justify-center h-8 w-8 rounded-md hover:bg-slate-200 text-slate-600"><X className="h-4 w-4" /></button>
                 </div>
                 <div className="flex-1 overflow-y-auto p-5">{children}</div>
             </div>

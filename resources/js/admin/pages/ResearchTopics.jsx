@@ -36,8 +36,8 @@ export default function ResearchTopics() {
                 { key: 'tenant', label: 'Startup', sortable: false, render: (r) => r.tenant?.name || '—' },
                 { key: 'stage', label: 'Stage', render: (r) => <span className="text-xs px-2 py-0.5 rounded bg-slate-100 text-slate-700 uppercase">{r.stage}</span> },
                 { key: 'technology_readiness', label: 'TRL', render: (r) => r.technology_readiness ? <span className="text-xs px-2 py-0.5 rounded bg-amber-100 text-amber-700 font-bold">TRL {r.technology_readiness}</span> : '—' },
-                { key: 'open_for_collaboration', label: 'Open Collab', sortable: false, render: (r) => r.open_for_collaboration ? <span className="text-emerald-700 font-bold">✓</span> : <span className="text-slate-400">—</span> },
-                { key: 'is_published', label: 'Publish', sortable: false, render: (r) => r.is_published ? <span className="text-emerald-700 font-bold">✓</span> : <span className="text-slate-400">—</span> },
+                { key: 'open_for_collaboration', label: 'Open Collab', sortable: false, render: (r) => r.open_for_collaboration ? <span className="text-emerald-700 font-bold">Ya</span> : <span className="text-slate-400">—</span> },
+                { key: 'is_published', label: 'Publish', sortable: false, render: (r) => r.is_published ? <span className="text-emerald-700 font-bold">Ya</span> : <span className="text-slate-400">—</span> },
             ]}
             filters={[
                 { key: 'stage', label: 'Stage', options: STAGE_OPTIONS },

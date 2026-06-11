@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Cog, Plus, Eye, X, Search, Briefcase, Calendar, Banknote, FlaskConical } from 'lucide-react';
+import { Cog, Plus, Eye, X, Search, Briefcase, Calendar, Banknote, FlaskConical, GraduationCap } from 'lucide-react';
 import api from '../../lib/api';
 import { Card, CardContent } from '../../components/ui/card';
 import { Input } from '../../components/ui/input';
@@ -212,7 +212,7 @@ function ProjectDialog({ project, onClose, onSaved }) {
                     </div>
 
                     <div className="bg-sky-50 ring-1 ring-sky-200 rounded-lg p-3">
-                        <div className="text-xs font-bold text-sky-900 mb-2">🏭 Klien Industri</div>
+                        <div className="text-xs font-bold text-sky-900 mb-2 flex items-center gap-1"><Briefcase className="h-3 w-3" /> Klien Industri</div>
                         <Field label="Mitra Terdaftar (opsional)">
                             <select value={form.partner_company_id} onChange={(e) => setForm({ ...form, partner_company_id: e.target.value })} className="w-full h-9 rounded-md border border-slate-300 px-2 text-sm">
                                 <option value="">— Atau isi manual di bawah —</option>
@@ -227,7 +227,7 @@ function ProjectDialog({ project, onClose, onSaved }) {
                     </div>
 
                     <div className="bg-violet-50 ring-1 ring-violet-200 rounded-lg p-3">
-                        <div className="text-xs font-bold text-violet-900 mb-2">🎓 Principal Investigator (Dosen PENS)</div>
+                        <div className="text-xs font-bold text-violet-900 mb-2 flex items-center gap-1"><GraduationCap className="h-3 w-3" /> Principal Investigator (Dosen PENS)</div>
                         <div className="grid grid-cols-3 gap-3">
                             <Field label="Nama PI"><Input value={form.pi_name} onChange={(e) => setForm({ ...form, pi_name: e.target.value })} placeholder="Dr. Eng. ..." /></Field>
                             <Field label="Email PI"><Input type="email" value={form.pi_email} onChange={(e) => setForm({ ...form, pi_email: e.target.value })} /></Field>

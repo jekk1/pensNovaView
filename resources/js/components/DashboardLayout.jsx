@@ -1,9 +1,34 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
-import { Menu, X, ArrowLeft, ChevronDown, Settings, LogOut, MoreHorizontal } from 'lucide-react';
+import { Menu, X, ArrowLeft, ChevronDown, Settings, LogOut, MoreHorizontal, LayoutDashboard, BarChart3, Target, FlaskConical, MessageSquare, ClipboardList, FileText, Building2, Calendar, Rocket, GraduationCap, FolderArchive, Globe, Users, Search } from 'lucide-react';
 import { useAuth } from '../lib/auth';
 import Logo from './Logo';
 import NotificationBell from './NotificationBell';
+
+function NavIcon({ iconKey, className = 'text-base' }) {
+    if (!iconKey) return <span className={className}>•</span>;
+    const iconMap = {
+        dashboard: LayoutDashboard,
+        laporan: BarChart3,
+        milestone: Target,
+        riset: FlaskConical,
+        mentoring: MessageSquare,
+        monev: ClipboardList,
+        kebutuhan: FileText,
+        sewa: Building2,
+        pinjam: Calendar,
+        produk: Rocket,
+        sertifikat: GraduationCap,
+        documents: FolderArchive,
+        alumni: Globe,
+        binaan: Users,
+        sesi: Calendar,
+        browse: Search,
+        meeting: Calendar,
+    };
+    const Icon = iconMap[iconKey];
+    return Icon ? <Icon className={className} /> : <span className={className}>•</span>;
+}
 
 const colorClasses = {
     emerald: {
@@ -108,7 +133,7 @@ export default function DashboardLayout({ navItems, brandColor = 'emerald', labe
                                 }`
                             }
                         >
-                            {n.icon && <span className="text-base shrink-0">{n.icon}</span>}
+                            <NavIcon iconKey={n.icon} className="text-base shrink-0" />
                             <span className="truncate">{n.label}</span>
                         </NavLink>
                     ))}
@@ -209,7 +234,7 @@ function MobileBottomNav({ navItems, brandColor }) {
                             }`
                         }
                     >
-                        <span className="text-lg">{n.icon || '•'}</span>
+                        <NavIcon iconKey={n.icon} className="text-lg" />
                         <span className="truncate max-w-full px-1">{n.label}</span>
                     </NavLink>
                 ))}
@@ -259,7 +284,7 @@ function MobileBottomNav({ navItems, brandColor }) {
                                     }`
                                 }
                             >
-                                <span className="text-xl">{n.icon || '•'}</span>
+                                <NavIcon iconKey={n.icon} className="text-xl" />
                                 <span className="leading-tight">{n.label}</span>
                             </NavLink>
                         ))}

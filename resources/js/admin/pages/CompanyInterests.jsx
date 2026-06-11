@@ -50,7 +50,7 @@ export default function CompanyInterests() {
                 { key: 'trl_range', label: 'TRL', sortable: false, render: (r) => r.technology_readiness_min || r.technology_readiness_max ? `${r.technology_readiness_min || '?'}–${r.technology_readiness_max || '?'}` : '—' },
                 {
                     key: 'is_active', label: 'Aktif', sortable: false,
-                    render: (r) => r.is_active ? <span className="text-emerald-700 font-bold">✓</span> : <span className="text-slate-400">—</span>,
+                    render: (r) => r.is_active ? <span className="text-emerald-700 font-bold">Ya</span> : <span className="text-slate-400">—</span>,
                 },
             ]}
             filters={[

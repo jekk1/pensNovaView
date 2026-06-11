@@ -84,10 +84,10 @@ const CHECKLIST_GROUPS = [
 export default function ReadinessChecklist() {
     const [checked, setChecked] = useState({});
     const [openGroups, setOpenGroups] = useState({
-        komposisi: true,
-        dokumen: true,
-        legalitas: true,
-        persyaratan: true,
+        komposisi: false,
+        dokumen: false,
+        legalitas: false,
+        persyaratan: false,
     });
 
     useEffect(() => {
@@ -129,14 +129,35 @@ export default function ReadinessChecklist() {
             {/* * ------------------------------------------------------------ */}
             {/* Header utama */}
             <div
-                className="px-6 py-5"
+                className="px-5 py-4"
                 style={{ background: '#ffffff', borderBottom: '1px solid #f1f5f9' }}
             >
-                <h3 className="text-base font-extrabold" style={{ color: '#0f172a' }}>
-                    Checklist Kesiapan Pendaftaran
-                </h3>
-                <p className="text-xs mt-1" style={{ color: '#64748b' }}>
-                    Centang tiap poin yang sudah kamu penuhi
+                <div className="flex items-center justify-between mb-2">
+                    <h3 className="text-sm font-extrabold" style={{ color: '#0f172a' }}>
+                        Checklist Kesiapan Pendaftaran
+                    </h3>
+                    <span
+                        className="text-xs font-bold px-2.5 py-0.5 rounded-full"
+                        style={{
+                            background: totalChecked === totalItems ? '#dcfce7' : '#f1f5f9',
+                            color: totalChecked === totalItems ? '#15803d' : '#475569'
+                        }}
+                    >
+                        {totalChecked}/{totalItems}
+                    </span>
+                </div>
+                {/* Progress bar */}
+                <div className="w-full h-1.5 rounded-full" style={{ background: '#f1f5f9' }}>
+                    <div
+                        className="h-full rounded-full transition-all duration-300"
+                        style={{
+                            width: `${totalItems > 0 ? (totalChecked / totalItems) * 100 : 0}%`,
+                            background: totalChecked === totalItems ? '#22c55e' : '#1a5d94',
+                        }}
+                    />
+                </div>
+                <p className="text-[11px] mt-1.5" style={{ color: '#94a3b8' }}>
+                    Klik tiap kategori untuk detail
                 </p>
             </div>
 
@@ -155,23 +176,23 @@ export default function ReadinessChecklist() {
                             <button
                                 type="button"
                                 onClick={() => toggleGroup(group.id)}
-                                className="w-full flex items-center gap-3 px-6 py-4 transition-colors hover:bg-slate-50"
+                                className="w-full flex items-center gap-2.5 px-5 py-3 transition-colors hover:bg-slate-50"
                                 style={{ background: 'transparent' }}
                             >
                                 <div
-                                    className="shrink-0 w-9 h-9 rounded-xl flex items-center justify-center transition-colors"
+                                    className="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center transition-colors"
                                     style={{
                                         background: isGroupCompleted ? '#eef2f9' : '#f1f5f9',
                                         color: isGroupCompleted ? '#1a5d94' : '#475569'
                                     }}
                                 >
-                                    <Icon className="w-4.5 h-4.5" />
+                                    <Icon className="w-4 h-4" />
                                 </div>
-                                <span className="flex-1 text-left text-sm font-bold text-slate-800">
+                                <span className="flex-1 text-left text-[13px] font-bold text-slate-800">
                                     {group.label}
                                 </span>
                                 <span
-                                    className="text-xs font-bold px-2.5 py-0.5 rounded-full transition-colors"
+                                    className="text-[11px] font-bold px-2 py-0.5 rounded-full transition-colors"
                                     style={{
                                         background: isGroupCompleted ? '#dcfce7' : '#f1f5f9',
                                         color: isGroupCompleted ? '#15803d' : '#475569'
@@ -180,14 +201,14 @@ export default function ReadinessChecklist() {
                                     {groupChecked}/{group.items.length}
                                 </span>
                                 {isOpen
-                                    ? <ChevronUp className="w-4 h-4 shrink-0 text-slate-400" />
-                                    : <ChevronDown className="w-4 h-4 shrink-0 text-slate-400" />
+                                    ? <ChevronUp className="w-3.5 h-3.5 shrink-0 text-slate-400" />
+                                    : <ChevronDown className="w-3.5 h-3.5 shrink-0 text-slate-400" />
                                 }
                             </button>
 
                             {/* Item checklist di dalam grup */}
                             {isOpen && (
-                                <div className="px-6 pb-4 space-y-2">
+                                <div className="px-5 pb-3 space-y-1.5">
                                     {group.items.map((item) => {
                                         const isChecked = !!checked[item.id];
                                         return (
@@ -195,7 +216,7 @@ export default function ReadinessChecklist() {
                                                 key={item.id}
                                                 type="button"
                                                 onClick={() => toggleItem(item.id)}
-                                                className="w-full flex items-start gap-3 p-3.5 rounded-xl transition-all duration-200 text-left border"
+                                                className="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg transition-all duration-200 text-left border"
                                                 style={{
                                                     background: isChecked ? '#f0fdf4' : '#f8fafc',
                                                     borderColor: isChecked ? '#bbf7d0' : '#e2e8f0',
@@ -203,44 +224,42 @@ export default function ReadinessChecklist() {
                                             >
                                                 {/* Custom checkbox */}
                                                 <div
-                                                    className="shrink-0 w-5 h-5 rounded flex items-center justify-center transition-all mt-0.5"
+                                                    className="shrink-0 w-4.5 h-4.5 rounded flex items-center justify-center transition-all"
                                                     style={{
                                                         background: isChecked ? '#22c55e' : 'transparent',
                                                         border: isChecked ? '2px solid #22c55e' : '2px solid #cbd5e1',
                                                     }}
                                                 >
                                                     {isChecked && (
-                                                        <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+                                                        <svg width="9" height="7" viewBox="0 0 10 8" fill="none">
                                                             <path d="M1 4L3.5 6.5L9 1" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                                         </svg>
                                                     )}
                                                 </div>
 
-                                                <div className="flex-1">
+                                                <div className="flex-1 min-w-0">
                                                     <div
-                                                        className="text-sm font-extrabold leading-tight transition-colors"
+                                                        className="text-[13px] font-bold leading-tight truncate transition-colors"
                                                         style={{ color: isChecked ? '#15803d' : '#0f172a' }}
                                                     >
                                                         {item.label}
                                                     </div>
                                                     {item.description && (
-                                                        <div className="text-xs mt-1 text-slate-500 leading-normal">
+                                                        <div className="text-[11px] mt-0.5 text-slate-400 leading-normal truncate">
                                                             {item.description}
                                                         </div>
                                                     )}
-                                                    <div className="mt-2.5">
-                                                        <span
-                                                            className="inline-block text-[10px] font-extrabold px-2.5 py-0.5 rounded-full border"
-                                                            style={{
-                                                                background: '#fffbeb',
-                                                                color: '#d97706',
-                                                                borderColor: '#fde68a'
-                                                            }}
-                                                        >
-                                                            Wajib
-                                                        </span>
-                                                    </div>
                                                 </div>
+                                                <span
+                                                    className="shrink-0 text-[9px] font-bold px-2 py-0.5 rounded-full border"
+                                                    style={{
+                                                        background: '#fffbeb',
+                                                        color: '#d97706',
+                                                        borderColor: '#fde68a'
+                                                    }}
+                                                >
+                                                    Wajib
+                                                </span>
                                             </button>
                                         );
                                     })}
@@ -253,18 +272,18 @@ export default function ReadinessChecklist() {
 
             {/* * ------------------------------------------------------------ */}
             {/* Footer CTA */}
-            <div className="px-6 py-5 bg-white border-t border-slate-100">
+            <div className="px-5 py-3.5 bg-white border-t border-slate-100">
                 {totalChecked === totalItems ? (
                     <Link
                         to="/daftar"
-                        className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-sm font-bold text-white transition hover:opacity-95 text-center"
-                        style={{ background: 'linear-gradient(135deg, #142143, #1a5d94)' }}
+                        className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-bold text-white transition hover:opacity-95 text-center"
+                        style={{ background: '#142143' }}
                     >
                         Kamu siap daftar inkubasi
                     </Link>
                 ) : (
-                    <p className="text-xs text-center font-semibold text-slate-500">
-                        <span className="text-slate-800 font-extrabold">{totalChecked}</span> dari {totalItems} poin selesai — lengkapi checklist untuk siap daftar inkubasi
+                    <p className="text-[11px] text-center font-semibold text-slate-500">
+                        <span className="text-slate-800 font-extrabold">{totalChecked}</span>/{totalItems} selesai — lengkapi untuk siap daftar
                     </p>
                 )}
             </div>

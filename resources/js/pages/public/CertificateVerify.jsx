@@ -51,7 +51,7 @@ export default function CertificateVerify() {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-primary-50/40 via-white to-white">
+        <div className="min-h-screen" style={{ background: '#f8f9fc' }}>
             <header className="bg-white border-b border-slate-200">
                 <div className="max-w-3xl mx-auto px-4 sm:px-6 py-3 flex items-center gap-2">
                     <Logo variant="mark" size="sm" />

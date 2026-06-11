@@ -3,7 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import {
     FlaskConical, Plus, Sparkles, CheckCircle2, AlertCircle, ArrowRight,
-    Award, Target, TrendingUp,
+    Award, Target, TrendingUp, X,
 } from 'lucide-react';
 import api from '../../lib/api';
 import { useAuth } from '../../lib/auth';
@@ -219,7 +219,7 @@ function RegisterDialog({ onClose, onSaved }) {
             <div className="w-full max-w-xl bg-white shadow-2xl flex flex-col h-full overflow-hidden" onClick={(e) => e.stopPropagation()}>
                 <div className="px-5 py-3 border-b flex items-center justify-between bg-slate-50">
                     <h2 className="text-base font-bold">Daftarkan Produk Baru</h2>
-                    <button onClick={onClose} className="h-8 w-8 rounded-md hover:bg-slate-200">✕</button>
+                    <button onClick={onClose} className="h-8 w-8 rounded-md hover:bg-slate-200"><X className="h-4 w-4" /></button>
                 </div>
                 <div className="flex-1 overflow-y-auto p-5 space-y-3">
                     <div className="bg-emerald-50 border border-emerald-200 rounded p-3 text-xs text-emerald-900">

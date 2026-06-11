@@ -66,21 +66,8 @@ export default function Programs() {
             {/* Hero */}
             <section
                 className="relative overflow-hidden text-white"
-                style={{ background: 'linear-gradient(135deg, #0d1830, #142143, #1a5d94)' }}
+                style={{ background: '#0d1830' }}
             >
-                <div
-                    className="absolute inset-0 opacity-30 pointer-events-none"
-                    style={{
-                        backgroundImage: 'radial-gradient(ellipse at 15% 60%, #ffaf00 0%, transparent 45%), radial-gradient(ellipse at 85% 30%, #1a5d94 0%, transparent 55%)'
-                    }}
-                />
-                <div
-                    className="absolute inset-0 pointer-events-none opacity-[0.02]"
-                    style={{
-                        backgroundImage: 'linear-gradient(rgba(255,255,255,.4) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.4) 1px, transparent 1px)',
-                        backgroundSize: '48px 48px',
-                    }}
-                />
                 <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
                     <Animate variant="fade-up">
                         <Link to="/" className="text-sm mb-4 inline-block font-bold hover:underline" style={{ color: '#ffaf00' }}>
@@ -104,7 +91,8 @@ export default function Programs() {
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
                 <Animate variant="fade-up">
                     <header className="text-center mb-12">
-                        <div className="text-xs sm:text-sm font-bold uppercase tracking-widest mb-2" style={{ color: '#1a5d94' }}>
+                        <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-widest mb-2" style={{ color: '#1a5d94' }}>
+                            <GraduationCap className="w-3.5 h-3.5" />
                             Inkubasi &amp; Pembinaan
                         </div>
                         <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900">
@@ -199,7 +187,7 @@ export default function Programs() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
                     <Animate variant="fade-up">
                         <header className="text-center mb-12">
-                            <div className="text-xs sm:text-sm font-bold uppercase tracking-widest mb-2" style={{ color: '#1a5d94' }}>Tahapan Program</div>
+                            <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-widest mb-2" style={{ color: '#1a5d94' }}><Map className="w-3.5 h-3.5" />Tahapan Program</div>
                             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900">Layanan Inkubasi UPA</h2>
                             <p className="text-sm mt-3 max-w-2xl mx-auto text-slate-500">Tiga tahap perjalanan tenant: ideasi produk, peluncuran pasar, hingga ekspansi berskala.</p>
                         </header>
@@ -253,7 +241,7 @@ export default function Programs() {
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
                 <Animate variant="fade-up">
                     <header className="text-center mb-12">
-                        <div className="text-xs sm:text-sm font-bold uppercase tracking-widest mb-2" style={{ color: '#1a5d94' }}>Komersialisasi &amp; Sinergi</div>
+                        <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-widest mb-2" style={{ color: '#1a5d94' }}><TrendingUp className="w-3.5 h-3.5" />Komersialisasi &amp; Sinergi</div>
                         <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900">Ekosistem Bisnis Terintegrasi</h2>
                         <p className="text-sm mt-3 max-w-2xl mx-auto text-slate-500">Jembatan strategis antara kebutuhan industri nyata dan hasil riset terapan kampus demi penciptaan nilai.</p>
                     </header>
@@ -279,7 +267,7 @@ export default function Programs() {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
                     <Animate variant="fade-up">
                         <header className="text-center mb-12">
-                            <div className="text-xs sm:text-sm font-bold uppercase tracking-widest mb-2" style={{ color: '#1a5d94' }}>Layanan Konkret</div>
+                            <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-widest mb-2" style={{ color: '#1a5d94' }}><Briefcase className="w-3.5 h-3.5" />Layanan Konkret</div>
                             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900">5 Layanan Pembinaan Startup</h2>
                             <p className="text-sm mt-3 max-w-2xl mx-auto text-slate-500">Lima paket layanan inkubasi intensif yang terstruktur untuk menjamin kematangan bisnis tenant secara bertahap.</p>
                         </header>
@@ -296,7 +284,7 @@ export default function Programs() {
 
             {/* * ------------------------------------------------------------ */}
             {/* Final CTA */}
-            <section style={{ background: 'linear-gradient(135deg, #0d1830, #142143, #1a5d94)' }}>
+            <section style={{ background: '#0d1830' }}>
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
                     <Animate variant="fade-up">
                         <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">Siap Bergabung Sebagai Tenant?</h2>
@@ -320,7 +308,7 @@ export default function Programs() {
 function ServiceCard({ num, icon: Icon, title, body, highlight = false, footer = false }) {
     if (footer) {
         return (
-            <div className="rounded-2xl p-6 h-full border-2 border-[#ffaf00]" style={{ background: 'linear-gradient(135deg, #fef9ee, #fef3c7)' }}>
+            <div className="rounded-2xl p-6 h-full border-2 border-[#ffaf00]" style={{ background: '#fef9ee' }}>
                 <div className="flex items-start gap-4">
                     <div className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0" style={{ background: 'rgba(255,175,0,0.15)' }}>
                         <Icon className="w-6 h-6 text-amber-800" />

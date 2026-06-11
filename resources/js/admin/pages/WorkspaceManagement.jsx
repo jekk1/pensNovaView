@@ -38,24 +38,24 @@ const SLOT_STATUS_LABEL = {
     maintenance: 'Maintenance',
 };
 
-// Theme per status untuk LayoutTab — gradient + ring + text dengan kontras yang baik
+// Theme per status untuk LayoutTab — solid color + ring + text dengan kontras yang baik
 const SLOT_THEME = {
     available: {
-        bg: 'bg-gradient-to-br from-emerald-400 to-emerald-600',
+        bg: 'bg-emerald-500',
         ring: 'ring-emerald-300',
         textPrimary: 'text-white',
         textSecondary: 'text-emerald-50',
         dot: 'bg-white',
     },
     reserved: {
-        bg: 'bg-gradient-to-br from-amber-300 to-amber-500',
+        bg: 'bg-amber-400',
         ring: 'ring-amber-300',
         textPrimary: 'text-amber-900',
         textSecondary: 'text-amber-800',
         dot: 'bg-amber-900',
     },
     occupied: {
-        bg: 'bg-gradient-to-br from-rose-400 to-rose-500',
+        bg: 'bg-rose-500',
         ring: 'ring-rose-300',
         textPrimary: 'text-white',
         textSecondary: 'text-rose-50',
@@ -72,21 +72,21 @@ const SLOT_THEME = {
 
 // Icon untuk non-rental rooms (selain workspace)
 const ROOM_ICON = {
-    musholla: '🕌',
-    meeting_room: '👥',
-    waiting_area: '☕',
-    front_office: '🏢',
-    internship_desk: '💻',
-    door: '🚪',
-    common: '🏠',
+    musholla: 'Musholla',
+    meeting_room: 'Meeting',
+    waiting_area: 'Waiting',
+    front_office: 'Office',
+    internship_desk: 'Intern',
+    door: 'Pintu',
+    common: 'Ruang',
 };
 
 // Tipe ruang yang bisa ditambahkan admin di editor denah
 const ADDABLE_TYPES = [
-    { type: 'workspace', label: 'Bilik', icon: '🏠', rentable: true },
-    { type: 'door', label: 'Pintu', icon: '🚪', rentable: false },
-    { type: 'meeting_room', label: 'Meeting Room', icon: '👥', rentable: false },
-    { type: 'common', label: 'Ruang Lain', icon: '🏠', rentable: false },
+    { type: 'workspace', label: 'Bilik', icon: 'Bilik', rentable: true },
+    { type: 'door', label: 'Pintu', icon: 'Pintu', rentable: false },
+    { type: 'meeting_room', label: 'Meeting Room', icon: 'Meeting', rentable: false },
+    { type: 'common', label: 'Ruang Lain', icon: 'Ruang', rentable: false },
 ];
 
 const fmtIDR = (n) => `Rp ${Number(n || 0).toLocaleString('id-ID')}`;
@@ -307,8 +307,8 @@ function LayoutTab() {
                     {/* Floor plan container */}
                     <div
                         ref={containerRef}
-                        className={`relative w-full rounded-xl ring-1 ring-slate-200 overflow-hidden shadow-inner ${edit ? 'bg-slate-50 cursor-default touch-none' : 'bg-gradient-to-br from-slate-50 to-slate-100'}`}
-                        style={{ aspectRatio: '21 / 9' }}
+                        className={`relative w-full rounded-xl ring-1 ring-slate-200 overflow-hidden ${edit ? 'bg-slate-50 cursor-default touch-none' : ''}`}
+                        style={{ aspectRatio: '21 / 9', background: edit ? undefined : '#f8fafc' }}
                         onClick={() => { if (edit) setSelectedId(null); }}
                     >
                         <div
@@ -353,7 +353,7 @@ function LayoutTab() {
                                     onMouseLeave={() => setHovered(null)}
                                     onPointerDown={(e) => startDrag(e, slot, 'move')}
                                     onClick={(e) => edit && e.stopPropagation()}
-                                    className={`absolute rounded-lg ring-1 ${theme.ring} ${theme.bg} ${theme.textPrimary} shadow-sm transition-shadow flex flex-col items-center justify-center text-center px-2 py-1 ${edit ? 'cursor-move' : 'cursor-pointer hover:scale-[1.03] hover:shadow-md hover:z-10'} ${isHovered && ! edit ? 'z-10 ring-2' : ''} ${isSel ? 'ring-2 ring-primary-600 z-20' : ''}`}
+                                    className={`absolute rounded-lg ring-1 ${theme.ring} ${theme.bg} ${theme.textPrimary} transition-shadow flex flex-col items-center justify-center text-center px-2 py-1 ${edit ? 'cursor-move' : 'cursor-pointer hover:scale-[1.03] hover:z-10'} ${isHovered && ! edit ? 'z-10 ring-2' : ''} ${isSel ? 'ring-2 ring-primary-600 z-20' : ''}`}
                                     style={{ left: `${pos.grid_x}%`, top: `${pos.grid_y}%`, width: `${pos.grid_w}%`, height: `${pos.grid_h}%` }}
                                     title={`${slot.name}${slot.occupied_by ? ` — ${slot.occupied_by}` : ''}`}
                                 >
@@ -371,7 +371,7 @@ function LayoutTab() {
                                         </>
                                     ) : (
                                         <>
-                                            <div className="text-lg sm:text-xl leading-none">{ROOM_ICON[slot.slot_type] || '🏠'}</div>
+                                            <div className="text-lg sm:text-xl leading-none">{ROOM_ICON[slot.slot_type] || '—'}</div>
                                             <div className={`text-[9px] sm:text-[10px] mt-1 font-semibold leading-tight ${theme.textSecondary}`}>{slot.name}</div>
                                         </>
                                     )}
@@ -465,7 +465,7 @@ function SlotEditPanel({ slot, pos, onPatch, onPosChange, onDelete, deleting }) 
         <div className="bg-white ring-1 ring-slate-200 rounded-lg p-3 text-sm space-y-3 h-fit">
             <div className="flex items-center justify-between">
                 <span className="font-bold text-slate-900">{isWorkspace ? `Bilik #${slot.slot_code}` : slot.name}</span>
-                <span className="text-base">{ROOM_ICON[slot.slot_type] || '🏠'}</span>
+                <span className="text-base">{ROOM_ICON[slot.slot_type] || '—'}</span>
             </div>
 
             <Field label="Nama">
@@ -593,7 +593,7 @@ function ExternalRoomsSection({ rooms, onPatch }) {
                     <div key={r.id} className="rounded-lg ring-1 ring-slate-200 p-3">
                         <div className="flex items-center justify-between mb-2">
                             <span className="font-semibold text-slate-900 flex items-center gap-2">
-                                <span className="text-lg">{ROOM_ICON[r.slot_type] || '🏠'}</span> {r.name}
+                                <span className="text-lg">{ROOM_ICON[r.slot_type] || '—'}</span> {r.name}
                             </span>
                             {r.is_bookable && (
                                 <Badge variant={r.booking_is_paid ? 'warning' : 'success'}>
@@ -905,7 +905,7 @@ function SlotEditDialog({ slot, onClose, onSaved }) {
             <div className="w-full max-w-md bg-white shadow-2xl flex flex-col h-full" onClick={(e) => e.stopPropagation()}>
                 <div className="px-5 py-3 border-b flex items-center justify-between bg-slate-50">
                     <h2 className="text-base font-bold">Edit {slot.name}</h2>
-                    <button onClick={onClose} className="h-8 w-8 rounded-md hover:bg-slate-200">✕</button>
+                    <button onClick={onClose} className="h-8 w-8 rounded-md hover:bg-slate-200"><X className="h-4 w-4" /></button>
                 </div>
                 <div className="flex-1 overflow-y-auto p-5 space-y-3">
                     <div>
@@ -1097,7 +1097,7 @@ function Backdrop({ children, onClose, title }) {
             <div className="w-full max-w-xl bg-white shadow-2xl flex flex-col h-full" onClick={(e) => e.stopPropagation()}>
                 <div className="px-5 py-3 border-b flex items-center justify-between bg-slate-50">
                     <h2 className="text-base font-bold tracking-tight">{title}</h2>
-                    <button onClick={onClose} className="h-8 w-8 rounded-md hover:bg-slate-200">✕</button>
+                    <button onClick={onClose} className="h-8 w-8 rounded-md hover:bg-slate-200"><X className="h-4 w-4" /></button>
                 </div>
                 <div className="flex-1 overflow-y-auto p-5">{children}</div>
             </div>
