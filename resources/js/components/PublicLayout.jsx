@@ -60,7 +60,7 @@ export default function PublicLayout() {
     }, [secondaryOpen, userMenuOpen]);
 
     return (
-        <div className="min-h-screen flex flex-col" style={{ background: '#f8f9fc', color: '#1e293b' }}>
+        <div className="min-h-screen flex flex-col overflow-x-hidden" style={{ background: '#f8f9fc', color: '#1e293b' }}>
             {/* * ------------------------------------------------------------ */}
             <header
                 className="sticky top-0 z-30 backdrop-blur-md"

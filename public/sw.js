@@ -1,9 +1,3 @@
-// PENSNOVA Service Worker — placeholder untuk push notification
-// TODO: Backend push integration (beri tahu Pak Aji)
-// Setelah backend siap dengan VAPID keys, implementasikan:
-//   - self.addEventListener('push', ...)
-//   - self.addEventListener('notificationclick', ...)
-
 const CACHE_NAME = 'pensnova-v1';
 
 self.addEventListener('install', (event) => {

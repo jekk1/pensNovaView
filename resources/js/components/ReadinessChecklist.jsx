@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Users, FileText, Shield, CheckSquare, ChevronUp, ChevronDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -90,6 +90,24 @@ export default function ReadinessChecklist() {
         persyaratan: false,
     });
 
+    const [groupIdx, setGroupIdx] = useState(0);
+    const groupScrollRef = useRef(null);
+
+    // Mengatur index slide aktif berdasarkan posisi scroll horizontal container carousel checklist.
+    const handleScroll = () => {
+        const container = groupScrollRef.current;
+        if (!container) return;
+        const { scrollLeft } = container;
+        const card = container.firstElementChild;
+        if (card) {
+            const cardWidth = card.clientWidth + 16;
+            if (cardWidth > 0) {
+                const index = Math.round(scrollLeft / cardWidth);
+                setGroupIdx(index);
+            }
+        }
+    };
+
     useEffect(() => {
         try {
             const saved = localStorage.getItem(STORAGE_KEY);
@@ -161,9 +179,8 @@ export default function ReadinessChecklist() {
                 </p>
             </div>
 
-            {/* * ------------------------------------------------------------ */}
-            {/* Grup akordeon */}
-            <div className="divide-y divide-slate-100">
+            {/* Tampilan Desktop: Akordeon vertical */}
+            <div className="hidden md:block divide-y divide-slate-100">
                 {CHECKLIST_GROUPS.map((group) => {
                     const groupChecked = group.items.filter((item) => checked[item.id]).length;
                     const isOpen = openGroups[group.id];
@@ -270,6 +287,117 @@ export default function ReadinessChecklist() {
                 })}
             </div>
 
+            {/* Tampilan Mobile: Carousel horizontal */}
+            <div className="block md:hidden bg-slate-50 p-4 w-full min-w-0 overflow-hidden" style={{ borderBottom: '1px solid #f1f5f9' }}>
+                <div
+                    ref={groupScrollRef}
+                    onScroll={handleScroll}
+                    className="flex gap-4 w-full max-w-full overflow-x-auto snap-x snap-mandatory pb-4 -mx-4 px-4 scroll-smooth scrollbar-none"
+                >
+                    {CHECKLIST_GROUPS.map((group) => {
+                        const groupChecked = group.items.filter((item) => checked[item.id]).length;
+                        const Icon = group.icon;
+                        const isGroupCompleted = groupChecked === group.items.length;
+
+                        return (
+                            <div
+                                key={group.id}
+                                className="snap-start shrink-0 w-[82vw] sm:w-[45vw] bg-white rounded-xl p-4 border border-slate-100 flex flex-col"
+                            >
+                                <div className="flex items-center gap-2 mb-3">
+                                    <div
+                                        className="shrink-0 w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
+                                        style={{
+                                            background: isGroupCompleted ? '#eef2f9' : '#f1f5f9',
+                                            color: isGroupCompleted ? '#1a5d94' : '#475569'
+                                        }}
+                                    >
+                                        <Icon className="w-4 h-4" />
+                                    </div>
+                                    <span className="flex-1 text-left text-[12px] font-bold text-slate-800 truncate">
+                                        {group.label}
+                                    </span>
+                                    <span
+                                        className="text-[10px] font-bold px-2 py-0.5 rounded-full shrink-0"
+                                        style={{
+                                            background: isGroupCompleted ? '#dcfce7' : '#f1f5f9',
+                                            color: isGroupCompleted ? '#15803d' : '#475569'
+                                        }}
+                                    >
+                                        {groupChecked}/{group.items.length}
+                                    </span>
+                                </div>
+
+                                <div className="space-y-1.5 flex-1">
+                                    {group.items.map((item) => {
+                                        const isChecked = !!checked[item.id];
+                                        return (
+                                            <button
+                                                key={item.id}
+                                                type="button"
+                                                onClick={() => toggleItem(item.id)}
+                                                className="w-full flex items-center gap-2 px-2.5 py-2 rounded-lg transition-all duration-200 text-left border"
+                                                style={{
+                                                    background: isChecked ? '#f0fdf4' : '#f8fafc',
+                                                    borderColor: isChecked ? '#bbf7d0' : '#e2e8f0',
+                                                }}
+                                            >
+                                                <div
+                                                    className="shrink-0 w-4.5 h-4.5 rounded flex items-center justify-center transition-all mr-2"
+                                                    style={{
+                                                        background: isChecked ? '#22c55e' : 'transparent',
+                                                        border: isChecked ? '2px solid #22c55e' : '2px solid #cbd5e1',
+                                                    }}
+                                                >
+                                                    {isChecked && (
+                                                        <svg width="8" height="6" viewBox="0 0 10 8" fill="none">
+                                                            <path d="M1 4L3.5 6.5L9 1" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                                                        </svg>
+                                                    )}
+                                                </div>
+                                                <div className="flex-1 min-w-0">
+                                                    <div
+                                                        className="text-[11px] font-bold leading-tight truncate"
+                                                        style={{ color: isChecked ? '#15803d' : '#0f172a' }}
+                                                    >
+                                                        {item.label}
+                                                    </div>
+                                                </div>
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
+
+                <div className="flex justify-center gap-1.5 mt-2">
+                    {CHECKLIST_GROUPS.map((_, idx) => (
+                        <button
+                            key={idx}
+                            onClick={() => {
+                                const container = groupScrollRef.current;
+                                if (container) {
+                                    const card = container.firstElementChild;
+                                    if (card) {
+                                        const cardWidth = card.clientWidth + 16;
+                                        container.scrollTo({
+                                            left: idx * cardWidth,
+                                            behavior: 'smooth'
+                                        });
+                                    }
+                                }
+                            }}
+                            className={`h-2 rounded-full transition-all duration-300 ${
+                                idx === groupIdx ? 'bg-primary-600 w-5' : 'bg-slate-300 w-2'
+                            }`}
+                            aria-label={`Go to slide ${idx + 1}`}
+                        />
+                    ))}
+                </div>
+            </div>
+
             {/* * ------------------------------------------------------------ */}
             {/* Footer CTA */}
             <div className="px-5 py-3.5 bg-white border-t border-slate-100">
@@ -300,4 +428,11 @@ export default function ReadinessChecklist() {
 - Return: Elemen JSX accordion checklist.
 - Cara pakai: `<ReadinessChecklist />`
 - Catatan: State centang disimpan di localStorage agar persisten. Warna dirombak agar lebih premium, modern, bersih (menggunakan dominasi putih, slate, navy, hijau lembut, dan oranye lembut), serta memperbaiki typo label grup ke-4 menjadi "Persyaratan Umum".
+
+### handleScroll()
+- Fungsi: Handler event scroll untuk mendeteksi indeks halaman aktif pada carousel horizontal checklist grup di mobile.
+- Parameter: Tidak ada.
+- Return: Tidak ada.
+- Cara pakai: `onScroll={handleScroll}`
+- Catatan: Indeks halaman dihitung berdasarkan lebar clientWidth container dikali faktor lebar card.
 */

@@ -189,6 +189,35 @@ export default function Home() {
         (t) => t.stage === 'Growth' || t.stage === 'growth' || t.stage === 'Early Revenue' || t.stage === 'early_revenue'
     ) ?? [];
 
+    const [tenantIdx, setTenantIdx] = useState(0);
+    const [researchIdx, setResearchIdx] = useState(0);
+    const [innovationIdx, setInnovationIdx] = useState(0);
+    const [articleIdx, setArticleIdx] = useState(0);
+    const [audienceIdx, setAudienceIdx] = useState(0);
+    const [pilarIdx, setPilarIdx] = useState(0);
+
+    const tenantScrollRef = useRef(null);
+    const researchScrollRef = useRef(null);
+    const innovationScrollRef = useRef(null);
+    const articleScrollRef = useRef(null);
+    const audienceScrollRef = useRef(null);
+    const pilarScrollRef = useRef(null);
+
+    // Mengatur index slide aktif berdasarkan posisi scroll horizontal container carousel.
+    const handleScroll = (ref, setIdx) => {
+        return () => {
+            if (!ref.current) return;
+            const { scrollLeft, clientWidth } = ref.current;
+            const cardWidth = clientWidth * 0.82;
+            if (cardWidth > 0) {
+                const index = Math.round(scrollLeft / cardWidth);
+                setIdx(index);
+            }
+        };
+    };
+
+    const tenantList = !tenants ? sortByStage(MOCK_TENANTS_HOME) : sortByStage(tenants.data);
+
     return (
         <>
             {/* * ------------------------------------------------------------ */}
@@ -464,7 +493,7 @@ export default function Home() {
 
             {/* * ------------------------------------------------------------ */}
             {/* ============ 4. AUDIENCE SELECTOR ============ */}
-            <section style={{ background: '#f8f9fc', borderTop: '1px dashed #d4d4d4', borderBottom: '1px dashed #d4d4d4' }}>
+            <section className="overflow-hidden" style={{ background: '#f8f9fc', borderTop: '1px dashed #d4d4d4', borderBottom: '1px dashed #d4d4d4' }}>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
                     <Animate variant="fade-up" as="header" className="text-center max-w-2xl mx-auto mb-10">
                         <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-widest mb-2" style={{ color: '#1a5d94' }}><Users className="w-3.5 h-3.5" /> Siapa Kamu?</div>
@@ -476,7 +505,11 @@ export default function Home() {
                         </p>
                     </Animate>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div
+                        ref={audienceScrollRef}
+                        onScroll={handleScroll(audienceScrollRef, setAudienceIdx)}
+                        className="flex md:grid md:grid-cols-4 gap-4 overflow-x-auto md:overflow-x-visible snap-x snap-mandatory pb-4 -mx-4 px-4 md:mx-0 md:px-0 scroll-smooth scrollbar-none"
+                    >
                         {[
                             {
                                 icon: GraduationCap,
@@ -515,7 +548,7 @@ export default function Home() {
                                 to: '/startup',
                             },
                         ].map((a, i) => (
-                            <Animate variant="fade-up" delay={i + 1} key={a.title} className="h-full">
+                            <Animate variant="fade-up" delay={i + 1} key={a.title} className="snap-start shrink-0 w-[82vw] sm:w-[45vw] md:w-auto h-full animate-delay-1">
                                 <Link
                                     to={a.to}
                                     className="group rounded-2xl p-6 hover:-translate-y-1 transition-all flex flex-col h-full card-lift"
@@ -541,12 +574,32 @@ export default function Home() {
                             </Animate>
                         ))}
                     </div>
+                    <div className="flex md:hidden justify-center gap-1.5 mt-4">
+                        {[0, 1, 2, 3].map((idx) => (
+                            <button
+                                key={idx}
+                                onClick={() => {
+                                    if (audienceScrollRef.current) {
+                                        const cardWidth = audienceScrollRef.current.clientWidth * 0.82;
+                                        audienceScrollRef.current.scrollTo({
+                                            left: idx * cardWidth,
+                                            behavior: 'smooth'
+                                        });
+                                    }
+                                }}
+                                className={`h-2 rounded-full transition-all duration-300 ${
+                                    idx === audienceIdx ? 'bg-primary-600 w-5' : 'bg-slate-300 w-2'
+                                }`}
+                                aria-label={`Go to slide ${idx + 1}`}
+                            />
+                        ))}
+                    </div>
                 </div>
             </section>
 
             {/* * ------------------------------------------------------------ */}
             {/* ============ 5. PILAR / MISI (Bento Grid) ============ */}
-            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
+            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 overflow-hidden">
                 <Animate variant="fade-up" as="header" className="text-center max-w-2xl mx-auto mb-10">
                     <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-widest mb-2" style={{ color: '#1a5d94' }}><Target className="w-3.5 h-3.5" /> Misi UPA</div>
                     <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight" style={{ color: '#142143' }}>
@@ -556,38 +609,62 @@ export default function Home() {
                         Dari hilirisasi riset sampai tata kelola - semuanya terintegrasi untuk dampak nyata.
                     </p>
                 </Animate>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <Animate variant="fade-up" delay={1} className="lg:col-span-2">
+                <div
+                    ref={pilarScrollRef}
+                    onScroll={handleScroll(pilarScrollRef, setPilarIdx)}
+                    className="flex md:grid md:grid-cols-3 gap-4 overflow-x-auto md:overflow-x-visible snap-x snap-mandatory pb-4 -mx-4 px-4 md:mx-0 md:px-0 scroll-smooth scrollbar-none"
+                >
+                    <Animate variant="fade-up" delay={1} className="snap-start shrink-0 w-[82vw] sm:w-[45vw] md:w-auto lg:col-span-2">
                         <PilarCard icon="beaker" title="Inovasi Bernilai Ekonomi" body="Mengembangkan dan menghilirkan inovasi teknologi sains terapan agar memiliki nilai guna dan nilai ekonomi." />
                     </Animate>
-                    <Animate variant="fade-up" delay={2}>
+                    <Animate variant="fade-up" delay={2} className="snap-start shrink-0 w-[82vw] sm:w-[45vw] md:w-auto">
                         <PilarCard icon="rocket" title="Inkubasi Startup" body="Menyelenggarakan program inkubasi melalui Startup Academy untuk menghasilkan startup dan produk unggulan." accent="#ffaf00" />
                     </Animate>
-                    <Animate variant="fade-up" delay={3}>
+                    <Animate variant="fade-up" delay={3} className="snap-start shrink-0 w-[82vw] sm:w-[45vw] md:w-auto">
                         <PilarCard icon="handshake" title="Ekosistem Kolaboratif" body="Membangun ekosistem bisnis berbasis workspace inkubator yang mendorong kolaborasi dan pertumbuhan tenant." />
                     </Animate>
-                    <Animate variant="fade-up" delay={4}>
+                    <Animate variant="fade-up" delay={4} className="snap-start shrink-0 w-[82vw] sm:w-[45vw] md:w-auto">
                         <PilarCard icon="factory" title="Kemitraan Strategis" body="Memperkuat kemitraan strategis untuk komersialisasi, lisensi teknologi, dan pembentukan spin-off." />
                     </Animate>
-                    <Animate variant="fade-up" delay={5}>
+                    <Animate variant="fade-up" delay={5} className="snap-start shrink-0 w-[82vw] sm:w-[45vw] md:w-auto">
                         <PilarCard icon="scale" title="Tata Kelola Profesional" body="Mewujudkan tata kelola UPA yang profesional, transparan, dan berorientasi dampak." />
                     </Animate>
-                    <Animate variant="fade-up" delay={6} className="lg:col-span-3">
-                        <Link
-                            to="/tentang"
-                            className="rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4 hover:-translate-y-1 hover:border-primary-400 hover:ring-1 hover:ring-primary-400/30 transition-all duration-300 group w-full card-lift"
-                            style={{ background: 'rgba(26,93,148,0.06)', border: '1px solid rgba(26,93,148,0.2)' }}
-                        >
-                            <div>
-                                <div className="text-sm font-extrabold" style={{ color: '#1a5d94' }}>Pelajari Lengkap Ekosistem PENSNOVA</div>
-                                <div className="text-xs mt-1 text-slate-600">Visi, misi, struktur organisasi, framework inkubasi, dan pengakuan prestasi di tingkat nasional.</div>
-                            </div>
-                            <div className="flex items-center gap-1.5 text-xs font-bold text-[#1a5d94] group-hover:gap-2.5 transition-all shrink-0">
-                                Tentang UPA PENSNOVA <ArrowRight className="h-4 w-4" />
-                            </div>
-                        </Link>
-                    </Animate>
                 </div>
+                <div className="flex md:hidden justify-center gap-1.5 mt-2 mb-4">
+                    {[0, 1, 2, 3, 4].map((idx) => (
+                        <button
+                            key={idx}
+                            onClick={() => {
+                                if (pilarScrollRef.current) {
+                                    const cardWidth = pilarScrollRef.current.clientWidth * 0.82;
+                                    pilarScrollRef.current.scrollTo({
+                                        left: idx * cardWidth,
+                                        behavior: 'smooth'
+                                    });
+                                }
+                            }}
+                            className={`h-2 rounded-full transition-all duration-300 ${
+                                idx === pilarIdx ? 'bg-primary-600 w-5' : 'bg-slate-300 w-2'
+                            }`}
+                            aria-label={`Go to slide ${idx + 1}`}
+                        />
+                    ))}
+                </div>
+                <Animate variant="fade-up" delay={6} className="mt-4">
+                    <Link
+                        to="/tentang"
+                        className="rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4 hover:-translate-y-1 hover:border-primary-400 hover:ring-1 hover:ring-primary-400/30 transition-all duration-300 group w-full card-lift"
+                        style={{ background: 'rgba(26,93,148,0.06)', border: '1px solid rgba(26,93,148,0.2)' }}
+                    >
+                        <div>
+                            <div className="text-sm font-extrabold" style={{ color: '#1a5d94' }}>Pelajari Lengkap Ekosistem PENSNOVA</div>
+                            <div className="text-xs mt-1 text-slate-600">Visi, misi, struktur organisasi, framework inkubasi, dan pengakuan prestasi di tingkat nasional.</div>
+                        </div>
+                        <div className="flex items-center gap-1.5 text-xs font-bold text-[#1a5d94] group-hover:gap-2.5 transition-all shrink-0">
+                            Tentang UPA PENSNOVA <ArrowRight className="h-4 w-4" />
+                        </div>
+                    </Link>
+                </Animate>
             </section>
 
             {/* * ------------------------------------------------------------ */}
@@ -636,7 +713,7 @@ export default function Home() {
 
             {/* * ------------------------------------------------------------ */}
             {/* ============ 7. TENANT SHOWCASE — gamifikasi mahasiswa #1 ============ */}
-            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
+            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 overflow-hidden">
                 <Animate variant="fade-up" className="flex items-end justify-between mb-8 flex-wrap gap-3">
                     <div>
                         <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-widest mb-1" style={{ color: '#1a5d94' }}><GraduationCap className="w-3.5 h-3.5" /> Inspirasi Mahasiswa</div>
@@ -655,18 +732,44 @@ export default function Home() {
                         Lihat semua tenant <ArrowRight className="w-4 h-4" />
                     </Link>
                 </Animate>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-                    {(!tenants ? sortByStage(MOCK_TENANTS_HOME) : sortByStage(tenants.data)).map((t, i) => (
-                        <Animate variant="fade-up" delay={(i % 3) + 1} key={t.id}>
+                <div
+                    ref={tenantScrollRef}
+                    onScroll={handleScroll(tenantScrollRef, setTenantIdx)}
+                    className="flex md:grid md:grid-cols-3 gap-4 sm:gap-5 overflow-x-auto md:overflow-x-visible snap-x snap-mandatory pb-4 -mx-4 px-4 md:mx-0 md:px-0 scroll-smooth scrollbar-none"
+                >
+                    {tenantList.map((t, i) => (
+                        <Animate variant="fade-up" delay={(i % 3) + 1} key={t.id} className="snap-start shrink-0 w-[82vw] sm:w-[45vw] md:w-auto">
                             <TenantCard tenant={t} />
                         </Animate>
                     ))}
                 </div>
+                {tenantList.length > 1 && (
+                    <div className="flex md:hidden justify-center gap-1.5 mt-4">
+                        {tenantList.map((_, idx) => (
+                            <button
+                                key={idx}
+                                onClick={() => {
+                                    if (tenantScrollRef.current) {
+                                        const cardWidth = tenantScrollRef.current.clientWidth * 0.82;
+                                        tenantScrollRef.current.scrollTo({
+                                            left: idx * cardWidth,
+                                            behavior: 'smooth'
+                                        });
+                                    }
+                                }}
+                                className={`h-2 rounded-full transition-all duration-300 ${
+                                    idx === tenantIdx ? 'bg-primary-600 w-5' : 'bg-slate-300 w-2'
+                                }`}
+                                aria-label={`Go to slide ${idx + 1}`}
+                            />
+                        ))}
+                    </div>
+                )}
             </section>
 
             {/* * ------------------------------------------------------------ */}
             {/* ============ 8. CHECKLIST KESIAPAN — gamifikasi mahasiswa #2 ============ */}
-            <section style={{ background: '#f8f9fc', borderTop: '1px dashed #d4d4d4', borderBottom: '1px dashed #d4d4d4' }}>
+            <section className="overflow-hidden" style={{ background: '#f8f9fc', borderTop: '1px dashed #d4d4d4', borderBottom: '1px dashed #d4d4d4' }}>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
                     <div className="grid lg:grid-cols-2 gap-10 items-center">
                         <Animate variant="slide-left">
@@ -695,7 +798,7 @@ export default function Home() {
                         </Animate>
 
                         {/* Checklist interaktif */}
-                        <Animate variant="slide-right">
+                        <Animate variant="slide-right" className="w-full min-w-0 overflow-hidden">
                             <ReadinessChecklist />
                         </Animate>
                     </div>
@@ -816,7 +919,7 @@ export default function Home() {
 
             {/* * ------------------------------------------------------------ */}
             {/* ============ 11. RISET ============ */}
-            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
+            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 overflow-hidden">
                 <Animate variant="fade-up" className="flex items-end justify-between mb-8 flex-wrap gap-3">
                     <div>
                         <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-widest mb-1" style={{ color: '#1a5d94' }}><Handshake className="w-3.5 h-3.5" /> Lisensi & Kolaborasi</div>
@@ -827,19 +930,49 @@ export default function Home() {
                         Semua riset <ArrowRight className="w-4 h-4" />
                     </Link>
                 </Animate>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-                    {!research ? <Spinner /> : research.data.map((r, i) => (
-                        <Animate variant="fade-up" delay={(i % 2) + 1} key={r.id}>
-                            <ResearchCard topic={r} />
-                        </Animate>
-                    ))}
+                <div
+                    ref={researchScrollRef}
+                    onScroll={handleScroll(researchScrollRef, setResearchIdx)}
+                    className="flex md:grid md:grid-cols-2 gap-4 sm:gap-6 overflow-x-auto md:overflow-x-visible snap-x snap-mandatory pb-4 -mx-4 px-4 md:mx-0 md:px-0 scroll-smooth scrollbar-none"
+                >
+                    {!research ? (
+                        <Spinner />
+                    ) : (
+                        research.data.map((r, i) => (
+                            <Animate variant="fade-up" delay={(i % 2) + 1} key={r.id} className="snap-start shrink-0 w-[82vw] sm:w-[45vw] md:w-auto">
+                                <ResearchCard topic={r} />
+                            </Animate>
+                        ))
+                    )}
                 </div>
+                {research?.data?.length > 1 && (
+                    <div className="flex md:hidden justify-center gap-1.5 mt-4">
+                        {research.data.map((_, idx) => (
+                            <button
+                                key={idx}
+                                onClick={() => {
+                                    if (researchScrollRef.current) {
+                                        const cardWidth = researchScrollRef.current.clientWidth * 0.82;
+                                        researchScrollRef.current.scrollTo({
+                                            left: idx * cardWidth,
+                                            behavior: 'smooth'
+                                        });
+                                    }
+                                }}
+                                className={`h-2 rounded-full transition-all duration-300 ${
+                                    idx === researchIdx ? 'bg-primary-600 w-5' : 'bg-slate-300 w-2'
+                                }`}
+                                aria-label={`Go to slide ${idx + 1}`}
+                            />
+                        ))}
+                    </div>
+                )}
             </section>
 
             {/* * ------------------------------------------------------------ */}
             {/* ============ 12. INNOVATION HUB ============ */}
             {innovations?.data?.length > 0 && (
-                <section style={{ background: 'rgba(255,175,0,0.04)', borderTop: '1px solid rgba(255,175,0,0.15)', borderBottom: '1px solid rgba(255,175,0,0.15)' }}>
+                <section className="overflow-hidden" style={{ background: 'rgba(255,175,0,0.04)', borderTop: '1px solid rgba(255,175,0,0.15)', borderBottom: '1px solid rgba(255,175,0,0.15)' }}>
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
                         <Animate variant="fade-up" className="flex items-end justify-between mb-8 flex-wrap gap-3">
                             <div>
@@ -853,13 +986,39 @@ export default function Home() {
                                 Semua produk <ArrowRight className="w-4 h-4" />
                             </Link>
                         </Animate>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
+                        <div
+                            ref={innovationScrollRef}
+                            onScroll={handleScroll(innovationScrollRef, setInnovationIdx)}
+                            className="flex md:grid md:grid-cols-3 gap-4 sm:gap-5 overflow-x-auto md:overflow-x-visible snap-x snap-mandatory pb-4 -mx-4 px-4 md:mx-0 md:px-0 scroll-smooth scrollbar-none"
+                        >
                             {innovations.data.map((p, i) => (
-                                <Animate variant="fade-up" delay={(i % 3) + 1} key={p.id}>
+                                <Animate variant="fade-up" delay={(i % 3) + 1} key={p.id} className="snap-start shrink-0 w-[82vw] sm:w-[45vw] md:w-auto">
                                     <InnovationCard product={p} />
                                 </Animate>
                             ))}
                         </div>
+                        {innovations.data.length > 1 && (
+                            <div className="flex md:hidden justify-center gap-1.5 mt-4">
+                                {innovations.data.map((_, idx) => (
+                                    <button
+                                        key={idx}
+                                        onClick={() => {
+                                            if (innovationScrollRef.current) {
+                                                const cardWidth = innovationScrollRef.current.clientWidth * 0.82;
+                                                innovationScrollRef.current.scrollTo({
+                                                    left: idx * cardWidth,
+                                                    behavior: 'smooth'
+                                                });
+                                            }
+                                        }}
+                                        className={`h-2 rounded-full transition-all duration-300 ${
+                                            idx === innovationIdx ? 'bg-primary-600 w-5' : 'bg-slate-300 w-2'
+                                        }`}
+                                        aria-label={`Go to slide ${idx + 1}`}
+                                    />
+                                ))}
+                            </div>
+                        )}
                     </div>
                 </section>
             )}
@@ -867,7 +1026,7 @@ export default function Home() {
             {/* * ------------------------------------------------------------ */}
             {/* ============ 13. ARTIKEL ============ */}
             {articles?.data?.length > 0 && (
-                <section style={{ background: '#ffffff', borderTop: '1px dashed #d4d4d4', borderBottom: '1px dashed #d4d4d4' }}>
+                <section className="overflow-hidden" style={{ background: '#ffffff', borderTop: '1px dashed #d4d4d4', borderBottom: '1px dashed #d4d4d4' }}>
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
                         <Animate variant="fade-up" className="flex items-end justify-between mb-8 flex-wrap gap-3">
                             <div>
@@ -879,13 +1038,39 @@ export default function Home() {
                                 Semua artikel <ArrowRight className="w-4 h-4" />
                             </Link>
                         </Animate>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
+                        <div
+                            ref={articleScrollRef}
+                            onScroll={handleScroll(articleScrollRef, setArticleIdx)}
+                            className="flex md:grid md:grid-cols-3 gap-4 sm:gap-5 overflow-x-auto md:overflow-x-visible snap-x snap-mandatory pb-4 -mx-4 px-4 md:mx-0 md:px-0 scroll-smooth scrollbar-none"
+                        >
                             {articles.data.map((a, i) => (
-                                <Animate variant="fade-up" delay={(i % 3) + 1} key={a.id}>
+                                <Animate variant="fade-up" delay={(i % 3) + 1} key={a.id} className="snap-start shrink-0 w-[82vw] sm:w-[45vw] md:w-auto">
                                     <ArticleMiniCard article={a} />
                                 </Animate>
                             ))}
                         </div>
+                        {articles.data.length > 1 && (
+                            <div className="flex md:hidden justify-center gap-1.5 mt-4">
+                                {articles.data.map((_, idx) => (
+                                    <button
+                                        key={idx}
+                                        onClick={() => {
+                                            if (articleScrollRef.current) {
+                                                const cardWidth = articleScrollRef.current.clientWidth * 0.82;
+                                                articleScrollRef.current.scrollTo({
+                                                    left: idx * cardWidth,
+                                                    behavior: 'smooth'
+                                                });
+                                            }
+                                        }}
+                                        className={`h-2 rounded-full transition-all duration-300 ${
+                                            idx === articleIdx ? 'bg-primary-600 w-5' : 'bg-slate-300 w-2'
+                                        }`}
+                                        aria-label={`Go to slide ${idx + 1}`}
+                                    />
+                                ))}
+                            </div>
+                        )}
                     </div>
                 </section>
             )}
@@ -1341,4 +1526,11 @@ function InnovationCard({ product }) {
 - Return: Elemen JSX innovation card.
 - Cara pakai: <InnovationCard product={product} />
 - Catatan: Menampilkan data level TKT dan MRL (Manufacturing Readiness Level) terintegrasi.
+
+### handleScroll(ref, setIdx)
+- Fungsi: Handler event scroll untuk mendeteksi indeks halaman aktif pada carousel horizontal di mobile.
+- Parameter: ref (object) - Reference ke element DOM scroll container, setIdx (function) - State setter untuk menyimpan indeks slide aktif.
+- Return: Function event handler.
+- Cara pakai: onScroll={handleScroll(tenantScrollRef, setTenantIdx)}
+- Catatan: Indeks halaman dihitung berdasarkan lebar clientWidth container dikali faktor lebar card.
 */
