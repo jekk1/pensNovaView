@@ -806,7 +806,132 @@ export default function Home() {
             </section>
 
             {/* * ------------------------------------------------------------ */}
-            {/* ============ 9. WHY US ============ */}
+            {/* ============ 8B. UNTUK DOSEN / PENELITI ============ */}
+            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
+                <Animate variant="fade-up" as="header" className="mb-10">
+                    <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-widest mb-2" style={{ color: '#b87c00' }}>
+                        <FlaskConical className="w-3.5 h-3.5" /> Untuk Dosen &amp; Peneliti
+                    </div>
+                    <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
+                        <div>
+                            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight" style={{ color: '#142143' }}>
+                                Komersialisasikan inovasi risetmu
+                            </h2>
+                            <p className="mt-2 text-sm sm:text-base max-w-2xl" style={{ color: '#475569' }}>
+                                PENSNOVA menyediakan jalur terstruktur bagi dosen dan peneliti PENS untuk membawa inovasi dari laboratorium ke pasar — mulai dari perlindungan HKI hingga pembentukan spin-off.
+                            </p>
+                        </div>
+                        <Link
+                            to="/riset"
+                            className="inline-flex items-center gap-1 text-sm font-bold hover:gap-2 transition-all shrink-0"
+                            style={{ color: '#b87c00' }}
+                        >
+                            Lihat semua riset <ArrowRight className="w-4 h-4" />
+                        </Link>
+                    </div>
+                </Animate>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    {[
+                        {
+                            icon: FlaskConical,
+                            step: '01',
+                            title: 'Submit Riset',
+                            body: 'Daftarkan topik riset terapan kamu ke database PENSNOVA. Terbuka untuk kolaborasi industri, lisensi teknologi, dan pilot project.',
+                            cta: 'Submit Sekarang',
+                            to: '/riset',
+                            accent: '#1a5d94',
+                            bg: 'rgba(26,93,148,0.07)',
+                        },
+                        {
+                            icon: ShieldCheck,
+                            step: '02',
+                            title: 'Daftar HKI',
+                            body: 'Sentra HKI PENS terintegrasi langsung — paten, hak cipta, dan merek bisa diurus satu pintu dengan pendampingan penuh dari tim PENSNOVA.',
+                            cta: 'Info HKI',
+                            to: '/tentang',
+                            accent: '#b87c00',
+                            bg: 'rgba(184,124,0,0.07)',
+                        },
+                        {
+                            icon: Handshake,
+                            step: '03',
+                            title: 'Lisensi Teknologi',
+                            body: 'Monetisasi hasil riset via skema lisensi teknologi ke industri mitra. Tim PENSNOVA memfasilitasi negosiasi, drafting kontrak, dan royalti.',
+                            cta: 'Pelajari Skema',
+                            to: '/produk-inovasi',
+                            accent: '#16a34a',
+                            bg: 'rgba(22,163,74,0.07)',
+                        },
+                        {
+                            icon: Factory,
+                            step: '04',
+                            title: 'Bentuk Spin-off',
+                            body: 'Riset dengan potensi komersial tinggi dapat difasilitasi menjadi perusahaan spin-off resmi PENS dengan dukungan legal, inkubasi, dan akses investor.',
+                            cta: 'Konsultasi',
+                            to: '/program',
+                            accent: '#7c3aed',
+                            bg: 'rgba(124,58,237,0.07)',
+                        },
+                    ].map((item, i) => {
+                        const Icon = item.icon;
+                        return (
+                            <Animate variant="fade-up" delay={i + 1} key={item.title}>
+                                <Link
+                                    to={item.to}
+                                    className="group rounded-2xl p-6 flex flex-col h-full card-lift transition-all"
+                                    style={{ background: '#ffffff', border: '1px solid #e4e4e4' }}
+                                >
+                                    <div className="flex items-center justify-between mb-4">
+                                        <div
+                                            className="w-11 h-11 rounded-xl flex items-center justify-center"
+                                            style={{ background: item.bg }}
+                                        >
+                                            <Icon className="w-5 h-5" style={{ color: item.accent }} />
+                                        </div>
+                                        <span
+                                            className="text-[11px] font-black tabular-nums"
+                                            style={{ color: item.accent, opacity: 0.4 }}
+                                        >
+                                            {item.step}
+                                        </span>
+                                    </div>
+                                    <h3 className="font-extrabold text-base mb-2" style={{ color: '#142143' }}>{item.title}</h3>
+                                    <p className="text-sm leading-relaxed flex-1" style={{ color: '#475569' }}>{item.body}</p>
+                                    <div
+                                        className="mt-4 inline-flex items-center gap-1 text-xs font-bold group-hover:gap-2 transition-all"
+                                        style={{ color: item.accent }}
+                                    >
+                                        {item.cta} <ArrowRight className="w-3 h-3" />
+                                    </div>
+                                </Link>
+                            </Animate>
+                        );
+                    })}
+                </div>
+
+                {/* Banner CTA dosen */}
+                <Animate variant="fade-up" delay={5} className="mt-6">
+                    <div
+                        className="rounded-2xl p-5 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4"
+                        style={{ background: 'rgba(184,124,0,0.06)', border: '1px solid rgba(184,124,0,0.2)' }}
+                    >
+                        <div>
+                            <div className="text-sm font-extrabold" style={{ color: '#b87c00' }}>Sudah punya inovasi siap dikomersialisasikan?</div>
+                            <div className="text-xs mt-1" style={{ color: '#64748b' }}>Konsultasikan langsung dengan tim PENSNOVA — gratis untuk sivitas akademika PENS.</div>
+                        </div>
+                        <Link
+                            to="/riset"
+                            className="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold transition hover:opacity-90"
+                            style={{ background: '#b87c00', color: '#ffffff' }}
+                        >
+                            Submit Inovasi <ArrowRight className="w-4 h-4" />
+                        </Link>
+                    </div>
+                </Animate>
+            </section>
+
+
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
                 <Animate variant="fade-up" as="header" className="text-center max-w-2xl mx-auto mb-12">
                     <div className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-widest mb-2" style={{ color: '#16a34a' }}><Sparkles className="w-3.5 h-3.5" /> Mengapa PENSNOVA</div>
